@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private void InteractiveGround()
     {
         if(Input.GetKeyDown(KeyCode.Space)){
-            Vector3Int posistion = new Vector3Int((int)transform.position.x, (int)transform.position.y,0);
+            Vector3Int posistion = new Vector3Int((int)transform.position.x -1, (int)transform.position.y,0);
             if(GameManager.instance.tileManager.IsInteractable(posistion)){
                 GameManager.instance.tileManager.SetInteracted(posistion);
             }
