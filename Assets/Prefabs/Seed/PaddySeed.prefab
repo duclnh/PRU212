@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4329316375144989257}
   - component: {fileID: 2515131859581278297}
   - component: {fileID: 3362120873836672664}
+  - component: {fileID: 3861540492973319172}
   m_Layer: 0
   m_Name: PaddySeed
   m_TagString: Untagged
@@ -145,9 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpItem: {fileID: 8300000, guid: d617102f0067466459a5a73c418501e7, type: 3}
-  type: 1
-  icon: {fileID: -2010660511, guid: 47617a3ead6685e48bf6e560f12ad3c5, type: 3}
-  rigidbody2D: {fileID: 0}
 --- !u!50 &3362120873836672664
 Rigidbody2D:
   serializedVersion: 4
@@ -175,3 +173,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3861540492973319172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554730465848853027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be6adcc1a13a2a4fafd9243ba25a646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 517d0dc9d4ef18243a83e1dd0e6b7cd0, type: 2}
+  rigidbody2D: {fileID: 0}

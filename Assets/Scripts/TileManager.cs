@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap interactableMap;
     [SerializeField] private Tile hiddenInteractableTile;
     [SerializeField] private Tile interactedTile;
+    [SerializeField] AudioClip impactOnGroundAudio;
 
     void Start(){
         foreach(var position in interactableMap.cellBounds.allPositionsWithin){
@@ -28,6 +29,7 @@ public class TileManager : MonoBehaviour
         return false;
     }
     public void SetInteracted(Vector3Int position){
+        AudioSource.PlayClipAtPoint(impactOnGroundAudio, Camera.main.transform.position);
         interactableMap.SetTile(position, interactedTile);
     }
 }

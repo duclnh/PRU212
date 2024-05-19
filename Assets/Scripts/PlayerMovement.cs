@@ -9,15 +9,20 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     Animator myAnimator;
     
-    public Inventory inventory;
+    public InventoryManager inventory;
     void Awake(){
-        inventory = new Inventory(21);
+        inventory = GetComponent<InventoryManager>();
     }
-    public void DropItem(CollecTable item){
+    public void DropItem(Item item){
         Vector2 spawnLocation = transform.position;
         Vector2 spawnOffSet = Random.insideUnitCircle * 1.25f;
-        CollecTable dropItem =  Instantiate(item, spawnLocation + spawnOffSet, Quaternion.identity);
+        Item dropItem =  Instantiate(item, spawnLocation + spawnOffSet, Quaternion.identity);
         dropItem.rigidbody2D.AddForce(spawnOffSet * 2f, ForceMode2D.Impulse);
+    }
+     public void DropItem(Item item, int numToDrop){
+        for (int i = 0; i < numToDrop; i++){
+            DropItem(item);
+        }
     }
     void Start()
     {

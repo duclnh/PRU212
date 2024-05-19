@@ -63,9 +63,12 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.28f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Slot_UI.cs" />
-    <Compile Include="Assets\Scripts\Inventory_UI.cs" />
+    <Compile Include="Assets\Scripts\UI\Toolbar_UI.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObject\ItemData.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory_UI.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\UI\UI_Manager.cs" />
+    <Compile Include="Assets\Scripts\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\Collectable.cs" />
@@ -73,6 +76,8 @@
     <Compile Include="Assets\Scripts\MusicController.cs" />
     <Compile Include="Assets\Scripts\FadingSprite.cs" />
     <Compile Include="Assets\Scripts\ItemManager.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\UI\Slot_UI.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
   </ItemGroup>
   <ItemGroup>

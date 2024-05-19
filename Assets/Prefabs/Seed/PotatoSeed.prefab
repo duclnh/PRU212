@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6711931168056312705}
   - component: {fileID: 4819913671412320613}
   - component: {fileID: 2110946653289081718}
+  - component: {fileID: 7945847899881643343}
   m_Layer: 0
   m_Name: PotatoSeed
   m_TagString: Untagged
@@ -145,9 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpItem: {fileID: 8300000, guid: d617102f0067466459a5a73c418501e7, type: 3}
-  type: 4
-  icon: {fileID: 501282805, guid: e1214b1641b5d91448beeee864444cf9, type: 3}
-  rigidbody2D: {fileID: 0}
 --- !u!50 &2110946653289081718
 Rigidbody2D:
   serializedVersion: 4
@@ -175,3 +173,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7945847899881643343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269530689684643778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be6adcc1a13a2a4fafd9243ba25a646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 141086e7e4fb693429393fe1041a72f1, type: 2}
+  rigidbody2D: {fileID: 0}
