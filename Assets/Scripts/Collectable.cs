@@ -14,7 +14,7 @@ public class CollecTable : MonoBehaviour
             Item item = GetComponent<Item>();
             if (item != null)
             {
-                player.inventory.Add("Backpack",item);
+                player.inventoryManager.Add("Backpack",item);
                 AudioSource.PlayClipAtPoint(pickUpItem, Camera.main.transform.position);
                 Destroy(this.gameObject);
             }

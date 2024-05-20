@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5059174960312205466}
   - component: {fileID: 2638834424715019209}
   - component: {fileID: 8254287783369109722}
+  - component: {fileID: 7382199265726608549}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -48,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemManager: {fileID: 0}
   tileManager: {fileID: 0}
+  uiManager: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &2638834424715019209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,11 +63,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f0368af17919646a6b98636bb1783b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collecTablesItems:
-  - {fileID: 4567294267495789042, guid: d1c5aba7766683946a915c3869ed9fe4, type: 3}
-  - {fileID: 2515131859581278297, guid: 71aa9000d9670ec40b02a6bef0ef1b09, type: 3}
-  - {fileID: 4819913671412320613, guid: 4f1c86e810eebf844a34a0cf60d995cb, type: 3}
-  - {fileID: 4666873104450516581, guid: 27fbb562a0ebe0b439048f5b7cc56fbd, type: 3}
+  items:
+  - {fileID: 9195011989995808248, guid: d1c5aba7766683946a915c3869ed9fe4, type: 3}
+  - {fileID: 3861540492973319172, guid: 71aa9000d9670ec40b02a6bef0ef1b09, type: 3}
+  - {fileID: 7945847899881643343, guid: 4f1c86e810eebf844a34a0cf60d995cb, type: 3}
+  - {fileID: 3305652609104133051, guid: 27fbb562a0ebe0b439048f5b7cc56fbd, type: 3}
+  - {fileID: 6135274864406025945, guid: e776b2989c4dc304dbed810c7801bfbc, type: 3}
 --- !u!114 &8254287783369109722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,4 +83,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableMap: {fileID: 0}
   hiddenInteractableTile: {fileID: 11400000, guid: 236cf53f2a9343a4a8dcebaec945cfd8, type: 2}
-  interactedTile: {fileID: 11400000, guid: 1d42787962badb742ad1d4c0a78004f1, type: 2}
+  plowedTile: {fileID: 11400000, guid: 1d42787962badb742ad1d4c0a78004f1, type: 2}
+  impactOnGroundAudio: {fileID: 8300000, guid: 669cd2c91e73ce14a923342d13236092, type: 3}
+--- !u!114 &7382199265726608549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447213030744086353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe8968521a3baa468f25f841748296f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUIs:
+  - {fileID: 0}
+  - {fileID: 0}
+  inventoryPannel: {fileID: 0}

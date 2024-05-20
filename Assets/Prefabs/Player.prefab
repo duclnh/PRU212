@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1443667214507323137}
   - component: {fileID: 2204673749914410666}
   - component: {fileID: 7989442035666511817}
+  - component: {fileID: 2030533795349044796}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: f22540e8ea335034b92c27795aa254c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -215,25 +216,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 5
-  inventory:
-    slots:
-    - type: 0
+  inventoryManager: {fileID: 0}
+  tileManager: {fileID: 0}
+--- !u!114 &2030533795349044796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729936733697807108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2c7277a92eae6498a4d73789ad6b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backpack:
+    slots: []
+    selectedSlot:
+      itemName: 
       icon: {fileID: 0}
       count: 0
-      maxAllowed: 50
-    - type: 1
-      icon: {fileID: -2010660511, guid: 47617a3ead6685e48bf6e560f12ad3c5, type: 3}
+      maxAllowed: 99
+  backpackSlotCount: 21
+  toolbar:
+    slots: []
+    selectedSlot:
+      itemName: 
+      icon: {fileID: 0}
       count: 0
-      maxAllowed: 10
-    - type: 2
-      icon: {fileID: -191531675, guid: 47617a3ead6685e48bf6e560f12ad3c5, type: 3}
-      count: 0
-      maxAllowed: 10
-    - type: 3
-      icon: {fileID: -498570344, guid: e1214b1641b5d91448beeee864444cf9, type: 3}
-      count: 0
-      maxAllowed: 10
-    - type: 4
-      icon: {fileID: 501282805, guid: e1214b1641b5d91448beeee864444cf9, type: 3}
-      count: 0
-      maxAllowed: 10
+      maxAllowed: 99
+  toolbarSlotCount: 8

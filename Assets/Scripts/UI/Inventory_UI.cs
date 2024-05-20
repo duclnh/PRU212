@@ -8,16 +8,13 @@ public class Inventory_UI : MonoBehaviour
 {
     public string inventoryName;
     [SerializeField] List<Slot_UI> slots = new List<Slot_UI>();
-    [SerializeField] private Canvas canvas;
+    [SerializeField]  Canvas canvas;
     private Inventory inventory;
-    private void Awake()
-    {
-        canvas = FindObjectOfType<Canvas>();
-    }
 
     void Start()
     {
-        inventory = GameManager.instance.player.inventory.GetInventoryByName(inventoryName);
+        canvas = FindObjectOfType<Canvas>();
+        inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
         SetUpSlots();
         Refresh();
     }

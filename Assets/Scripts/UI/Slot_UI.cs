@@ -10,7 +10,7 @@ public class Slot_UI : MonoBehaviour
     public Image itemIcon;
     public Inventory inventory; 
     public TextMeshProUGUI quantityText;
-    public Image imageBackground;
+    [SerializeField] GameObject highLight;
     public void SetItem(Inventory.Slot slot){
         if (slot != null){
             itemIcon.sprite = slot.icon;
@@ -23,12 +23,9 @@ public class Slot_UI : MonoBehaviour
         itemIcon.color = new Color(1,1,1,0);
         quantityText.text = "";
     }
-
-    public void SetSelectItem(bool status){
-        if(status){
-            imageBackground.color = Color.red;
-        }else{
-            imageBackground.color = Color.white;
-        }
+    public void SetHighLight(bool isOn){
+       if(highLight != null){
+         highLight.SetActive(isOn);
+       }
     }
 }
