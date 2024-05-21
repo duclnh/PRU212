@@ -94,6 +94,19 @@ public class Inventory
         }
     }
 
+    public bool Remove(string itemName)
+    {
+        foreach (Slot slot in slots)
+        {
+            if (slot.itemName == itemName)
+            {
+                slot.RemoveItem();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void Remove(int index)
     {
         slots[index].RemoveItem();
@@ -111,7 +124,7 @@ public class Inventory
 
     public void MoveSlot(int fromIndex, int toIndex, Inventory toInventory, int numToMove)
     {
-        for (int i = 0; i < numToMove; i++ )
+        for (int i = 0; i < numToMove; i++)
         {
             Slot fromSlot = slots[fromIndex];
             Slot toSlot = toInventory.slots[toIndex];
@@ -122,10 +135,16 @@ public class Inventory
             }
         }
     }
-    public void SelectSlot(int index){
-        if(slots != null && slots.Count > 0){
+    public void SelectSlot(int index)
+    {
+        if (slots != null && slots.Count > 0)
+        {
             selectedSlot = slots[index];
         }
+    }
+
+    public Slot GetSelectSlot(){
+        return selectedSlot;
     }
 }
 

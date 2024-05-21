@@ -21,15 +21,31 @@ public class InventoryManager : MonoBehaviour
         inventoryByName.Add("Backpack", backpack);
         inventoryByName.Add("Toolbar", toolbar);
     }
-    public void Add(string inventoryName, Item item){
-       if(inventoryName != null){
-         if(inventoryByName.ContainsKey(inventoryName)){
-            inventoryByName[inventoryName].Add(item);
+    public void Add(string inventoryName, Item item)
+    {
+        if (inventoryName != null)
+        {
+            if (inventoryByName.ContainsKey(inventoryName))
+            {
+                inventoryByName[inventoryName].Add(item);
+            }
         }
-       }
     }
-    public Inventory GetInventoryByName(string inventoryName){
-        if(inventoryByName.ContainsKey(inventoryName)){
+    public bool Remove(string inventoryName, string itemName)
+    {
+        if (inventoryName != null)
+        {
+            if (inventoryByName.ContainsKey(inventoryName))
+            {
+                return inventoryByName[inventoryName].Remove(itemName);
+            }
+        }
+        return false;
+    }
+    public Inventory GetInventoryByName(string inventoryName)
+    {
+        if (inventoryByName.ContainsKey(inventoryName))
+        {
             return inventoryByName[inventoryName];
         }
         return null;

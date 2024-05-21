@@ -17,7 +17,22 @@ public class PlayerMovement : MonoBehaviour
 
     public TileManager tileManager;
 
+    public bool BuyItemStore(int price)
+    {
+        if (money - price > 0)
+        {
+            money -= price;
+            GameManager.instance.money.RenderMoney();
+            return true;
+        }
+        return false;
+    }
+    public void SellItemStore(int price)
+    {
+        money += price;
+        GameManager.instance.money.RenderMoney();
 
+    }
     public void DropItem(Item item)
     {
         Vector2 spawnLocation = transform.position;
@@ -107,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run()
     {
-        if (GameManager.instance.dialogue.ToggleStatus() 
+        if (GameManager.instance.dialogue.ToggleStatus()
             || myAnimator.GetBool("IsPlowing")
             || GameManager.instance.store.ToggleStoreStatus())
         {

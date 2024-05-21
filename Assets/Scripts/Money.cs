@@ -6,15 +6,17 @@ using UnityEngine;
 
 public class Money : MonoBehaviour
 {
-   [SerializeField] PlayerMovement playerMovement;
-   [SerializeField] TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] TextMeshProUGUI textMeshProUGUI;
 
-   private void Start(){
-    playerMovement = GameManager.instance.player;
-   }
-
-    private void RenderMoney()
+    private void Start()
     {
-        textMeshProUGUI.text = ""+ playerMovement.money;
+        playerMovement = GameManager.instance.player;
+        RenderMoney();
+    }
+
+    public void RenderMoney()
+    {
+        textMeshProUGUI.text = "" + playerMovement.money;
     }
 }

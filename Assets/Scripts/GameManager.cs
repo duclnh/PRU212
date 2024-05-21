@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public Dialogue dialogue;
     public Store  store;
 
+    public Money money;
+
     private void Awake(){
         if(instance != null && instance != this){
             Destroy(this.gameObject);
@@ -29,5 +31,6 @@ public class GameManager : MonoBehaviour
         dialogue = FindObjectOfType<Dialogue>();
         store = FindObjectOfType<Store>();
         player = FindObjectOfType<PlayerMovement>();
+        money = FindObjectOfType<Money>();  
     }
 }

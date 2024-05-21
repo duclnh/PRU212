@@ -15,7 +15,7 @@ public class CollecTable : MonoBehaviour
             if (item != null)
             {
                 player.inventoryManager.Add("Backpack",item);
-                AudioSource.PlayClipAtPoint(pickUpItem, Camera.main.transform.position);
+                AudioSource.PlayClipAtPoint(pickUpItem, Camera.main.transform.position, 0.3F);
                 Destroy(this.gameObject);
             }
         }

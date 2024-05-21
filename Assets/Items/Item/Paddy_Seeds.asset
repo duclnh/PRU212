@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Paddy Seeds
   icon: {fileID: -2010660511, guid: 47617a3ead6685e48bf6e560f12ad3c5, type: 3}
+  price: 150
