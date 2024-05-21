@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5059174960312205466}
   - component: {fileID: 2638834424715019209}
   - component: {fileID: 8254287783369109722}
-  - component: {fileID: 7382199265726608549}
+  - component: {fileID: 7698254621557278421}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61452d928d0fcf549a20e18b79d28a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemManager: {fileID: 0}
-  tileManager: {fileID: 0}
-  uiManager: {fileID: 0}
+  itemManager: {fileID: 2638834424715019209}
+  tileManager: {fileID: 8254287783369109722}
+  uiManager: {fileID: 7698254621557278421}
   player: {fileID: 0}
 --- !u!114 &2638834424715019209
 MonoBehaviour:
@@ -85,7 +85,7 @@ MonoBehaviour:
   hiddenInteractableTile: {fileID: 11400000, guid: 236cf53f2a9343a4a8dcebaec945cfd8, type: 2}
   plowedTile: {fileID: 11400000, guid: 1d42787962badb742ad1d4c0a78004f1, type: 2}
   impactOnGroundAudio: {fileID: 8300000, guid: 669cd2c91e73ce14a923342d13236092, type: 3}
---- !u!114 &7382199265726608549
+--- !u!114 &7698254621557278421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

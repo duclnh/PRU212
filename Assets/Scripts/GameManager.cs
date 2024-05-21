@@ -9,7 +9,11 @@ public class GameManager : MonoBehaviour
     public TileManager tileManager;
     public UI_Manager uiManager;
 
+    public Nofification nofification;
+
     public PlayerMovement player;
+    public Dialogue dialogue;
+    public Store  store;
 
     private void Awake(){
         if(instance != null && instance != this){
@@ -21,6 +25,9 @@ public class GameManager : MonoBehaviour
         itemManager = GetComponent<ItemManager>();
         tileManager = GetComponent<TileManager>();
         uiManager = GetComponent<UI_Manager>();
+        nofification = FindObjectOfType<Nofification>();
+        dialogue = FindObjectOfType<Dialogue>();
+        store = FindObjectOfType<Store>();
         player = FindObjectOfType<PlayerMovement>();
     }
 }

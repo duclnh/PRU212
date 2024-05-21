@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float runSpeed = 10f;
+    [SerializeField] public int money = 500;
     Vector2 moveInput;
     CapsuleCollider2D myBodyCollider;
     Rigidbody2D myRigidbody;
@@ -36,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myAnimator = GetComponent<Animator>();
         tileManager = GameManager.instance.tileManager;
-        inventoryManager = GetComponent<InventoryManager>();
     }
     // Update is called once per frame
     void Update()
@@ -46,28 +47,75 @@ public class PlayerMovement : MonoBehaviour
         FlipSprite();
     }
 
+    private IEnumerator InteractiveGroundWithDelay()
+    {
+
+        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
+        string tileName = tileManager.GetTileName(position);
+        if (!string.IsNullOrEmpty(tileName))
+        {
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
+            {
+                if (tileName == "Interactable")
+                {
+                    // Perform animation and interaction
+                    myAnimator.SetBool("IsPlowing", true);
+
+                    yield return new WaitForSeconds(0.5f); // Adjust delay time if needed
+                    tileManager.SetInteracted(position);
+                }
+            }
+            else
+            {
+                GameManager.instance.nofification.Show("You need select hoe");
+            }
+        }
+
+        // Stop animation
+        myAnimator.SetBool("IsPlowing", false);
+    }
+
     private void InteractiveGround()
     {
         if (tileManager != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Vector3Int posistion = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
-                string tileName = tileManager.GetTileName(posistion);
-                if (!string.IsNullOrEmpty(tileName))
-                {
-                    if (tileName == "Interactable" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
-                    {
-                         myAnimator.SetBool("IsDownWalking", true);
-                        tileManager.SetInteracted(posistion);
-                    }
-                }
+                StartCoroutine(InteractiveGroundWithDelay());
             }
         }
     }
+    // private void InteractiveGround()
+    // {
+    //     if (tileManager != null)
+    //     {
+    //         if (Input.GetKeyDown(KeyCode.Space))
+    //         {
+    //             Vector3Int posistion = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
+    //             string tileName = tileManager.GetTileName(posistion);
+    //             if (!string.IsNullOrEmpty(tileName))
+    //             {
+    //                 if (tileName == "Interactable" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
+    //                 {
+    //                     myAnimator.SetBool("IsPlowing", true);
+    //                     tileManager.SetInteracted(posistion);
+    //                 }
+    //             }
+    //         }       
+    //     }
+    // }
 
     private void Run()
     {
+        if (GameManager.instance.dialogue.ToggleStatus() 
+            || myAnimator.GetBool("IsPlowing")
+            || GameManager.instance.store.ToggleStoreStatus())
+        {
+            myAnimator.SetBool("IsDownWalking", false);
+            myAnimator.SetBool("IsUpWalking", false);
+            myAnimator.SetBool("IsTurnWalking", false);
+            return;
+        }
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, moveInput.y * runSpeed);
         myRigidbody.velocity = playerVelocity;
 

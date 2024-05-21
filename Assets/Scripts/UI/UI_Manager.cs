@@ -16,7 +16,9 @@ public class UI_Manager : MonoBehaviour
         Initialize();
     }
 
-
+    private void Start(){
+         ToggleInventoryUI();
+    }
      
     void Update(){
         if(Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.B)){
