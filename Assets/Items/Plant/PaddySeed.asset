@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02444c40db6c848498177fcfcbeb5db0, type: 3}
+  m_Name: PaddySeed
+  m_EditorClassIdentifier: 
+  nameItem: PaddySeed
+  growTime: 3
+  currentStage: 0
+  numberStage: 3
+  tiles:
+  - {fileID: 11400000, guid: c3dd7bff2f29ae3479c08d21d6481eca, type: 2}
+  - {fileID: 11400000, guid: e2dafb7ced20d72429dbf2108367ca9e, type: 2}
+  - {fileID: 11400000, guid: ca02bb8c004a3ed4cb7dc80f04551b76, type: 2}
+  - {fileID: 11400000, guid: 661c79239653f894dac7fff9de7f7d7d, type: 2}
+  quantity: 10

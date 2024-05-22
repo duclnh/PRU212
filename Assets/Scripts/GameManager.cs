@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public ItemManager itemManager;
     public TileManager tileManager;
+    public CropManger cropManger;
     public UI_Manager uiManager;
 
     public Nofification nofification;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         itemManager = GetComponent<ItemManager>();
         tileManager = GetComponent<TileManager>();
+        cropManger = GetComponent<CropManger>();
         uiManager = GetComponent<UI_Manager>();
         nofification = FindObjectOfType<Nofification>();
         dialogue = FindObjectOfType<Dialogue>();

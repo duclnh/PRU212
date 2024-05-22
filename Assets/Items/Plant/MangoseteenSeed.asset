@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02444c40db6c848498177fcfcbeb5db0, type: 3}
+  m_Name: MangoseteenSeed
+  m_EditorClassIdentifier: 
+  nameItem: MangooseteenSeed
+  growTime: 3
+  currentStage: 0
+  numberStage: 4
+  tiles:
+  - {fileID: 11400000, guid: 3a22a9c45a998624d8004c866a8f1e20, type: 2}
+  - {fileID: 11400000, guid: 9efd1f377e086b04194d7edb54ebffda, type: 2}
+  - {fileID: 11400000, guid: bde15e6cbe38dd644940a5ba5ed49e2d, type: 2}
+  - {fileID: 11400000, guid: f91834c7351a0a24aae18c43c1c87ece, type: 2}
+  - {fileID: 11400000, guid: 699ce0ac640910f4794242a4869a470b, type: 2}
+  quantity: 10

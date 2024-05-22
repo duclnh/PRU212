@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 492504735751493096}
   - component: {fileID: 9195011989995808248}
   m_Layer: 0
-  m_Name: MangosteenSeed
+  m_Name: MangoseteenSeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -16,10 +16,11 @@ public class PlayerMovement : MonoBehaviour
     public InventoryManager inventoryManager;
 
     public TileManager tileManager;
+    public CropManger cropManger;
 
     public bool BuyItemStore(int price)
     {
-        if (money - price > 0)
+        if (money - price >= 0)
         {
             money -= price;
             GameManager.instance.money.RenderMoney();
@@ -53,13 +54,43 @@ public class PlayerMovement : MonoBehaviour
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myAnimator = GetComponent<Animator>();
         tileManager = GameManager.instance.tileManager;
+        cropManger = GameManager.instance.cropManger;
     }
     // Update is called once per frame
     void Update()
     {
         Run();
         InteractiveGround();
+        InteractivePlowing();
         FlipSprite();
+    }
+
+    private void InteractivePlowing()
+    {
+        if (tileManager != null && cropManger != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
+                string cropName = cropManger.GetTileName(position);
+                string tileName = tileManager.GetTileName(position);
+                if (tileName == "Summer_Plowed" && cropName == "Interactable")
+                {
+                    if (inventoryManager.toolbar.selectedSlot.itemName.Contains("Seed"))
+                    {
+                        cropManger.Seed(position, inventoryManager.toolbar.selectedSlot.itemName);
+                    }
+                    else
+                    {
+                        GameManager.instance.nofification.Show("Choose any seed to plant");
+                    }
+                }
+                else
+                {
+                    GameManager.instance.nofification.Show("Please dig the soil before planting");
+                }
+            }
+        }
     }
 
     private IEnumerator InteractiveGroundWithDelay()
