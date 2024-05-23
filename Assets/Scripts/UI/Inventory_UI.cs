@@ -90,7 +90,7 @@ public class Inventory_UI : MonoBehaviour
         if(UI_Manager.dragSingle){
             UI_Manager.draggedSlot.inventory.MoveSlot(UI_Manager.draggedSlot.slotID, slot.slotID,slot.inventory,1);
         }else{
-            UI_Manager.draggedSlot.inventory.MoveSlot(UI_Manager.draggedSlot.slotID, slot.slotID,slot.inventory,slot.inventory.slots.Count);
+            UI_Manager.draggedSlot.inventory.MoveSlot(UI_Manager.draggedSlot.slotID, slot.slotID,slot.inventory,inventory.slots[UI_Manager.draggedSlot.slotID].count);
         }
         GameManager.instance.uiManager.RefreshAll();
     }

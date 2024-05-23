@@ -43,7 +43,8 @@ public class Store : MonoBehaviour
         if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
         {
             GameManager.instance.player.inventoryManager.Add("Backpack", newItem);
-           AudioSource.PlayClipAtPoint(audioBuy, Camera.main.transform.position, 0.3F);
+            AudioSource.PlayClipAtPoint(audioBuy, Camera.main.transform.position, 0.3F);
+            GameManager.instance.nofification.Show("-" + storeItems[indexItem].data.price);
             GameManager.instance.uiManager.RefreshAll();
         }
         else
@@ -63,7 +64,7 @@ public class Store : MonoBehaviour
         if (GameManager.instance.player.inventoryManager.toolbar.GetSelectSlot().itemName != storeItems[indexItem].name)
         {
             AudioSource.PlayClipAtPoint(audioFail, Camera.main.transform.position, 0.4f);
-            GameManager.instance.nofification.Show("Please choose item need sell on the hand");
+            GameManager.instance.nofification.Show("Please choose item need sell");
             return;
         }
         bool reslut = GameManager.instance.player.inventoryManager.Remove("Toolbar", storeItems[indexItem].name);
@@ -72,6 +73,7 @@ public class Store : MonoBehaviour
             AudioSource.PlayClipAtPoint(audioSuccess, Camera.main.transform.position, 0.2f);
             GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
             GameManager.instance.player.SellItemStore(storeItems[indexItem].data.price);
+            GameManager.instance.nofification.Show("+" + storeItems[indexItem].data.price);
         }
         else
         {

@@ -28,7 +28,6 @@ public class CropManger : MonoBehaviour
         foreach (var item in items)
         {
             string key = item.data.name.Replace("_Sell", " Seeds");
-            Debug.Log(key);
             sellProduct.Add(key, item);
         }
     }
@@ -50,14 +49,12 @@ public class CropManger : MonoBehaviour
     }
     public void Seed(Vector3Int position, string nameSeed)
     {
-        Debug.Log(nameSeed);
         AudioSource.PlayClipAtPoint(impactOnGroundAudio, Camera.main.transform.position);
         CropData cropData = GetCropDataByName(nameSeed);
         CropItem cropItem = new CropItem(cropData, nameSeed);
         cropItem.dateTime = cropItem.dateTime.AddSeconds(cropData.growTime);
         cropMap.SetTile(position, cropData.tiles[0]);
         cropDataDictionary.Add(position, cropItem);
-        Debug.Log(position + " " + nameSeed);
         GameManager.instance.player.inventoryManager.Remove("Toolbar", nameSeed);
         GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
     }

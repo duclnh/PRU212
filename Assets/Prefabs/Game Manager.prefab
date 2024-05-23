@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2638834424715019209}
   - component: {fileID: 8254287783369109722}
   - component: {fileID: 7698254621557278421}
+  - component: {fileID: 6429599871920010061}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -49,8 +50,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemManager: {fileID: 2638834424715019209}
   tileManager: {fileID: 8254287783369109722}
+  cropManger: {fileID: 6429599871920010061}
   uiManager: {fileID: 7698254621557278421}
+  nofification: {fileID: 0}
   player: {fileID: 0}
+  dialogue: {fileID: 0}
+  store: {fileID: 0}
+  money: {fileID: 0}
 --- !u!114 &2638834424715019209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +75,10 @@ MonoBehaviour:
   - {fileID: 7945847899881643343, guid: 4f1c86e810eebf844a34a0cf60d995cb, type: 3}
   - {fileID: 3305652609104133051, guid: 27fbb562a0ebe0b439048f5b7cc56fbd, type: 3}
   - {fileID: 6135274864406025945, guid: e776b2989c4dc304dbed810c7801bfbc, type: 3}
+  - {fileID: 5816500336188224096, guid: 93d5f4b79ce48d045ae48bfa1456118b, type: 3}
+  - {fileID: 4847024383600046316, guid: c7317b29271c25b4baa22e61f152617b, type: 3}
+  - {fileID: 6686743955785561766, guid: 3cbc0acd5881a8c4d9daeef6dc6395e9, type: 3}
+  - {fileID: 5641159044972022829, guid: cfd3224c16b77df4ea19564a798c9b6b, type: 3}
 --- !u!114 &8254287783369109722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,3 +111,28 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   inventoryPannel: {fileID: 0}
+--- !u!114 &6429599871920010061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447213030744086353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5589114528ee84c911eb2c6b23d48d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cropMap: {fileID: 0}
+  hiddenInteractableTile: {fileID: 11400000, guid: 236cf53f2a9343a4a8dcebaec945cfd8, type: 2}
+  cropDatas:
+  - {fileID: 11400000, guid: 45a6c361212f7974980309ed7a99cf9c, type: 2}
+  - {fileID: 11400000, guid: 34135546589847b4f9475c834346734b, type: 2}
+  - {fileID: 11400000, guid: 84e7baac24029f243bc55a50d5b03597, type: 2}
+  - {fileID: 11400000, guid: 205feb3c049b7654e94b52cd6c58e4e5, type: 2}
+  items:
+  - {fileID: 5641159044972022829, guid: cfd3224c16b77df4ea19564a798c9b6b, type: 3}
+  - {fileID: 5816500336188224096, guid: 93d5f4b79ce48d045ae48bfa1456118b, type: 3}
+  - {fileID: 6686743955785561766, guid: 3cbc0acd5881a8c4d9daeef6dc6395e9, type: 3}
+  - {fileID: 4847024383600046316, guid: c7317b29271c25b4baa22e61f152617b, type: 3}
+  impactOnGroundAudio: {fileID: 8300000, guid: 669cd2c91e73ce14a923342d13236092, type: 3}
