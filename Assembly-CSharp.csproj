@@ -77,12 +77,12 @@
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\Collectable.cs" />
     <Compile Include="Assets\Scripts\TileManager.cs" />
-    <Compile Include="Assets\Scripts\MusicController.cs" />
     <Compile Include="Assets\Scripts\ScriptableObject\CropData.cs" />
     <Compile Include="Assets\Scripts\Store.cs" />
     <Compile Include="Assets\Scripts\FadingSprite.cs" />
     <Compile Include="Assets\Scripts\ItemManager.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\MenuSettings.cs" />
     <Compile Include="Assets\Scripts\CropManger.cs" />
     <Compile Include="Assets\Scripts\CropItem.cs" />
     <Compile Include="Assets\Scripts\UI\Slot_UI.cs" />

@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public Money money;
 
+    public MenuSettings menuSettings;
+
     private void Awake(){
         if(instance != null && instance != this){
             Destroy(this.gameObject);
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
         tileManager = GetComponent<TileManager>();
         cropManger = GetComponent<CropManger>();
         uiManager = GetComponent<UI_Manager>();
+        menuSettings = FindObjectOfType<MenuSettings>();
         nofification = FindObjectOfType<Nofification>();
         dialogue = FindObjectOfType<Dialogue>();
         store = FindObjectOfType<Store>();

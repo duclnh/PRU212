@@ -6,8 +6,8 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public ItemData data;
-    [HideInInspector] public Rigidbody2D rigidbody2D;
+    [HideInInspector] public Rigidbody2D rigidBD;
     private void Awake(){
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidBD = GetComponent<Rigidbody2D>();
     }
 }

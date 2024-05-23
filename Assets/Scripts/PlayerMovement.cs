@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 spawnLocation = transform.position;
         Vector2 spawnOffSet = Random.insideUnitCircle * 1.25f;
         Item dropItem = Instantiate(item, spawnLocation + spawnOffSet, Quaternion.identity);
-        dropItem.rigidbody2D.AddForce(spawnOffSet * 2f, ForceMode2D.Impulse);
+        dropItem.GetComponent<Rigidbody2D>().AddForce(spawnOffSet * 2f, ForceMode2D.Impulse);
     }
     public void DropItem(Item item, int numToDrop)
     {
@@ -62,15 +63,24 @@ public class PlayerMovement : MonoBehaviour
         InteractivePlowing();
         Harvest();
         FlipSprite();
+        MenuSetting();
     }
 
+    private void MenuSetting()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.instance.menuSettings.ToggleMenu();
+        }
+    }
+    
     private void Harvest()
     {
         if (tileManager != null && cropManger != null)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
+                Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
                 string cropName = cropManger.GetTileName(position);
                 string tileName = tileManager.GetTileName(position);
                 if (cropName != "Interactable")
@@ -150,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                myRigidbody.velocity = new Vector2(0, 0);
                 StartCoroutine(InteractiveGroundWithDelay());
             }
         }
