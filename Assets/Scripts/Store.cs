@@ -38,7 +38,7 @@ public class Store : MonoBehaviour
 
         Item newItem = new Item();
         newItem.data = new ItemData();
-        newItem.data.itemName = storeItems[indexItem].name;
+        newItem.data.itemName = storeItems[indexItem].data.itemName;
         newItem.data.icon = storeItems[indexItem].data.icon;
         if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
         {

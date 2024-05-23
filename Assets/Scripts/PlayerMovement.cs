@@ -62,7 +62,32 @@ public class PlayerMovement : MonoBehaviour
         Run();
         InteractiveGround();
         InteractivePlowing();
+        Harvest();
         FlipSprite();
+    }
+
+    private void Harvest()
+    {
+        if (tileManager != null && cropManger != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
+                string cropName = cropManger.GetTileName(position);
+                string tileName = tileManager.GetTileName(position);
+                if (cropName != "Interactable")
+                {
+                    if (cropManger.HarvestPlant(position))
+                    {
+                        tileManager.RestoreIntered(position);
+                    }
+                }
+                else
+                {
+                    GameManager.instance.nofification.Show("Please dig the soil before planting");
+                }
+            }
+        }
     }
 
     private void InteractivePlowing()
@@ -71,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
+                Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
                 string cropName = cropManger.GetTileName(position);
                 string tileName = tileManager.GetTileName(position);
                 if (tileName == "Summer_Plowed" && cropName == "Interactable")
@@ -96,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator InteractiveGroundWithDelay()
     {
 
-        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
+        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
         string tileName = tileManager.GetTileName(position);
         if (!string.IsNullOrEmpty(tileName))
         {
@@ -131,25 +156,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    // private void InteractiveGround()
-    // {
-    //     if (tileManager != null)
-    //     {
-    //         if (Input.GetKeyDown(KeyCode.Space))
-    //         {
-    //             Vector3Int posistion = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, 0);
-    //             string tileName = tileManager.GetTileName(posistion);
-    //             if (!string.IsNullOrEmpty(tileName))
-    //             {
-    //                 if (tileName == "Interactable" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
-    //                 {
-    //                     myAnimator.SetBool("IsPlowing", true);
-    //                     tileManager.SetInteracted(posistion);
-    //                 }
-    //             }
-    //         }       
-    //     }
-    // }
 
     private void Run()
     {

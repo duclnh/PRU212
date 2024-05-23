@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\ItemManager.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\CropManger.cs" />
+    <Compile Include="Assets\Scripts\CropItem.cs" />
     <Compile Include="Assets\Scripts\UI\Slot_UI.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
   </ItemGroup>

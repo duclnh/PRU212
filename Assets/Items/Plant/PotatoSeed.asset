@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02444c40db6c848498177fcfcbeb5db0, type: 3}
   m_Name: PotatoSeed
   m_EditorClassIdentifier: 
-  nameItem: PotatoSeed
-  growTime: 3
+  nameItem: Potato Seeds
+  growTime: 10
   currentStage: 0
   numberStage: 5
   tiles:

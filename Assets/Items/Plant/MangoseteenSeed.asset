@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02444c40db6c848498177fcfcbeb5db0, type: 3}
   m_Name: MangoseteenSeed
   m_EditorClassIdentifier: 
-  nameItem: MangooseteenSeed
-  growTime: 3
-  currentStage: 0
-  numberStage: 4
+  nameItem: Mangoseteen Seeds
+  growTime: 15
   tiles:
   - {fileID: 11400000, guid: 3a22a9c45a998624d8004c866a8f1e20, type: 2}
   - {fileID: 11400000, guid: 9efd1f377e086b04194d7edb54ebffda, type: 2}

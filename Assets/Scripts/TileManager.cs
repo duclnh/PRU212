@@ -10,24 +10,35 @@ public class TileManager : MonoBehaviour
     public Tile plowedTile;
     [SerializeField] AudioClip impactOnGroundAudio;
 
-    void Start(){
-        foreach(var position in interactableMap.cellBounds.allPositionsWithin){
+    void Start()
+    {
+        foreach (var position in interactableMap.cellBounds.allPositionsWithin)
+        {
             TileBase tile = interactableMap.GetTile(position);
-            if(tile != null && tile.name == "Interactable_visible"){
+            if (tile != null && tile.name == "Interactable_visible")
+            {
                 interactableMap.SetTile(position, hiddenInteractableTile);
             }
         }
     }
-    public void SetInteracted(Vector3Int position){
+    public void SetInteracted(Vector3Int position)
+    {
         AudioSource.PlayClipAtPoint(impactOnGroundAudio, Camera.main.transform.position);
         interactableMap.SetTile(position, plowedTile);
     }
-    public string GetTileName(Vector3Int position){
-        if(interactableMap != null){
-             TileBase tile = interactableMap.GetTile(position);
-             if(tile != null) {
+    public void RestoreIntered(Vector3Int position)
+    {
+        interactableMap.SetTile(position, hiddenInteractableTile);
+    }
+    public string GetTileName(Vector3Int position)
+    {
+        if (interactableMap != null)
+        {
+            TileBase tile = interactableMap.GetTile(position);
+            if (tile != null)
+            {
                 return tile.name;
-             }
+            }
         }
         return "";
     }

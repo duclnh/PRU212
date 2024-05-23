@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02444c40db6c848498177fcfcbeb5db0, type: 3}
   m_Name: PaddySeed
   m_EditorClassIdentifier: 
-  nameItem: PaddySeed
-  growTime: 3
-  currentStage: 0
+  nameItem: Paddy Seeds
+  growTime: 10
+  currentStage: 3
   numberStage: 3
   tiles:
   - {fileID: 11400000, guid: c3dd7bff2f29ae3479c08d21d6481eca, type: 2}
