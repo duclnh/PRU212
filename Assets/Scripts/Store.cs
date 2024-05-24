@@ -6,12 +6,11 @@ public class Store : MonoBehaviour
 {
     [SerializeField] GameObject storePannel;
     [SerializeField] List<Item> storeItems = new List<Item>();
-    [SerializeField] AudioClip audioSuccess;
-    [SerializeField] AudioClip audioBuy;
-    [SerializeField] AudioClip audioFail;
+    private MenuSettings menuSettings;
     void Start()
     {
         ToogleStore();
+        menuSettings = GameManager.instance.menuSettings;
     }
     public void ToogleStore()
     {
@@ -43,13 +42,13 @@ public class Store : MonoBehaviour
         if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
         {
             GameManager.instance.player.inventoryManager.Add("Backpack", newItem);
-            AudioSource.PlayClipAtPoint(audioBuy, Camera.main.transform.position, 0.3F);
             GameManager.instance.nofification.Show("-" + storeItems[indexItem].data.price);
             GameManager.instance.uiManager.RefreshAll();
+            menuSettings.SoundBuyItem();
         }
         else
         {
-            AudioSource.PlayClipAtPoint(audioFail, Camera.main.transform.position, 0.4f);
+            menuSettings.SoundFail();
             GameManager.instance.nofification.Show("You not enough money");
         }
     }
@@ -63,21 +62,21 @@ public class Store : MonoBehaviour
 
         if (GameManager.instance.player.inventoryManager.toolbar.GetSelectSlot().itemName != storeItems[indexItem].name)
         {
-            AudioSource.PlayClipAtPoint(audioFail, Camera.main.transform.position, 0.4f);
+            menuSettings.SoundFail();
             GameManager.instance.nofification.Show("Please choose item need sell");
             return;
         }
         bool reslut = GameManager.instance.player.inventoryManager.Remove("Toolbar", storeItems[indexItem].name);
         if (reslut)
         {
-            AudioSource.PlayClipAtPoint(audioSuccess, Camera.main.transform.position, 0.2f);
+            menuSettings.SoundSellItem();
             GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
             GameManager.instance.player.SellItemStore(storeItems[indexItem].data.price);
             GameManager.instance.nofification.Show("+" + storeItems[indexItem].data.price);
         }
         else
         {
-            AudioSource.PlayClipAtPoint(audioFail, Camera.main.transform.position, 0.4f);
+            menuSettings.SoundFail();
             GameManager.instance.nofification.Show("You don't have this item");
         }
     }

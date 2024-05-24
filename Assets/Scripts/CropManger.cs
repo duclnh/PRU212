@@ -10,7 +10,6 @@ public class CropManger : MonoBehaviour
     public Tile hiddenInteractableTile;
     public List<CropData> cropDatas = new List<CropData>();
     public List<Item> items = new List<Item>();
-    [SerializeField] AudioClip impactOnGroundAudio;
 
     private Dictionary<Vector3Int, CropItem> cropDataDictionary = new Dictionary<Vector3Int, CropItem>();
     private Dictionary<string, Item> sellProduct = new Dictionary<string, Item>();
@@ -42,6 +41,8 @@ public class CropManger : MonoBehaviour
                 cropMap.SetTile(position.Key, position.Value.cropData.tiles[position.Value.currentStage]);
                 if(position.Value.currentStage != position.Value.cropData.tiles.Count - 1){
                     position.Value.dateTime = position.Value.dateTime.AddSeconds(position.Value.cropData.growTime);
+                }else{
+                    GameManager.instance.menuSettings.SoundComplete(position.Key);
                 }
             }
         }
@@ -49,7 +50,7 @@ public class CropManger : MonoBehaviour
     }
     public void Seed(Vector3Int position, string nameSeed)
     {
-        AudioSource.PlayClipAtPoint(impactOnGroundAudio, Camera.main.transform.position);
+        GameManager.instance.menuSettings.SoundImpactGround();
         CropData cropData = GetCropDataByName(nameSeed);
         CropItem cropItem = new CropItem(cropData, nameSeed);
         cropItem.dateTime = cropItem.dateTime.AddSeconds(cropData.growTime);

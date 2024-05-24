@@ -8,7 +8,7 @@ public class TileManager : MonoBehaviour
     public Tilemap interactableMap;
     public Tile hiddenInteractableTile;
     public Tile plowedTile;
-    [SerializeField] AudioClip impactOnGroundAudio;
+
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class TileManager : MonoBehaviour
     }
     public void SetInteracted(Vector3Int position)
     {
-        AudioSource.PlayClipAtPoint(impactOnGroundAudio, Camera.main.transform.position);
+        GameManager.instance.menuSettings.SoundImpactGround();
         interactableMap.SetTile(position, plowedTile);
     }
     public void RestoreIntered(Vector3Int position)

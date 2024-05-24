@@ -70,8 +70,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.instance.menuSettings.ToggleMenu();
+           ToggleMenuSettings();
         }
+    }
+
+    public void ToggleMenuSettings(){
+         GameManager.instance.menuSettings.ToggleMenu();
     }
     
     private void Harvest()
@@ -82,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
                 string cropName = cropManger.GetTileName(position);
-                string tileName = tileManager.GetTileName(position);
                 if (cropName != "Interactable")
                 {
                     if (cropManger.HarvestPlant(position))
@@ -92,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
+                    GameManager.instance.menuSettings.SoundFail();
                     GameManager.instance.nofification.Show("Please dig the soil before planting");
                 }
             }
@@ -115,11 +119,13 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
+                        GameManager.instance.menuSettings.SoundFail();
                         GameManager.instance.nofification.Show("Choose any seed to plant");
                     }
                 }
                 else
                 {
+                    GameManager.instance.menuSettings.SoundFail();
                     GameManager.instance.nofification.Show("Please dig the soil before planting");
                 }
             }
@@ -137,15 +143,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (tileName == "Interactable")
                 {
-                    // Perform animation and interaction
+
                     myAnimator.SetBool("IsPlowing", true);
 
-                    yield return new WaitForSeconds(0.5f); // Adjust delay time if needed
+                    yield return new WaitForSeconds(0.5f);
                     tileManager.SetInteracted(position);
                 }
             }
             else
             {
+                GameManager.instance.menuSettings.SoundFail();
                 GameManager.instance.nofification.Show("You need select hoe");
             }
         }

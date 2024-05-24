@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpItem: {fileID: 8300000, guid: d617102f0067466459a5a73c418501e7, type: 3}
+  volumnPick: 4.73
 --- !u!61 &2227515659439963445
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -186,4 +187,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5b6028733edf03146a349deec288c415, type: 2}
-  rigidbody2D: {fileID: 0}
+  rigidBD: {fileID: 0}

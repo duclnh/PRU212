@@ -505,6 +505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3670876173886699481}
   - component: {fileID: 9053905294627984477}
+  - component: {fileID: 5191705876965802907}
   m_Layer: 0
   m_Name: Settings
   m_TagString: Untagged
@@ -541,10 +542,119 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 757bde2b477994d60bfff9141343ce02, type: 2}
+  mixerGroup: {fileID: 243586827444500310, guid: 757bde2b477994d60bfff9141343ce02, type: 2}
   toggleFullScreen: {fileID: 4182209711737163306}
   toggleMediumScreen: {fileID: 8911895630808957579}
   toggleSmallScreen: {fileID: 684848267621397387}
   menuPannel: {fileID: 7676630047497090092}
+  pickUpItem: {fileID: 8300000, guid: d617102f0067466459a5a73c418501e7, type: 3}
+  volumePick: 0.4
+  audioSell: {fileID: 8300000, guid: a3692b0f451d466478cfcd646e99729a, type: 3}
+  volumeSell: 0.3
+  audioBuy: {fileID: 8300000, guid: d617102f0067466459a5a73c418501e7, type: 3}
+  volumeBuy: 0.4
+  audioFail: {fileID: 8300000, guid: 46e6c79da3ec0f14f95bb09260978820, type: 3}
+  volumeFail: 0.5
+  impactOnGroundAudio: {fileID: 8300000, guid: 669cd2c91e73ce14a923342d13236092, type: 3}
+  volumeImpactGround: 1
+  audioComplete: {fileID: 8300000, guid: 81e98e47552b1d54f8b0510ca2dfd8a1, type: 3}
+  volumeComplete: 0.2
+--- !u!82 &5191705876965802907
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794231216811505137}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243130672931075838, guid: 757bde2b477994d60bfff9141343ce02, type: 2}
+  m_audioClip: {fileID: 8300000, guid: c6b1e4491dcc9de4dad8102c76c2b05e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1853405794916341131
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +747,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9053905294627984477}
         m_TargetAssemblyTypeName: MenuSettings, Assembly-CSharp
-        m_MethodName: SetSoundVolumn
+        m_MethodName: SetSoundVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2040,9 +2150,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: QuitGame
+      - m_Target: {fileID: 9053905294627984477}
+        m_TargetAssemblyTypeName: MenuSettings, Assembly-CSharp
+        m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3026,7 +3136,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9053905294627984477}
         m_TargetAssemblyTypeName: MenuSettings, Assembly-CSharp
-        m_MethodName: SetVolumn
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
