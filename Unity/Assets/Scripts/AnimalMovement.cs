@@ -4,23 +4,43 @@ using UnityEngine;
 
 public class AnimalMovement : MonoBehaviour
 {
- public float speed = 5f;
-    private Vector3 direction = Vector3.right; // Con vật sẽ di chuyển sang phải ban đầu
+    public float speed = 0.2f;
+    Rigidbody2D myRigidbody;
+    void Start()
+    {
+        myRigidbody = GetComponent<Rigidbody2D>();
+    }
+
 
     void Update()
     {
-        Move();
+        myRigidbody.velocity = new Vector2(speed, 0F);
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            myRigidbody.velocity = new Vector2(0F, 0F);
+        }
+        else
+        {
+            speed = -speed;
+            FlipSprites();
+        }
     }
 
-    void Move()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        // Di chuyển con vật theo hướng và tốc độ đã xác định
-        transform.Translate(direction * speed * Time.deltaTime);
-
-        // Kiểm tra va chạm với biên giới và thay đổi hướng nếu cần
-        if (transform.position.x > 10f || transform.position.x < -10f)
+        if (other.gameObject.name == "Player")
         {
-            direction *= -1f; // Đảo hướng khi va chạm với biên giới
+           
         }
+    }
+
+    private void FlipSprites()
+    {
+        transform.localScale = new Vector3(-transform.localScale.x,
+                                            transform.localScale.y,
+                                            transform.localScale.z);
     }
 }

@@ -52,11 +52,13 @@ MonoBehaviour:
   tileManager: {fileID: 8254287783369109722}
   cropManger: {fileID: 6429599871920010061}
   uiManager: {fileID: 7698254621557278421}
+  animalManager: {fileID: 0}
   nofification: {fileID: 0}
   player: {fileID: 0}
   dialogue: {fileID: 0}
   store: {fileID: 0}
   money: {fileID: 0}
+  menuSettings: {fileID: 0}
 --- !u!114 &2638834424715019209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +96,6 @@ MonoBehaviour:
   interactableMap: {fileID: 0}
   hiddenInteractableTile: {fileID: 11400000, guid: 236cf53f2a9343a4a8dcebaec945cfd8, type: 2}
   plowedTile: {fileID: 11400000, guid: 1d42787962badb742ad1d4c0a78004f1, type: 2}
-  impactOnGroundAudio: {fileID: 8300000, guid: 669cd2c91e73ce14a923342d13236092, type: 3}
 --- !u!114 &7698254621557278421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,4 +136,3 @@ MonoBehaviour:
   - {fileID: 5816500336188224096, guid: 93d5f4b79ce48d045ae48bfa1456118b, type: 3}
   - {fileID: 6686743955785561766, guid: 3cbc0acd5881a8c4d9daeef6dc6395e9, type: 3}
   - {fileID: 4847024383600046316, guid: c7317b29271c25b4baa22e61f152617b, type: 3}
-  impactOnGroundAudio: {fileID: 8300000, guid: 669cd2c91e73ce14a923342d13236092, type: 3}

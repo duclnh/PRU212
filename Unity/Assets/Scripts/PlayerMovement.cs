@@ -108,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log(transform.position);
                 Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
                 string cropName = cropManger.GetTileName(position);
                 string tileName = tileManager.GetTileName(position);
@@ -135,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator InteractiveGroundWithDelay()
     {
 
-        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
+        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y-1, 0);
         string tileName = tileManager.GetTileName(position);
         if (!string.IsNullOrEmpty(tileName))
         {
@@ -146,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
                     myAnimator.SetBool("IsPlowing", true);
 
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(1.5f);
                     tileManager.SetInteracted(position);
                 }
             }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,23 +36,43 @@ public class Store : MonoBehaviour
             return;
         }
 
-        Item newItem = new Item();
-        newItem.data = new ItemData();
-        newItem.data.itemName = storeItems[indexItem].data.itemName;
-        newItem.data.icon = storeItems[indexItem].data.icon;
-        if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
+        if (storeItems[indexItem].data.itemName.Contains("Breed"))
         {
-            GameManager.instance.player.inventoryManager.Add("Backpack", newItem);
-            GameManager.instance.nofification.Show("-" + storeItems[indexItem].data.price);
-            GameManager.instance.uiManager.RefreshAll();
-            menuSettings.SoundBuyItem();
+            if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
+            {
+                GameManager.instance.animalManager.DropAnimal(storeItems[indexItem].data.itemName);
+                GameManager.instance.nofification.Show("-" + storeItems[indexItem].data.price);
+                menuSettings.SoundBuyItem();
+            }
+            else
+            {
+                menuSettings.SoundFail();
+                GameManager.instance.nofification.Show("You not enough money");
+            }
         }
         else
         {
-            menuSettings.SoundFail();
-            GameManager.instance.nofification.Show("You not enough money");
+            Item newItem = new Item();
+            newItem.data = new ItemData();
+            newItem.data.itemName = storeItems[indexItem].data.itemName;
+            newItem.data.icon = storeItems[indexItem].data.icon;
+            if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
+            {
+                GameManager.instance.player.inventoryManager.Add("Backpack", newItem);
+                GameManager.instance.nofification.Show("-" + storeItems[indexItem].data.price);
+                GameManager.instance.uiManager.RefreshAll();
+                menuSettings.SoundBuyItem();
+            }
+            else
+            {
+                menuSettings.SoundFail();
+                GameManager.instance.nofification.Show("You not enough money");
+            }
         }
     }
+
+
+
     public void SellItem(int indexItem)
     {
         if (indexItem < 0 || indexItem >= storeItems.Count)

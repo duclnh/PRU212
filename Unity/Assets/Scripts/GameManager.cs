@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public TileManager tileManager;
     public CropManger cropManger;
     public UI_Manager uiManager;
-
+    public AnimalManager animalManager;
     public Nofification nofification;
 
     public PlayerMovement player;
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         tileManager = GetComponent<TileManager>();
         cropManger = GetComponent<CropManger>();
         uiManager = GetComponent<UI_Manager>();
+        animalManager = GetComponent<AnimalManager> ();
         menuSettings = FindObjectOfType<MenuSettings>();
         nofification = FindObjectOfType<Nofification>();
         dialogue = FindObjectOfType<Dialogue>();
