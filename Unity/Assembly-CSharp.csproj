@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\UI\Toolbar_UI.cs" />
     <Compile Include="Assets\Scripts\Nofification.cs" />
-    <Compile Include="Assets\Scripts\InteractNPC.cs" />
     <Compile Include="Assets\Scripts\Money.cs" />
     <Compile Include="Assets\Scripts\AnimalItem.cs" />
     <Compile Include="Assets\Scripts\Dialogue.cs" />
@@ -85,6 +84,7 @@
     <Compile Include="Assets\Scripts\FadingSprite.cs" />
     <Compile Include="Assets\Scripts\ScriptableObject\AnimalData.cs" />
     <Compile Include="Assets\Scripts\ItemManager.cs" />
+    <Compile Include="Assets\Scripts\InteractNPCStore.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\MenuSettings.cs" />
     <Compile Include="Assets\Scripts\CropManger.cs" />

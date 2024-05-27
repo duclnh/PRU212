@@ -68,6 +68,10 @@ public class MenuSettings : MonoBehaviour
       }
     }
   }
+  public bool GetStatusMenuSetting(){
+    return menuPannel.activeSelf;
+  }
+
   public void SetVolume(float volume)
   {
     audioMixer.SetFloat(MIXER_MUSIC, Mathf.Log10(volume) * 30);

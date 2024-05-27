@@ -8,6 +8,8 @@ public class AnimalMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     bool stayPlayer = false;
     Animator animalAnimation;
+    [SerializeField] Item item;
+
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -17,22 +19,63 @@ public class AnimalMovement : MonoBehaviour
 
     void Update()
     {
-        if (stayPlayer)
+        if (!GameManager.instance.menuSettings.GetStatusMenuSetting())
         {
+            if (stayPlayer)
+            {
 
-            myRigidbody.velocity = new Vector2(0F, 0F);
+                myRigidbody.velocity = new Vector2(0F, 0F);
+            }
+            else
+            {
+                myRigidbody.velocity = new Vector2(speed, 0F);
+            }
+            InteractWithAnimal();
         }
-        else
-        {
-            myRigidbody.velocity = new Vector2(speed, 0F);
-        }
+
     }
-    private void OnTriggerStay2D(Collider2D other)
+    private void InteractWithAnimal()
     {
-        if (other.name == "Player" && GameManager.instance.player.TakeMilk())
+        if (Input.GetKeyDown(KeyCode.Q) && stayPlayer)
         {
+            if (gameObject.name.Contains("Cow"))
+            {
+                if (GameManager.instance.player.inventoryManager.toolbar.selectedSlot.itemName == "Bottle")
+                {
+                    AnimalItem animalItem = GameManager.instance.animalManager.GetAnimalItem(gameObject);
+                    if (animalItem.currentStage >= animalItem.animalData.numberStage - 2)
+                    {
+                        if (animalItem.animalData.quantity > 0)
+                        {
+                            if (GameManager.instance.player.inventoryManager.toolbar.selectedSlot.count > 0)
+                            {
+                                GameManager.instance.player.inventoryManager.Remove("Toolbar", "Bottle");
+                                GameManager.instance.player.DropItem(item, 1);
+                                animalItem.quantityHarvested -= 1;
+                                GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
+                            }
 
-            Debug.Log(gameObject.name);
+                        }
+                        else
+                        {
+                            GameManager.instance.nofification.Show("The cow has no milk");
+                            GameManager.instance.menuSettings.SoundFail();
+                        }
+                    }
+                    else
+                    {
+                        GameManager.instance.nofification.Show("The cow has no milk yet");
+                        GameManager.instance.menuSettings.SoundFail();
+                    }
+
+
+                }
+                else
+                {
+                    GameManager.instance.nofification.Show("Your hand is not holding the bottle yet");
+                    GameManager.instance.menuSettings.SoundFail();
+                }
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

@@ -36,9 +36,18 @@ public class AnimalManager : MonoBehaviour
             if (timeDifference.TotalSeconds <= 0 && objectAnimal.Value.currentStage <= objectAnimal.Value.animalData.numberStage)
             {
                 objectAnimal.Value.currentStage++;
-                objectAnimal.Key.transform.localScale = new Vector3(CheckDirection(objectAnimal.Key.transform.localScale.x, 0.5F),
-                                                                    objectAnimal.Key.transform.localScale.y + 0.5F,
-                                                                    objectAnimal.Key.transform.localScale.z);
+                if (objectAnimal.Key.name.Contains("Cow"))
+                {
+                    objectAnimal.Key.transform.localScale = new Vector3(CheckDirection(objectAnimal.Key.transform.localScale.x, 0.5F),
+                                                                  objectAnimal.Key.transform.localScale.y + 0.5F,
+                                                                  objectAnimal.Key.transform.localScale.z);
+                }
+                else
+                {
+                    objectAnimal.Key.transform.localScale = new Vector3(CheckDirection(objectAnimal.Key.transform.localScale.x, 0.3F),
+                                                                 objectAnimal.Key.transform.localScale.y + 0.3F,
+                                                                 objectAnimal.Key.transform.localScale.z);
+                }
                 if (objectAnimal.Value.currentStage < objectAnimal.Value.animalData.numberStage)
                 {
                     objectAnimal.Value.dateTime = objectAnimal.Value.dateTime.AddSeconds(objectAnimal.Value.animalData.growTime);
@@ -56,10 +65,18 @@ public class AnimalManager : MonoBehaviour
         }
     }
 
+    public AnimalItem GetAnimalItem(GameObject gameObject)
+    {
+        if (animalDataDictionary.ContainsKey(gameObject))
+        {
+            return animalDataDictionary[gameObject];
+        }
+        return null;
+    }
     private float CheckDirection(float width, float change)
     {
         if (width < 0)
-        { 
+        {
             return width - change;
         }
         return width + change;

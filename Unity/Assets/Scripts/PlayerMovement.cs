@@ -58,19 +58,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Run();
-        InteractiveGround();
-        InteractivePlowing();
-        Harvest();
-        FlipSprite();
-        MenuSetting();
-    }
-
-    public bool TakeMilk(){
-        if(Input.GetKeyDown(KeyCode.Q)){
-            return true;
+        if (!GameManager.instance.menuSettings.GetStatusMenuSetting())
+        {
+            Run();
+            InteractiveGround();
+            InteractivePlowing();
+            Harvest();
+            FlipSprite();
+            MenuSetting();
         }
-        return false;
     }
     private void MenuSetting()
     {
@@ -228,5 +224,5 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+
 }

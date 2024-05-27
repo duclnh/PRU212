@@ -17,6 +17,7 @@ public class Dialogue : MonoBehaviour
             if (!dialogueBox.activeSelf)
             {
                 dialogueBox.SetActive(true);
+                GameManager.instance.player.GetComponent<Rigidbody2D>().velocity = new Vector2(0F, 0F);
             }
             else
             {
