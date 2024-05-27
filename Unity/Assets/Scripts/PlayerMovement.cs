@@ -66,18 +66,25 @@ public class PlayerMovement : MonoBehaviour
         MenuSetting();
     }
 
+    public bool TakeMilk(){
+        if(Input.GetKeyDown(KeyCode.Q)){
+            return true;
+        }
+        return false;
+    }
     private void MenuSetting()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-           ToggleMenuSettings();
+            ToggleMenuSettings();
         }
     }
 
-    public void ToggleMenuSettings(){
-         GameManager.instance.menuSettings.ToggleMenu();
+    public void ToggleMenuSettings()
+    {
+        GameManager.instance.menuSettings.ToggleMenu();
     }
-    
+
     private void Harvest()
     {
         if (tileManager != null && cropManger != null)
@@ -86,17 +93,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
                 string cropName = cropManger.GetTileName(position);
-                if (cropName != "Interactable")
+                if (!string.IsNullOrEmpty(cropName) && cropName != "Interactable")
                 {
-                    if (cropManger.HarvestPlant(position))
+                    if (cropName != "Interactable")
                     {
-                        tileManager.RestoreIntered(position);
+                        if (cropManger.HarvestPlant(position))
+                        {
+                            tileManager.RestoreIntered(position);
+                        }
                     }
-                }
-                else
-                {
-                    GameManager.instance.menuSettings.SoundFail();
-                    GameManager.instance.nofification.Show("Please dig the soil before planting");
+                    else
+                    {
+                        GameManager.instance.menuSettings.SoundFail();
+                        GameManager.instance.nofification.Show("Please dig the soil before planting");
+                    }
                 }
             }
         }
@@ -108,26 +118,28 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log(transform.position);
                 Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
                 string cropName = cropManger.GetTileName(position);
                 string tileName = tileManager.GetTileName(position);
-                if (tileName == "Summer_Plowed" && cropName == "Interactable")
+                if (!string.IsNullOrEmpty(cropName) && !string.IsNullOrEmpty(tileName))
                 {
-                    if (inventoryManager.toolbar.selectedSlot.itemName.Contains("Seed"))
+                    if (tileName == "Summer_Plowed" && cropName == "Interactable")
                     {
-                        cropManger.Seed(position, inventoryManager.toolbar.selectedSlot.itemName);
+                        if (inventoryManager.toolbar.selectedSlot.itemName.Contains("Seed"))
+                        {
+                            cropManger.Seed(position, inventoryManager.toolbar.selectedSlot.itemName);
+                        }
+                        else
+                        {
+                            GameManager.instance.menuSettings.SoundFail();
+                            GameManager.instance.nofification.Show("Choose any seed to plant");
+                        }
                     }
                     else
                     {
                         GameManager.instance.menuSettings.SoundFail();
-                        GameManager.instance.nofification.Show("Choose any seed to plant");
+                        GameManager.instance.nofification.Show("Please dig the soil before planting");
                     }
-                }
-                else
-                {
-                    GameManager.instance.menuSettings.SoundFail();
-                    GameManager.instance.nofification.Show("Please dig the soil before planting");
                 }
             }
         }
@@ -136,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator InteractiveGroundWithDelay()
     {
 
-        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y-1, 0);
+        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
         string tileName = tileManager.GetTileName(position);
         if (!string.IsNullOrEmpty(tileName))
         {
@@ -215,4 +227,6 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(-myRigidbody.velocity.x), 1f);
         }
     }
+
+    
 }

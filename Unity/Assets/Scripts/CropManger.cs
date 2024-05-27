@@ -88,6 +88,7 @@ public class CropManger : MonoBehaviour
             cropDataDictionary.Remove(position);
             return true;
         }else{
+            GameManager.instance.menuSettings.SoundFail();
             GameManager.instance.nofification.Show("Not enough time to harvest");
         }
         return false;

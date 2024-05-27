@@ -28,7 +28,6 @@ public class AnimalManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         foreach (KeyValuePair<GameObject, AnimalItem> objectAnimal in animalDataDictionary)
@@ -65,7 +64,7 @@ public class AnimalManager : MonoBehaviour
         }
         return width + change;
     }
-    private Vector3 GetRandomPosistion()
+    private Vector3 GetRandomPosition()
     {
         return positionAnimalMap[Random.Range(0, positionAnimalMap.Count - 1)];
     }
@@ -81,8 +80,8 @@ public class AnimalManager : MonoBehaviour
     }
     public void DropAnimal(string itemName)
     {
-        Vector3 spawnPosistion = GetRandomPosistion();
-        GameObject animal = Instantiate(GetPrefab(itemName), spawnPosistion, Quaternion.identity, transform);
+        Vector3 spawnPosition = GetRandomPosition();
+        GameObject animal = Instantiate(GetPrefab(itemName), spawnPosition, Quaternion.identity, transform);
         animalDataDictionary.Add(animal, GetAnimalData(itemName));
     }
 }
