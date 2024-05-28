@@ -1,14 +1,15 @@
-﻿using QuestionRepo.Models;
+﻿using QuestionRepo.Dto;
+using QuestionRepo.Models;
 
 namespace QuestionRepo.Repositories.RecordRepositories
 {
     public interface IRecordRepository
     {
         Task<bool> AddRecord(Record record);
-        Task<bool> DeleteRecord(int recordId);
+        Task<bool> DeleteRecord(Guid recordId);
         Task<bool> UpdateRecord(Record record);
-        Task<Record> GetRecord(int recordId);
+        Task<Record> GetRecord(Guid recordId);
         Task<IEnumerable<Record>> GetRecords();
-        Task<bool> IsRecordExists(int recordId);
+        Task<bool> IsRecordExists(Guid recordId);
     }
 }

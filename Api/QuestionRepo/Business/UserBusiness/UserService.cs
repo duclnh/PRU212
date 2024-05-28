@@ -17,9 +17,14 @@ namespace QuestionRepo.Business.UserBusiness
             return await _userRepository.AddUser(User); ;
         }
 
-        public async Task<bool> DeleteUser(int userId)
+        public async Task<bool> DeleteUser(Guid userId)
         {
             return await _userRepository.DeleteUser(userId);
+        }
+
+        public async Task<User> GetUser(Guid userId)
+        {
+            return await _userRepository.GetUser(userId);
         }
 
         public async Task<User> GetUser(string username)
@@ -32,7 +37,7 @@ namespace QuestionRepo.Business.UserBusiness
             return await _userRepository.GetUsers();
         }
 
-        public async Task<bool> IsUserExists(int userId)
+        public async Task<bool> IsUserExists(Guid userId)
         {
             return await _userRepository.IsActive(userId);
         }

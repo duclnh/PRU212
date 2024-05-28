@@ -39,16 +39,16 @@ namespace QuestionRepo.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("{username}")]
-        [ProducesResponseType(200, Type = typeof(UserGet))]
-        public async Task<JsonResult> GetUser(string username)
+        [HttpGet("{userId}")]
+        [ProducesResponseType(200, Type = typeof(UserLogin))]
+        public async Task<JsonResult> GetUser(Guid userId)
         {
-            var isExists = await _service.IsUserExists(username);
+            var isExists = await _service.IsUserExists(userId);
             if (!isExists)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
-            var User = _mapper.Map<UserGet>(await _service.GetUser(username));
+            var User = _mapper.Map<UserLogin>(await _service.GetUser(userId));
             return new JsonResult(User) { StatusCode = StatusCodes.Status200OK };
         }
 
@@ -68,7 +68,7 @@ namespace QuestionRepo.Controllers
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
-            return new JsonResult(new { message = "Successfully login!" }) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(userGet) { StatusCode = StatusCodes.Status200OK };
         }
 
         // PUT: api/Users/5
@@ -77,16 +77,12 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<JsonResult> PutUser(int userId, [FromBody] UserDto userToUpdate)
+        [ProducesResponseType(409)]
+        public async Task<JsonResult> PutUser(Guid userId, [FromBody] UserLogin userToUpdate)
         {
             if (userToUpdate == null)
             {
                 return new JsonResult(new { message = "User is required" }) { StatusCode = StatusCodes.Status400BadRequest };
-            }
-
-            if (userId != userToUpdate.UserId)
-            {
-                return new JsonResult(new { message = "User id mismatch" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
             if (!_service.IsUserExists(userId).Result)
@@ -94,8 +90,18 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
 
-            var userMap = _mapper.Map<User>(userToUpdate);
-            if (!_service.UpdateUser(userMap).Result)
+            var users = _service.GetUsers().Result;
+            var isConflict = users.Any(u => u.Username == userToUpdate.Username && u.UserId != userId);
+            if(isConflict)
+            {
+                return new JsonResult(null) { StatusCode = StatusCodes.Status409Conflict };
+            }
+
+            var user = await _service.GetUser(userId);
+            user.Username = userToUpdate.Username;
+            user.Password = userToUpdate.Password;
+            var isUpdated = !_service.UpdateUser(user).Result;
+            if (isUpdated)
             {
                 return new JsonResult(new { message = "Something went wrong updating User" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }
@@ -107,7 +113,7 @@ namespace QuestionRepo.Controllers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public async Task<JsonResult> PostUser([FromBody] UserDto userCreate)
+        public async Task<JsonResult> PostUser([FromBody] UserLogin userCreate)
         {
             if (userCreate == null)
             {
@@ -131,6 +137,7 @@ namespace QuestionRepo.Controllers
             }
 
             var userMap = _mapper.Map<User>(userCreate);
+            userMap.UserId = Guid.NewGuid();
             if (!_service.AddUser(userMap).Result)
             {
                 return new JsonResult(new { message = "Failed to add User." }) { StatusCode = StatusCodes.Status500InternalServerError };
@@ -144,7 +151,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<JsonResult> DeleteUser(int userId)
+        public async Task<JsonResult> DeleteUser(Guid userId)
         {
             if (!_service.IsUserExists(userId).Result)
             {

@@ -17,12 +17,12 @@ namespace QuestionRepo.Business.RecordBusiness
             return await _RecordRepository.AddRecord(Record); ;
         }
 
-        public async Task<bool> DeleteRecord(int RecordId)
+        public async Task<bool> DeleteRecord(Guid RecordId)
         {
             return await _RecordRepository.DeleteRecord(RecordId);
         }
 
-        public async Task<Record> GetRecord(int RecordId)
+        public async Task<Record> GetRecord(Guid RecordId)
         {
             return await _RecordRepository.GetRecord(RecordId);
         }
@@ -32,7 +32,7 @@ namespace QuestionRepo.Business.RecordBusiness
             return await _RecordRepository.GetRecords();
         }
 
-        public async Task<bool> IsRecordExists(int RecordId)
+        public async Task<bool> IsRecordExists(Guid RecordId)
         {
             return await _RecordRepository.IsRecordExists(RecordId);
         }
