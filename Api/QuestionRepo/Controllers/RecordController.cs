@@ -33,14 +33,13 @@ namespace QuestionRepo.Controllers
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
-            var RecordsDto = _mapper.Map<IEnumerable<RecordDto>>(Records);
-            return new JsonResult(RecordsDto) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(Records) { StatusCode = StatusCodes.Status200OK };
         }
 
         // GET: api/Records/5
         [HttpGet("{recordId}")]
         [ProducesResponseType(200, Type = typeof(RecordDto))]
-        public async Task<JsonResult> GetRecord(int recordId)
+        public async Task<JsonResult> GetRecord(Guid recordId)
         {
             var isExists = await _service.IsRecordExists(recordId);
             if (!isExists)
@@ -57,16 +56,11 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<JsonResult> PutRecord(int recordId, [FromBody] RecordDto RecordToUpdate)
+        public async Task<JsonResult> PutRecord(Guid recordId, [FromBody] RecordDto RecordToUpdate)
         {
             if (RecordToUpdate == null)
             {
                 return new JsonResult(new { message = "Record is required" }) { StatusCode = StatusCodes.Status400BadRequest };
-            }
-
-            if (recordId != RecordToUpdate.RecordId)
-            {
-                return new JsonResult(new { message = "Record id mismatch" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
             if (!_service.IsRecordExists(recordId).Result)
@@ -74,12 +68,23 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
 
-            var RecordMap = _mapper.Map<Record>(RecordToUpdate);
-            if (!_service.UpdateRecord(RecordMap).Result)
+            var records = _service.GetRecords().Result;
+            var isConflict = records.Any(r => r.QuestionId == RecordToUpdate.QuestionId && r.UserId == RecordToUpdate.UserId);
+            if (isConflict)
+            {
+                return new JsonResult(null) { StatusCode = StatusCodes.Status409Conflict };
+            }
+
+            var record = await _service.GetRecord(recordId);
+            record.QuestionId = RecordToUpdate.QuestionId;
+            record.UserId = RecordToUpdate.UserId;
+            record.UserAnswer = RecordToUpdate.UserAnswer;
+
+            if (!_service.UpdateRecord(record).Result)
             {
                 return new JsonResult(new { message = "Something went wrong updating Record" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }
-            return new JsonResult(RecordToUpdate) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(record) { StatusCode = StatusCodes.Status200OK };
         }
 
         // POST: api/Records
@@ -111,6 +116,7 @@ namespace QuestionRepo.Controllers
             }
 
             var RecordMap = _mapper.Map<Record>(RecordCreate);
+            RecordMap.RecordId = Guid.NewGuid();
             if (!_service.AddRecord(RecordMap).Result)
             {
                 return new JsonResult(new { message = "Failed to add Record." }) { StatusCode = StatusCodes.Status500InternalServerError };
@@ -126,7 +132,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<JsonResult> DeleteRecord(int recordId)
+        public async Task<JsonResult> DeleteRecord(Guid recordId)
         {
             if (!_service.IsRecordExists(recordId).Result)
             {

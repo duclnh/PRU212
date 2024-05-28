@@ -25,7 +25,7 @@ namespace QuestionRepo.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<QuestionDto>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Question>))]
         public async Task<JsonResult> GetQuestions()
         {
             var questions = await _service.GetQuestions();
@@ -33,21 +33,20 @@ namespace QuestionRepo.Controllers
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
-            var questionsDto = _mapper.Map<IEnumerable<QuestionDto>>(questions);
-            return new JsonResult(questionsDto) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(questions) { StatusCode = StatusCodes.Status200OK };
         }
 
         // GET: api/Questions/5
         [HttpGet("{questionId}")]
-        [ProducesResponseType(200, Type = typeof(QuestionDto))]
-        public async Task<JsonResult> GetQuestion(int questionId)
+        [ProducesResponseType(200, Type = typeof(QuestionCreate))]
+        public async Task<JsonResult> GetQuestion(Guid questionId)
         {
             var isExists = await _service.IsQuestionExists(questionId);
             if (!isExists)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
-            var question = _mapper.Map<QuestionDto>(await _service.GetQuestion(questionId));
+            var question = _mapper.Map<QuestionCreate>(await _service.GetQuestion(questionId));
             return new JsonResult(question) { StatusCode = StatusCodes.Status200OK };
         }
 
@@ -57,16 +56,11 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<JsonResult> PutQuestion(int questionId, [FromBody] QuestionDto questionToUpdate)
+        public async Task<JsonResult> PutQuestion(Guid questionId, [FromBody] QuestionCreate questionToUpdate)
         {
             if (questionToUpdate == null)
             {
                 return new JsonResult(new { message = "Question is required" }) { StatusCode = StatusCodes.Status400BadRequest };
-            }
-
-            if (questionId != questionToUpdate.QuestionId)
-            {
-                return new JsonResult(new { message = "Question id mismatch" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
             if (!_service.IsQuestionExists(questionId).Result)
@@ -74,8 +68,24 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
 
-            var questionMap = _mapper.Map<Question>(questionToUpdate);
-            if (!_service.UpdateQuestion(questionMap).Result)
+            var questions = _service.GetQuestions().Result;
+            var isConflict = questions.Any(q => q.Question1 == questionToUpdate.Question1 && q.QuestionId != questionId);
+            if (isConflict)
+            {
+                return new JsonResult(null) { StatusCode = StatusCodes.Status409Conflict };
+            }
+
+            var question = _service.GetQuestion(questionId).Result;
+            question.Question1 = questionToUpdate.Question1;
+            question.Answer = questionToUpdate.Answer;
+            question.OptionA = questionToUpdate.OptionA;
+            question.OptionB = questionToUpdate.OptionB;
+            question.OptionC = questionToUpdate.OptionC;
+            question.OptionD = questionToUpdate.OptionD;
+
+
+            var isUpdated = _service.UpdateQuestion(question).Result;
+            if (!isUpdated)
             {
                 return new JsonResult(new { message = "Something went wrong updating Question" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }
@@ -87,7 +97,7 @@ namespace QuestionRepo.Controllers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public async Task<JsonResult> PostQuestion([FromBody] QuestionDto questionCreate)
+        public async Task<JsonResult> PostQuestion([FromBody] QuestionCreate questionCreate)
         {
             if (questionCreate == null)
             {
@@ -114,6 +124,7 @@ namespace QuestionRepo.Controllers
             }
 
             var questionMap = _mapper.Map<Question>(questionCreate);
+            questionMap.QuestionId = Guid.NewGuid();
             if (!_service.AddQuestion(questionMap).Result)
             {
                 var errorResponse = new { message = "Failed to add question." };
@@ -130,7 +141,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<JsonResult> DeleteQuestion(int questionId)
+        public async Task<JsonResult> DeleteQuestion(Guid questionId)
         {
             if (!_service.IsQuestionExists(questionId).Result)
             {

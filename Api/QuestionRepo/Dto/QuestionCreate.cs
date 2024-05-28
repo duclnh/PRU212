@@ -1,9 +1,7 @@
 ﻿namespace QuestionRepo.Dto
 {
-    public class QuestionDto
+    public class QuestionCreate
     {
-
-        public int QuestionId { get; set; }
 
         public string Question1 { get; set; } = null!;
 

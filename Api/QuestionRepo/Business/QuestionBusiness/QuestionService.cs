@@ -1,5 +1,6 @@
 ﻿using QuestionRepo.Repositories.QuestionRepositories;
 using QuestionRepo.Models;
+using QuestionRepo.Dto;
 
 namespace QuestionRepo.Business.QuestionBusiness
 {
@@ -17,12 +18,12 @@ namespace QuestionRepo.Business.QuestionBusiness
             return await _questionRepository.AddQuestion(question); ;
         }
 
-        public async Task<bool> DeleteQuestion(int questionId)
+        public async Task<bool> DeleteQuestion(Guid questionId)
         {
             return await _questionRepository.DeleteQuestion(questionId);
         }
 
-        public async Task<Question> GetQuestion(int questionId)
+        public async Task<Question> GetQuestion(Guid questionId)
         {
             return await _questionRepository.GetQuestion(questionId);
         }
@@ -32,7 +33,7 @@ namespace QuestionRepo.Business.QuestionBusiness
             return await _questionRepository.GetQuestions();
         }
 
-        public async Task<bool> IsQuestionExists(int questionId)
+        public async Task<bool> IsQuestionExists(Guid questionId)
         {
             return await _questionRepository.IsQuestionExists(questionId);
         }
