@@ -19,5 +19,5 @@ MonoBehaviour:
   growTime: 50
   numberStage: 6
   hungry: 0
-  price: 500
+  price: 800
   quantity: 4

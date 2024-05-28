@@ -41,8 +41,6 @@ public class Store : MonoBehaviour
             if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
             {
                 GameManager.instance.animalManager.DropAnimal(storeItems[indexItem].data.itemName);
-                GameManager.instance.nofification.Show("-" + storeItems[indexItem].data.price);
-                menuSettings.SoundBuyItem();
             }
             else
             {
@@ -59,9 +57,7 @@ public class Store : MonoBehaviour
             if (GameManager.instance.player.BuyItemStore(storeItems[indexItem].data.price))
             {
                 GameManager.instance.player.inventoryManager.Add("Backpack", newItem);
-                GameManager.instance.nofification.Show("-" + storeItems[indexItem].data.price);
                 GameManager.instance.uiManager.RefreshAll();
-                menuSettings.SoundBuyItem();
             }
             else
             {
@@ -90,10 +86,8 @@ public class Store : MonoBehaviour
         bool reslut = GameManager.instance.player.inventoryManager.Remove("Toolbar", storeItems[indexItem].name);
         if (reslut)
         {
-            menuSettings.SoundSellItem();
             GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
             GameManager.instance.player.SellItemStore(storeItems[indexItem].data.price);
-            GameManager.instance.nofification.Show("+" + storeItems[indexItem].data.price);
         }
         else
         {

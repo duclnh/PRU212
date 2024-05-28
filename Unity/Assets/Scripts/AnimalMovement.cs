@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,21 +20,37 @@ public class AnimalMovement : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.menuSettings.GetStatusMenuSetting())
+        if (stayPlayer)
         {
-            if (stayPlayer)
-            {
 
-                myRigidbody.velocity = new Vector2(0F, 0F);
+            myRigidbody.velocity = new Vector2(0F, 0F);
+        }
+        else
+        {
+            myRigidbody.velocity = new Vector2(speed, 0F);
+        }
+        InteractWithAnimal();
+        SellAnimal();
+    }
+
+    private void SellAnimal()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && stayPlayer)
+        {
+            AnimalItem animalItem = GameManager.instance.animalManager.GetAnimalItem(gameObject);
+            if (animalItem.currentStage > animalItem.animalData.numberStage)
+            {
+                GameManager.instance.player.SellItemStore(animalItem.priceHarvested);
+                Destroy(gameObject);
             }
             else
             {
-                myRigidbody.velocity = new Vector2(speed, 0F);
+                GameManager.instance.nofification.Show("Pets are not old enough");
+                GameManager.instance.menuSettings.SoundFail();
             }
-            InteractWithAnimal();
         }
-
     }
+
     private void InteractWithAnimal()
     {
         if (Input.GetKeyDown(KeyCode.Q) && stayPlayer)

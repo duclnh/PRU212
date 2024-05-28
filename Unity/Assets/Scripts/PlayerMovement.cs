@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
         if (money - price >= 0)
         {
             money -= price;
+            GameManager.instance.nofification.Show("-" + price);
+            GameManager.instance.menuSettings.SoundBuyItem();
             GameManager.instance.money.RenderMoney();
             return true;
         }
@@ -30,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     public void SellItemStore(int price)
     {
         money += price;
+        GameManager.instance.nofification.Show("+" + price);
+        GameManager.instance.menuSettings.SoundSellItem();
         GameManager.instance.money.RenderMoney();
 
     }
@@ -223,6 +227,4 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(-myRigidbody.velocity.x), 1f);
         }
     }
-
-
 }

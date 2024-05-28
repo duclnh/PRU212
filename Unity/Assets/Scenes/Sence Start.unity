@@ -1112,6 +1112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 1794231216811505137, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3317819108861947498, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
       propertyPath: m_fontSize
       value: 20
