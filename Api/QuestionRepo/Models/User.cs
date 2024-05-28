@@ -5,7 +5,7 @@ namespace QuestionRepo.Models;
 
 public partial class User
 {
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
 
     public string Username { get; set; } = null!;
 

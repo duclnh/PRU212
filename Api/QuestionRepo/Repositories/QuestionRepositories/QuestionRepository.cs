@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using QuestionRepo.Dto;
 using QuestionRepo.Models;
 
 namespace QuestionRepo.Repositories.QuestionRepositories
@@ -6,10 +8,12 @@ namespace QuestionRepo.Repositories.QuestionRepositories
     public class QuestionRepository : IQuestionRepository
     {
         private readonly QuestionWarehouseContext _context;
+        private readonly IMapper _mapper;
 
-        public QuestionRepository(QuestionWarehouseContext context)
+        public QuestionRepository(QuestionWarehouseContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<bool> AddQuestion(Question question)
@@ -19,7 +23,7 @@ namespace QuestionRepo.Repositories.QuestionRepositories
             return isAdded > 0;
         }
 
-        public async Task<bool> DeleteQuestion(int questionId)
+        public async Task<bool> DeleteQuestion(Guid questionId)
         {
             var question = await _context.Questions.FindAsync(questionId);
             if (question == null)
@@ -31,7 +35,7 @@ namespace QuestionRepo.Repositories.QuestionRepositories
             return true;
         }
 
-        public async Task<Question> GetQuestion(int questionId)
+        public async Task<Question> GetQuestion(Guid questionId)
         {
             if (_context.Questions == null)
             {
@@ -53,14 +57,22 @@ namespace QuestionRepo.Repositories.QuestionRepositories
             return await _context.Questions.ToListAsync();
         }
 
-        public async Task<bool> IsQuestionExists(int questionId)
+        public async Task<bool> IsQuestionExists(Guid questionId)
         {
             return await _context.Questions.AnyAsync(q => q.QuestionId == questionId);
         }
 
         public async Task<bool> UpdateQuestion(Question question)
         {
-            _context.Entry(question).State = EntityState.Modified;
+            var existingQuestion = await _context.Questions.FindAsync(question.QuestionId);
+            if (existingQuestion != null)
+            {
+                _context.Entry(existingQuestion).CurrentValues.SetValues(question);
+            }
+            else
+            {
+                _context.Entry(question).State = EntityState.Modified;
+            }
             var isUpdated = await _context.SaveChangesAsync();
             return isUpdated > 0;
         }

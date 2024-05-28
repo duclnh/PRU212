@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QuestionRepo.Dto;
 using QuestionRepo.Models;
 
 namespace QuestionRepo.Repositories.RecordRepositories
@@ -12,14 +13,23 @@ namespace QuestionRepo.Repositories.RecordRepositories
             _context = context;
         }
 
-        public async Task<bool> AddRecord(Record Record)
+        public async Task<bool> AddRecord(Record record)
         {
-            _context.Records.Add(Record);
+            /*_context.Records.Add(Record);
+            var isAdded = await _context.SaveChangesAsync();
+            return isAdded > 0;*/
+            /*var query = $@"
+                        DECLARE @userId UNIQUEIDENTIFIER= {userId};
+                        DECLARE @questionId UNIQUEIDENTIFIER = {questionId};
+                        DECLARE @userAnswer NVARCHAR(1) = {answer};
+                        EXEC [dbo].[CreateRecord] @userId, @questionId, @userAnswer;
+                        ";*/
+            _context.Records.Add(record);
             var isAdded = await _context.SaveChangesAsync();
             return isAdded > 0;
         }
 
-        public async Task<bool> DeleteRecord(int RecordId)
+        public async Task<bool> DeleteRecord(Guid RecordId)
         {
             var Record = await _context.Records.FindAsync(RecordId);
             if (Record == null)
@@ -31,7 +41,7 @@ namespace QuestionRepo.Repositories.RecordRepositories
             return true;
         }
 
-        public async Task<Record> GetRecord(int RecordId)
+        public async Task<Record> GetRecord(Guid RecordId)
         {
             if (_context.Records == null)
             {
@@ -53,14 +63,22 @@ namespace QuestionRepo.Repositories.RecordRepositories
             return await _context.Records.ToListAsync();
         }
 
-        public async Task<bool> IsRecordExists(int RecordId)
+        public async Task<bool> IsRecordExists(Guid RecordId)
         {
             return await _context.Records.AnyAsync(q => q.RecordId == RecordId);
         }
 
         public async Task<bool> UpdateRecord(Record Record)
         {
-            _context.Entry(Record).State = EntityState.Modified;
+            var existingRecord = await _context.Records.FindAsync(Record.RecordId);
+            if (existingRecord != null)
+            {
+                _context.Entry(existingRecord).CurrentValues.SetValues(Record);
+            }
+            else
+            {
+                _context.Entry(Record).State = EntityState.Modified;
+            }
             var isUpdated = await _context.SaveChangesAsync();
             return isUpdated > 0;
         }

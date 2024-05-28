@@ -19,7 +19,7 @@ namespace QuestionRepo.Repositories.UserRepositories
             return isAdded > 0;
         }
 
-        public async Task<bool> DeleteUser(int userId)
+        public async Task<bool> DeleteUser(Guid userId)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
@@ -47,11 +47,27 @@ namespace QuestionRepo.Repositories.UserRepositories
             return user;
         }
 
+        public async Task<User> GetUser(Guid userId)
+        {
+            if (_context.Users == null)
+            {
+                return null;
+            }
+            var user = await _context.Users.SingleOrDefaultAsync(u => userId == u.UserId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
         public async Task<IEnumerable<User>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
-        public async Task<bool> IsActive(int userId)
+        public async Task<bool> IsActive(Guid userId)
         {
             return await _context.Users.AnyAsync(u => u.UserId == userId);
         }
@@ -63,7 +79,15 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<bool> UpdateUser(User user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            var existingUser = await _context.Users.FindAsync(user.UserId);
+            if (existingUser != null)
+            {
+                _context.Entry(existingUser).CurrentValues.SetValues(user);
+            }
+            else
+            {
+                _context.Entry(user).State = EntityState.Modified;
+            }
             var isUpdated = await _context.SaveChangesAsync();
             return isUpdated > 0;
         }

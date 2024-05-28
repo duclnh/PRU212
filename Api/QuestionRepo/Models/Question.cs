@@ -9,7 +9,7 @@ namespace QuestionRepo.Models;
 
 public partial class Question
 {
-    public int QuestionId { get; set; }
+    public Guid QuestionId { get; set; }
 
     public string Question1 { get; set; } = null!;
 
