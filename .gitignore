@@ -2,3 +2,7 @@
 /Unity/Logs
 /Api/QuestionRepo/obj
 /Api/.vs
+/Unity/.vscode
+/Unity/obj
+/Unity/Temp
+/Unity/UserSettings
