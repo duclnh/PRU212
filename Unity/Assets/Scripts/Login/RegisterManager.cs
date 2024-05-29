@@ -7,9 +7,6 @@ using UnityEngine.Networking;
 
 public class RegisterManager : MonoBehaviour
 {
-    public GameObject form;
-    private bool formActive = true;
-
 
     [SerializeField]
     private TMP_InputField usernameInputField;
@@ -19,21 +16,18 @@ public class RegisterManager : MonoBehaviour
 
     [SerializeField]
     private TMP_InputField password2InputField;
-
-    public void OnEnable()
+    [SerializeField] GameObject formLogin;
+    void Start()
     {
-        if (!formActive)
+        gameObject.SetActive(false);
+    }
+    public void Back()
+    {
+        if (formLogin != null)
         {
-            // Nếu form chưa active, kích hoạt form và đặt biến formActive thành true
-            form.SetActive(true);
-            formActive = true;
+            formLogin.SetActive(true);
         }
-        else
-        {
-            // Nếu form đã active, tắt form và đặt biến formActive thành false
-            form.SetActive(false);
-            formActive = false;
-        }
+        gameObject.SetActive(false);
     }
     public void OnSubmitRegister()
     {
@@ -73,7 +67,7 @@ public class RegisterManager : MonoBehaviour
         if (password1 != password2)
         {
             returnString = "Password and confirm password do not match";
-        }    
+        }
         return returnString;
     }
 

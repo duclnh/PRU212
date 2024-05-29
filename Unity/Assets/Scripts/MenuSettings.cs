@@ -31,9 +31,9 @@ public class MenuSettings : MonoBehaviour
 
   const string MIXER_MUSIC = "MusicVolume";
   const string MIXER_SFX = "SFXVolume";
-
+  
   public static MenuSettings Instance;
-
+  public System.Guid userId;
   private void Awake()
   {
     if (Instance == null)

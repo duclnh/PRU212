@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     public TileManager tileManager;
     public CropManger cropManger;
+    public System.Guid idUser {get; set;}
 
     public bool BuyItemStore(int price)
     {

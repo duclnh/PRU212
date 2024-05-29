@@ -269,7 +269,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -298,7 +298,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -311,7 +311,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
@@ -355,163 +355,16 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: water_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 12, y: 0, z: 0, w: 11}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d946cffc3cc20b4488b13aa1228df49f
-      internalID: 21300000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 12}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5daccd8f5424d1e4fbeca7563b132576
-      internalID: 21300002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 13, w: 11}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 886d4b6ab537dca4987630dcf16fe10a
-      internalID: 21300004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 12, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 727a881d4a1d42041b1b0295a152ff50
-      internalID: 21300024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_14
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 256
-        width: 65
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 14, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a874f4d1c0f54e04492b06f731c64f7d
-      internalID: 21300028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_24
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 191
-        width: 64
-        height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 12, y: 12, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5dbfb99c3038f0d4d82ae3c848fa4508
-      internalID: 21300048
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_26
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 191
-        width: 64
-        height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 12, z: 12, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41b2d4bf0439fc845b866a2a46994fad
-      internalID: 21300052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Animated_Water_Sheet_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 256
+        x: 0
+        y: 320
         width: 64
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 10, y: 0, z: 0, w: 11}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -527,18 +380,165 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 191
+        y: 320
         width: 64
-        height: 65
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 12, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 10}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 32f751543321ef148875a20ddd60f62c
       internalID: -1652797791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Animated_Water_Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 12, w: 10}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e3a24335d92bb4ea0c0d0605fbe440
+      internalID: 1270063345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Animated_Water_Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb951a895014124a8578889db840dda
+      internalID: -1509659123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Animated_Water_Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fb2e87ffc7ad3544827c88b69967e69
+      internalID: -323950822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Animated_Water_Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 13, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44a0b2fa344025e4eb04d702306dc874
+      internalID: 1125713394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Animated_Water_Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 9, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a0a280227c5905479e3d6daa8d5f11a
+      internalID: -629496470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Animated_Water_Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 9, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ad74459f8771c438b3c60184767cc9
+      internalID: -1985537883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Animated_Water_Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 9, z: 12, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fc216b7839ceee459abe610f1f9cb92
+      internalID: 2021536703
       vertices: []
       indices: 
       edges: []
@@ -556,78 +556,76 @@ TextureImporter:
     nameFileIdTable:
       Animated_Water_Sheet_0: -819974123
       Animated_Water_Sheet_1: -1652797791
-      water_0: 21300000
-      water_1: 21300002
-      water_10: 21300020
-      water_11: 21300022
-      water_12: 21300024
-      water_13: 21300026
-      water_14: 21300028
-      water_15: 21300030
-      water_16: 21300032
-      water_17: 21300034
-      water_18: 21300036
-      water_19: 21300038
-      water_2: 21300004
-      water_20: 21300040
-      water_21: 21300042
-      water_22: 21300044
-      water_23: 21300046
-      water_24: 21300048
-      water_25: 21300050
-      water_26: 21300052
-      water_27: 21300054
-      water_28: 21300056
-      water_29: 21300058
-      water_3: 21300006
-      water_30: 21300060
-      water_31: 21300062
-      water_32: 21300064
-      water_33: 21300066
-      water_34: 21300068
-      water_35: 21300070
-      water_36: 21300072
-      water_37: 21300074
-      water_38: 21300076
-      water_39: 21300078
-      water_4: 21300008
-      water_40: 21300080
-      water_41: 21300082
-      water_42: 21300084
-      water_43: 21300086
-      water_44: 21300088
-      water_45: 21300090
-      water_46: 21300092
-      water_47: 21300094
-      water_48: 21300096
-      water_49: 21300098
-      water_5: 21300010
-      water_50: 21300100
-      water_51: 21300102
-      water_52: 21300104
-      water_53: 21300106
-      water_54: 21300108
-      water_55: 21300110
-      water_56: 21300112
-      water_57: 21300114
-      water_58: 21300116
-      water_59: 21300118
-      water_6: 21300012
-      water_60: 21300120
-      water_61: 21300122
-      water_62: 21300124
-      water_63: 21300126
-      water_64: 21300128
-      water_65: 21300130
-      water_66: 21300132
-      water_67: 21300134
-      water_68: 21300136
-      water_69: 21300138
-      water_7: 21300014
-      water_70: 21300140
-      water_71: 21300142
-      water_8: 21300016
-      water_9: 21300018
+      Animated_Water_Sheet_10: 660321397
+      Animated_Water_Sheet_11: 1146708741
+      Animated_Water_Sheet_12: -1509659123
+      Animated_Water_Sheet_13: -323950822
+      Animated_Water_Sheet_14: 1125713394
+      Animated_Water_Sheet_15: 1550357107
+      Animated_Water_Sheet_16: -1907620895
+      Animated_Water_Sheet_17: 1037184577
+      Animated_Water_Sheet_18: 1743991589
+      Animated_Water_Sheet_19: -387486454
+      Animated_Water_Sheet_2: 1270063345
+      Animated_Water_Sheet_20: -1638435534
+      Animated_Water_Sheet_21: 1726685608
+      Animated_Water_Sheet_22: 1104728414
+      Animated_Water_Sheet_23: 1590265621
+      Animated_Water_Sheet_24: -629496470
+      Animated_Water_Sheet_25: -1985537883
+      Animated_Water_Sheet_26: 2021536703
+      Animated_Water_Sheet_27: -509097046
+      Animated_Water_Sheet_28: 389138793
+      Animated_Water_Sheet_29: -992804081
+      Animated_Water_Sheet_3: -243944890
+      Animated_Water_Sheet_30: -794154362
+      Animated_Water_Sheet_31: -539754751
+      Animated_Water_Sheet_32: -537458194
+      Animated_Water_Sheet_33: 564384480
+      Animated_Water_Sheet_34: -206899464
+      Animated_Water_Sheet_35: -1165930522
+      Animated_Water_Sheet_36: -751563994
+      Animated_Water_Sheet_37: 1295645220
+      Animated_Water_Sheet_38: -1994190128
+      Animated_Water_Sheet_39: -1309635121
+      Animated_Water_Sheet_4: 2072380433
+      Animated_Water_Sheet_40: -604249223
+      Animated_Water_Sheet_41: -1600712026
+      Animated_Water_Sheet_42: -108274600
+      Animated_Water_Sheet_43: 855920153
+      Animated_Water_Sheet_44: -28501183
+      Animated_Water_Sheet_45: -1448811284
+      Animated_Water_Sheet_46: -421306045
+      Animated_Water_Sheet_47: 1615591969
+      Animated_Water_Sheet_48: 741691805
+      Animated_Water_Sheet_49: 411800534
+      Animated_Water_Sheet_5: 406070674
+      Animated_Water_Sheet_50: -2027235683
+      Animated_Water_Sheet_51: -1356545782
+      Animated_Water_Sheet_52: -1554903129
+      Animated_Water_Sheet_53: 21503952
+      Animated_Water_Sheet_54: -1224496381
+      Animated_Water_Sheet_55: -1478113741
+      Animated_Water_Sheet_56: -708250583
+      Animated_Water_Sheet_57: -1989613562
+      Animated_Water_Sheet_58: -1718466287
+      Animated_Water_Sheet_59: -2064612920
+      Animated_Water_Sheet_6: -930632083
+      Animated_Water_Sheet_60: -260527681
+      Animated_Water_Sheet_61: 2112645747
+      Animated_Water_Sheet_62: 734223444
+      Animated_Water_Sheet_63: 403632544
+      Animated_Water_Sheet_64: -367313867
+      Animated_Water_Sheet_65: -1871375323
+      Animated_Water_Sheet_66: 1108272364
+      Animated_Water_Sheet_67: 390592012
+      Animated_Water_Sheet_68: 983362916
+      Animated_Water_Sheet_69: 1313473965
+      Animated_Water_Sheet_7: -1027730653
+      Animated_Water_Sheet_70: -1233647168
+      Animated_Water_Sheet_71: -1297693968
+      Animated_Water_Sheet_8: -826113471
+      Animated_Water_Sheet_9: -672852051
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
