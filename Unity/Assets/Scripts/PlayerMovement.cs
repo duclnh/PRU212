@@ -8,8 +8,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float runSpeed = 10f;
     [SerializeField] public int money = 500;
-    [SerializeField] TextMeshProUGUI textMeshProUGUI;
-    [SerializeField] GameObject interactTable;
+    [SerializeField] GameObject interactTablePlant;
+    [SerializeField] GameObject interactAnimal;
     Vector2 moveInput;
     CapsuleCollider2D myBodyCollider;
     Rigidbody2D myRigidbody;
@@ -21,12 +21,18 @@ public class PlayerMovement : MonoBehaviour
     public CropManger cropManger;
     public System.Guid idUser { get; set; }
 
-    public void ToggleInteract(bool interact, string text)
+    public void ToggleInteractPlant(bool interact)
     {
-        if (textMeshProUGUI != null && interactTable != null)
+        if (interactTablePlant != null)
         {
-            interactTable.SetActive(interact);
-            textMeshProUGUI.text = text;
+            interactTablePlant.SetActive(interact);
+        }
+    }
+    public void ToggleInteractAnimal(bool interact)
+    {
+        if (interactAnimal != null)
+        {
+            interactAnimal.SetActive(interact);
         }
     }
     public bool BuyItemStore(int price)
@@ -82,8 +88,24 @@ public class PlayerMovement : MonoBehaviour
             Harvest();
             FlipSprite();
             MenuSetting();
+            AreaPlating();
         }
     }
+
+    private void AreaPlating()
+    {
+        Vector3Int position = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y - 1, 0);
+        string titleName = tileManager.GetTileName(position);
+        if (titleName != null && titleName == "Interactable")
+        {
+            ToggleInteractPlant(true);
+        }
+        else
+        {
+            ToggleInteractPlant(false);
+        }
+    }
+
     private void MenuSetting()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

@@ -11,7 +11,6 @@ public class AnimalMovement : MonoBehaviour
     Animator animalAnimation;
     [SerializeField] Item item;
 
-
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -144,7 +143,7 @@ public class AnimalMovement : MonoBehaviour
         {
             animalAnimation.enabled = false;
             stayPlayer = true;
-            GameManager.instance.player.ToggleInteract(true,"[Q]  Harvest [R] Take care\n[E] Sell");
+            GameManager.instance.player.ToggleInteractAnimal(true);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -153,10 +152,9 @@ public class AnimalMovement : MonoBehaviour
         {
             animalAnimation.enabled = true;
             stayPlayer = false;
-            GameManager.instance.player.ToggleInteract(false,"");
+            GameManager.instance.player.ToggleInteractAnimal(false);
         }
     }
-
     private void FlipSprites()
     {
         transform.localScale = new Vector3(-transform.localScale.x,
