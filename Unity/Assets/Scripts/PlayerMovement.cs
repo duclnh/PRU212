@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject interactAnimal;
     Vector2 moveInput;
     CapsuleCollider2D myBodyCollider;
-    Rigidbody2D myRigidbody;
+    private Rigidbody2D myRigidbody;
     Animator myAnimator;
 
     public InventoryManager inventoryManager;
@@ -20,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public TileManager tileManager;
     public CropManger cropManger;
     public System.Guid idUser { get; set; }
-
+    private bool move = true;
     public void ToggleInteractPlant(bool interact)
     {
         if (interactTablePlant != null)
@@ -82,7 +83,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!GameManager.instance.menuSettings.GetStatusMenuSetting())
         {
-            Run();
+            if (move)
+            {
+                Run();
+            }
             InteractiveGround();
             InteractivePlowing();
             Harvest();
@@ -220,15 +224,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     private void Run()
     {
         if (GameManager.instance.dialogue.ToggleStatus()
             || myAnimator.GetBool("IsPlowing")
             || GameManager.instance.store.ToggleStoreStatus())
         {
-            myAnimator.SetBool("IsDownWalking", false);
-            myAnimator.SetBool("IsUpWalking", false);
-            myAnimator.SetBool("IsTurnWalking", false);
+
             return;
         }
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, moveInput.y * runSpeed);
@@ -261,5 +264,11 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(-myRigidbody.velocity.x), 1f);
         }
     }
-
+    public void SetMove(bool status)
+    {
+        move = status;
+        myAnimator.SetBool("IsDownWalking", false);
+        myAnimator.SetBool("IsUpWalking", false);
+        myAnimator.SetBool("IsTurnWalking", false);
+    }
 }

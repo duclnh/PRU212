@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1678549562089401891}
   - component: {fileID: 5241270840234829164}
   - component: {fileID: 5694895015438968659}
+  - component: {fileID: 6763899256107387545}
   m_Layer: 0
   m_Name: NPC4
   m_TagString: Untagged
@@ -142,3 +143,26 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0014514923, y: 0.4245215}
   m_Size: {x: 0.4281044, y: 0.849043}
   m_Direction: 0
+--- !u!114 &6763899256107387545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7637445316667690152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca28f7a62197db3458ed6977a6fd5c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quizTable: {fileID: 0}
+  textMeshQuestion: {fileID: 0}
+  textMeshA: {fileID: 0}
+  textMeshB: {fileID: 0}
+  textMeshC: {fileID: 0}
+  textMeshD: {fileID: 0}
+  answer1Button: {fileID: 0}
+  answer2Button: {fileID: 0}
+  answer3Button: {fileID: 0}
+  answer4Button: {fileID: 0}
+  timeToAnswer: 15

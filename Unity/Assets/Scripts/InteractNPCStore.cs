@@ -6,6 +6,6 @@ public class InteractNPCStore : MonoBehaviour
 {
      void OnCollisionEnter2D(Collision2D collision2D)
      {
-       GameManager.instance.dialogue.ToggleDialogueBox();
+      GameManager.instance.dialogue.ToggleDialogueBox();
     }
 }

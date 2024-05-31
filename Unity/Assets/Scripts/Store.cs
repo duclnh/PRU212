@@ -10,10 +10,10 @@ public class Store : MonoBehaviour
     private MenuSettings menuSettings;
     void Start()
     {
-        ToogleStore();
+        ToggleStore();
         menuSettings = GameManager.instance.menuSettings;
     }
-    public void ToogleStore()
+    public void ToggleStore()
     {
         if (storePannel != null)
         {
@@ -83,8 +83,8 @@ public class Store : MonoBehaviour
             GameManager.instance.nofification.Show("Please choose item need sell");
             return;
         }
-        bool reslut = GameManager.instance.player.inventoryManager.Remove("Toolbar", storeItems[indexItem].name);
-        if (reslut)
+        bool result = GameManager.instance.player.inventoryManager.Remove("Toolbar", storeItems[indexItem].name);
+        if (result)
         {
             GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
             GameManager.instance.player.SellItemStore(storeItems[indexItem].data.price);
