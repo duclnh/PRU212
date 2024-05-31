@@ -11,12 +11,17 @@ public class AnimalItem
     public int currentStage;
     public int quantityHarvested;
     public int priceHarvested;
-    public AnimalItem(AnimalData animalData, string itemName){
+    public bool hungry;
+    public bool sick;
+    public AnimalItem(AnimalData animalData, string itemName)
+    {
         this.animalData = animalData;
         this.dateTime = DateTime.UtcNow;
         this.currentStage = 0;
         this.quantityHarvested = animalData.quantity;
         this.itemName = itemName;
         this.priceHarvested = animalData.price;
+        this.hungry = false;
+        this.sick = false;
     }
 }

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.Tilemaps;
 
 public class AnimalManager : MonoBehaviour
@@ -33,8 +36,37 @@ public class AnimalManager : MonoBehaviour
         foreach (KeyValuePair<GameObject, AnimalItem> objectAnimal in animalDataDictionary)
         {
             System.TimeSpan timeDifference = objectAnimal.Value.dateTime - System.DateTime.UtcNow;
+            if (Mathf.RoundToInt((float)timeDifference.TotalSeconds) == Random.Range(0, 1500))
+            {
+                Debug.Log(objectAnimal.Value.hungry);
+                Transform notificationObject = objectAnimal.Key.transform.Find("hungry");
+
+                if (notificationObject != null && Random.Range(0F, 1F) < 0.1)
+                {
+                    objectAnimal.Value.hungry = true;
+                    notificationObject.gameObject.SetActive(true);
+                }
+            }
+            if (Mathf.RoundToInt((float)timeDifference.TotalSeconds) == Random.Range(0, 2000))
+            {
+                Transform notificationObject = objectAnimal.Key.transform.Find("sick");
+                if (notificationObject != null && Random.Range(0F, 1F) < 0.07)
+                {
+                    objectAnimal.Value.sick = true;
+                    notificationObject.gameObject.SetActive(true);
+                }
+            }
+
             if (timeDifference.TotalSeconds <= 0 && objectAnimal.Value.currentStage <= objectAnimal.Value.animalData.numberStage)
             {
+                if (objectAnimal.Value.hungry)
+                {
+                    objectAnimal.Value.priceHarvested -= 10;
+                }
+                if (objectAnimal.Value.sick)
+                {
+                    objectAnimal.Value.priceHarvested -= 15;
+                }
                 objectAnimal.Value.currentStage++;
                 if (objectAnimal.Key.name.Contains("Cow"))
                 {

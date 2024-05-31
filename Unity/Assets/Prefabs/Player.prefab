@@ -215,9 +215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eda21703fc88b34099e7dd8e8bb2652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 5
-  inventoryManager: {fileID: 0}
+  runSpeed: 3
+  money: 10000
+  interactPlant: {fileID: 0}
+  interactAnimal: {fileID: 0}
+  inventoryManager: {fileID: 2030533795349044796}
   tileManager: {fileID: 0}
+  cropManger: {fileID: 0}
 --- !u!114 &2030533795349044796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,4 +249,4 @@ MonoBehaviour:
       icon: {fileID: 0}
       count: 0
       maxAllowed: 99
-  toolbarSlotCount: 8
+  toolbarSlotCount: 9

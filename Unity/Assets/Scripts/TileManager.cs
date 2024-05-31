@@ -21,6 +21,7 @@ public class TileManager : MonoBehaviour
             }
         }
     }
+
     public void SetInteracted(Vector3Int position)
     {
         GameManager.instance.menuSettings.SoundImpactGround();
@@ -41,5 +42,17 @@ public class TileManager : MonoBehaviour
             }
         }
         return "";
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Trigger entered by: " + other.name);
+        // Add your code here to handle the trigger event
+    }
+
+    // OnTriggerExit2D is called when the Collider2D other has stopped touching the trigger
+    void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("Trigger exited by: " + other.name);
+        // Add your code here to handle the trigger exit event
     }
 }

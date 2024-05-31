@@ -11,6 +11,7 @@ public class AnimalMovement : MonoBehaviour
     Animator animalAnimation;
     [SerializeField] Item item;
 
+
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -31,6 +32,43 @@ public class AnimalMovement : MonoBehaviour
         }
         InteractWithAnimal();
         SellAnimal();
+        TakeCareAnimal();
+    }
+
+    private void TakeCareAnimal()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && stayPlayer)
+        {
+            AnimalItem animalItem = GameManager.instance.animalManager.GetAnimalItem(gameObject);
+            if (animalItem.hungry)
+            {
+                if (GameManager.instance.player.inventoryManager.toolbar.selectedSlot.itemName == "Grass")
+                {
+                    Transform notificationObject = gameObject.transform.Find("hungry");
+                    if (notificationObject != null && animalItem.hungry)
+                    {
+                        GameManager.instance.player.inventoryManager.Remove("Toolbar", "Grass");
+                        GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
+                        animalItem.hungry = false;
+                        notificationObject.gameObject.SetActive(false);
+                    }
+                }
+            }
+            if (animalItem.sick)
+            {
+                if (GameManager.instance.player.inventoryManager.toolbar.selectedSlot.itemName == "Needle")
+                {
+                    Transform notificationObject = gameObject.transform.Find("sick");
+                    if (notificationObject != null && animalItem.sick)
+                    {
+                        GameManager.instance.player.inventoryManager.Remove("Toolbar", "Needle");
+                        GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
+                        animalItem.sick = false;
+                        notificationObject.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
     }
 
     private void SellAnimal()
@@ -106,6 +144,7 @@ public class AnimalMovement : MonoBehaviour
         {
             animalAnimation.enabled = false;
             stayPlayer = true;
+            GameManager.instance.player.ToggleInteract(true,"[Q]  Harvest [R] Take care\n[E] Sell");
         }
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -114,6 +153,7 @@ public class AnimalMovement : MonoBehaviour
         {
             animalAnimation.enabled = true;
             stayPlayer = false;
+            GameManager.instance.player.ToggleInteract(false,"");
         }
     }
 

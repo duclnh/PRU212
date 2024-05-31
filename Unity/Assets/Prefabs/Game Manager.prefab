@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8254287783369109722}
   - component: {fileID: 7698254621557278421}
   - component: {fileID: 6429599871920010061}
+  - component: {fileID: 1664657933246063069}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -52,13 +53,13 @@ MonoBehaviour:
   tileManager: {fileID: 8254287783369109722}
   cropManger: {fileID: 6429599871920010061}
   uiManager: {fileID: 7698254621557278421}
-  animalManager: {fileID: 0}
+  animalManager: {fileID: 1664657933246063069}
   nofification: {fileID: 0}
   player: {fileID: 0}
   dialogue: {fileID: 0}
   store: {fileID: 0}
   money: {fileID: 0}
-  menuSettings: {fileID: 0}
+  menuSettings: {fileID: 9053905294627984477, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
 --- !u!114 &2638834424715019209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +82,8 @@ MonoBehaviour:
   - {fileID: 4847024383600046316, guid: c7317b29271c25b4baa22e61f152617b, type: 3}
   - {fileID: 6686743955785561766, guid: 3cbc0acd5881a8c4d9daeef6dc6395e9, type: 3}
   - {fileID: 5641159044972022829, guid: cfd3224c16b77df4ea19564a798c9b6b, type: 3}
-  - {fileID: 5641159044972022829, guid: cfd3224c16b77df4ea19564a798c9b6b, type: 3}
+  - {fileID: 1637680186724549329, guid: fab57777c6dcb8244824e91fbb8acc00, type: 3}
+  - {fileID: 4083542131714707095, guid: bf8ae2dcadf647646b3f1f516852bf6c, type: 3}
 --- !u!114 &8254287783369109722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,3 +139,20 @@ MonoBehaviour:
   - {fileID: 5816500336188224096, guid: 93d5f4b79ce48d045ae48bfa1456118b, type: 3}
   - {fileID: 6686743955785561766, guid: 3cbc0acd5881a8c4d9daeef6dc6395e9, type: 3}
   - {fileID: 4847024383600046316, guid: c7317b29271c25b4baa22e61f152617b, type: 3}
+--- !u!114 &1664657933246063069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447213030744086353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550ad3c986ee687488adbb29cc10b446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animalMap: {fileID: 0}
+  chickenObject: {fileID: 7254758508551514681, guid: 1e00751287bb5e64a8789193e30ed6d5, type: 3}
+  cowObject: {fileID: 4839340327237143843, guid: f59146d412337cd49a9eaec9b8429d96, type: 3}
+  chickenData: {fileID: 11400000, guid: 16e1b95cf300ca64f9a6f97dff35705f, type: 2}
+  cowData: {fileID: 11400000, guid: cc57380304edd3e48a1fe71c7db83a1f, type: 2}

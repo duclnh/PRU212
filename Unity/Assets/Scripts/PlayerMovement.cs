@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float runSpeed = 10f;
     [SerializeField] public int money = 500;
+    [SerializeField] TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] GameObject interactTable;
     Vector2 moveInput;
     CapsuleCollider2D myBodyCollider;
     Rigidbody2D myRigidbody;
@@ -16,8 +19,16 @@ public class PlayerMovement : MonoBehaviour
 
     public TileManager tileManager;
     public CropManger cropManger;
-    public System.Guid idUser {get; set;}
+    public System.Guid idUser { get; set; }
 
+    public void ToggleInteract(bool interact, string text)
+    {
+        if (textMeshProUGUI != null && interactTable != null)
+        {
+            interactTable.SetActive(interact);
+            textMeshProUGUI.text = text;
+        }
+    }
     public bool BuyItemStore(int price)
     {
         if (money - price >= 0)
@@ -228,4 +239,5 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(-myRigidbody.velocity.x), 1f);
         }
     }
+
 }
