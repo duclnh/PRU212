@@ -18,20 +18,15 @@ public class LoginManager : MonoBehaviour
     [SerializeField]
     private TMP_InputField passwordInputField;
 
-    private static Guid _userId;
-    [HideInInspector]
-    public static Guid userId
-    {
-        get { return _userId; }
-    }
-
     [SerializeField]
     private MenuSettings menuSettings;
+
+    private NotificationManager notificationManager;
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
         menuSettings = FindObjectOfType<MenuSettings>();
-
+        notificationManager = FindObjectOfType<NotificationManager>();
     }
     public void TogggleRegister()
     {
@@ -53,11 +48,10 @@ public class LoginManager : MonoBehaviour
         if (string.IsNullOrEmpty(loginInfo))
         {
             StartCoroutine(Login(username, password));
-            //StartCoroutine(CreateUser("ducle", "123"));
         }
         else
         {
-            Debug.LogError("Login failed: " + loginInfo);
+            notificationManager.OnShowMessage("Login failed: " + loginInfo);
         }
     }
 
@@ -74,43 +68,6 @@ public class LoginManager : MonoBehaviour
         }
         return returnString;
     }
-
-    /*private IEnumerator CreateUser(string username, string password)
-    {
-        // Tạo dữ liệu JSON từ thông tin người dùng
-        string jsonData = string.Format("{{\"username\": \"{0}\", \"password\": \"{1}\"}}", username, password);
-        Debug.Log(jsonData);
-
-        // Chuyển dữ liệu JSON thành byte array
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-
-        // Gửi yêu cầu POST đến API với request body là dữ liệu JSON
-        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl, "POST"))
-        {
-            // Thiết lập tiêu đề Content-Type là application/json
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-
-            // Thiết lập UploadHandler để gửi dữ liệu JSON như là request body
-            webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
-
-            // Thiết lập DownloadHandler để nhận phản hồi từ API
-            webRequest.downloadHandler = new DownloadHandlerBuffer();
-
-            // Gửi yêu cầu và chờ phản hồi
-            yield return webRequest.SendWebRequest();
-
-            // Kiểm tra lỗi và xử lý phản hồi
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError("Error: " + webRequest.error);
-            }
-            else
-            {
-                Debug.Log("Status: " + webRequest.responseCode);
-                Debug.Log("Add successful!");
-            }
-        }
-    }*/
 
     private IEnumerator Login(string username, string password)
     {
@@ -137,13 +94,17 @@ public class LoginManager : MonoBehaviour
             // Kiểm tra lỗi và xử lý phản hồi
             if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("Error: " + webRequest.error);
+                //Debug.LogError("Error: " + webRequest.error);
+                string jsonResponse = webRequest.downloadHandler.text;
+                JObject userData = JObject.Parse(jsonResponse);
+                string message = (string)userData["message"];
+                notificationManager.OnShowMessage("Login failed: " + message);
             }
             else
             {
                 string jsonResponse = webRequest.downloadHandler.text;
                 JObject userData = JObject.Parse(jsonResponse);
-                Guid userId = (Guid)userData["userId"];
+                Guid userId = (Guid)userData["data"]["userId"];
                 menuSettings.userId = userId;
                 mapManager.Play();
                 Debug.Log("Login successful!");

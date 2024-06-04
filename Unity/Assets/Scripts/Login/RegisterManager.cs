@@ -1,4 +1,5 @@
 ﻿using Assets.Static;
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,10 +17,15 @@ public class RegisterManager : MonoBehaviour
 
     [SerializeField]
     private TMP_InputField password2InputField;
-    [SerializeField] GameObject formLogin;
+
+    [SerializeField] 
+    private GameObject formLogin;
+
+    private NotificationManager notificationManager;
     void Start()
     {
         gameObject.SetActive(false);
+        notificationManager = FindObjectOfType<NotificationManager>();
     }
     public void Back()
     {
@@ -37,12 +43,12 @@ public class RegisterManager : MonoBehaviour
 
         if (username.Length > 20)
         {
-            Debug.LogError("Username more than 20 characters");
+            notificationManager.OnShowMessage("Username more than 20 characters");
             return;
         }
         if (password1.Length > 20)
         {
-            Debug.LogError("Password more than 20 characters");
+            notificationManager.OnShowMessage("Password more than 20 characters");
             return;
         }
 
@@ -53,7 +59,7 @@ public class RegisterManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Register failed: " + registerInfo);
+            notificationManager.OnShowMessage("Register failed: " + registerInfo);
         }
     }
 
@@ -99,11 +105,13 @@ public class RegisterManager : MonoBehaviour
             // Kiểm tra lỗi và xử lý phản hồi
             if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("Error: " + webRequest.error);
+                string jsonResponse = webRequest.downloadHandler.text;
+                JObject userData = JObject.Parse(jsonResponse);
+                string message = (string)userData["message"];
+                notificationManager.OnShowMessage("Login failed: " + message);
             }
             else
             {
-                Debug.Log("Status: " + webRequest.responseCode);
                 Debug.Log("Add successful!");
             }
         }

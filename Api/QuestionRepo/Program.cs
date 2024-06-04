@@ -24,6 +24,7 @@ namespace QuestionRepo
 
             builder.Services.AddScoped<IRecordRepository, RecordRepository>();
             builder.Services.AddScoped<IRecordService, RecordService>();
+
             // Add services to the container.
 
             builder.Services.AddControllers();

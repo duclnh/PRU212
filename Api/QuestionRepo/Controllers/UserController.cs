@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 using QuestionRepo.Business.UserBusiness;
 using QuestionRepo.Dto;
 using QuestionRepo.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace QuestionRepo.Controllers
 {
@@ -61,14 +58,14 @@ namespace QuestionRepo.Controllers
             var isExists = await _service.IsUserExists(user.Username);
             if (!isExists)
             {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
+                return new JsonResult(new {data = (object)null, message = "User is not exists.",status = 404}) { StatusCode = StatusCodes.Status404NotFound };
             }
             var userGet = _mapper.Map<User>(await _service.GetUser(user.Username));
             if (user.Password != userGet.Password)
             {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
+                return new JsonResult(new { data = (object)null, message = "Password is invalid.", status = 404 }) { StatusCode = StatusCodes.Status404NotFound };
             }
-            return new JsonResult(userGet) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(new { data = (object)userGet, message = "Login successful!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
         }
 
         // PUT: api/Users/5
@@ -117,14 +114,14 @@ namespace QuestionRepo.Controllers
         {
             if (userCreate == null)
             {
-                return new JsonResult(new { message = "User is required" }) { StatusCode = StatusCodes.Status400BadRequest };
+                return new JsonResult(new { data = (object)null, message = "Username and password is required", status = 400 }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
             var users = await _service.GetUsers();
             var user = users.FirstOrDefault(q => q.Username.Trim().ToUpper() == userCreate.Username.Trim().ToUpper());
             if (user != null)
             {
-                return new JsonResult(new { message = "Username already exists." }) { StatusCode = StatusCodes.Status422UnprocessableEntity };
+                return new JsonResult(new { data = (object)null, message = "Username already exists.", status = 422 }) { StatusCode = StatusCodes.Status422UnprocessableEntity };
             }
 
             if (!ModelState.IsValid)
@@ -133,17 +130,18 @@ namespace QuestionRepo.Controllers
                     .Where(x => x.Value.Errors.Any())
                     .ToDictionary(x => x.Key, x => x.Value.Errors.Select(e => e.ErrorMessage).ToList());
 
-                return new JsonResult(new { message = "Model validation failed.", errors = errors }) { StatusCode = StatusCodes.Status400BadRequest };
+                return new JsonResult(new { data = (object)null, message = "Invalid username and password", status = 400 }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
             var userMap = _mapper.Map<User>(userCreate);
             userMap.UserId = Guid.NewGuid();
             if (!_service.AddUser(userMap).Result)
             {
-                return new JsonResult(new { message = "Failed to add User." }) { StatusCode = StatusCodes.Status500InternalServerError };
+
+                return new JsonResult(new { data = (object)null, message = "Failed to register.", status = 500 }) { StatusCode = StatusCodes.Status500InternalServerError };
             }
 
-            return new JsonResult(new { message = "Successfully created!" }) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(new { data = (object)null, message = "Register successfully!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
         }
 
         // DELETE: api/Users/5
