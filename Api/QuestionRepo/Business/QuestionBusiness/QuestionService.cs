@@ -27,7 +27,10 @@ namespace QuestionRepo.Business.QuestionBusiness
         {
             return await _questionRepository.GetQuestion(questionId);
         }
-
+        public async Task<QuestionDto> RandomQuestion(Guid userId)
+        {
+            return await _questionRepository.RandomQuestion(userId);
+        }
         public async Task<IEnumerable<Question>> GetQuestions()
         {
             return await _questionRepository.GetQuestions();

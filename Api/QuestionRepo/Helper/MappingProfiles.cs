@@ -9,8 +9,8 @@ namespace QuestionRepo.Helper
     {
         public MappingProfiles()
         {
-            CreateMap<Question, QuestionCreate>();
-            CreateMap<QuestionCreate, Question>().ReverseMap();
+            CreateMap<Question, QuestionDto>();
+            CreateMap<QuestionDto, Question>().ReverseMap();
 
             CreateMap<User, UserGet>();
             CreateMap<UserGet, User>().ReverseMap();

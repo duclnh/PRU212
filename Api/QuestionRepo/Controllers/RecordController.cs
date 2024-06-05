@@ -92,16 +92,16 @@ namespace QuestionRepo.Controllers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public async Task<JsonResult> PostRecord([FromBody] RecordDto RecordCreate)
+        public async Task<JsonResult> PostRecord([FromBody] RecordDto recordCreate)
         {
-            if (RecordCreate == null)
+            if (recordCreate == null)
             {
                 return new JsonResult(new { message = "Record is required" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            var Records = await _service.GetRecords();
-            var Record = Records.FirstOrDefault(q => q.QuestionId == RecordCreate.QuestionId);
-            if (Record != null)
+            var records = await _service.GetRecords();
+            var record = records.FirstOrDefault(r => r.QuestionId == recordCreate.QuestionId && r.UserId == recordCreate.UserId && r.UserAnswer == recordCreate.UserAnswer);
+            if (record != null)
             {
                 return new JsonResult(new { message = "Record already exists." }) { StatusCode = StatusCodes.Status422UnprocessableEntity };
             }
@@ -110,12 +110,12 @@ namespace QuestionRepo.Controllers
             {
                 var errors = ModelState
                     .Where(x => x.Value.Errors.Any())
-                    .ToDictionary(x => x.Key, x => x.Value.Errors.Select(e => e.ErrorMessage).ToList());
+                    .ToDictionary(x => x.Key, x => x.Value?.Errors.Select(e => e.ErrorMessage).ToList());
 
                 return new JsonResult(new { message = "Model validation failed.", errors = errors }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            var RecordMap = _mapper.Map<Record>(RecordCreate);
+            var RecordMap = _mapper.Map<Record>(recordCreate);
             RecordMap.RecordId = Guid.NewGuid();
             if (!_service.AddRecord(RecordMap).Result)
             {
@@ -134,7 +134,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(404)]
         public async Task<JsonResult> DeleteRecord(Guid recordId)
         {
-            if (!_service.IsRecordExists(recordId).Result)
+            if (!await _service.IsRecordExists(recordId))
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -144,7 +144,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(ModelState) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!_service.DeleteRecord(recordId).Result)
+            if (!await _service.DeleteRecord(recordId))
             {
                 return new JsonResult(new { message = "Something went wrong deleting Record" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }

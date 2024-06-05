@@ -1,7 +1,10 @@
+﻿using Assets.Static;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -18,6 +21,7 @@ public class Quiz : MonoBehaviour
     [SerializeField] Button answer3Button;
     [SerializeField] Button answer4Button;
     [SerializeField] int timeToAnswer = 15;
+    private Guid questionId;
     private string result = "A";
     private DateTime FailAnswer = DateTime.Now;
     private bool status = true;
@@ -73,18 +77,40 @@ public class Quiz : MonoBehaviour
 
     void GetQuestion()
     {
-        textMeshQuestion.text = "Con j ngu hat";
-        textMeshA.text = "ngu1";
-        textMeshB.text = "ngu2";
-        textMeshC.text = "ngu3";
-        textMeshD.text = "ngu4";
-        result = "ngu1";
+        StartCoroutine(GetQuestionn());
+    }
+
+    private IEnumerator GetQuestionn()
+    {
+        var userId = GameManager.instance.menuSettings.userId;
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(ApiClient.apiUrl + $"Question/{userId}"))
+        {
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Error: " + webRequest.error);
+            }
+            else
+            {
+                string jsonResponse = webRequest.downloadHandler.text;
+                JObject question = JObject.Parse(jsonResponse);
+                textMeshQuestion.text = (string)question["question1"];
+                textMeshA.text = (string)question["optionA"]; ;
+                textMeshB.text = (string)question["optionB"]; ;
+                textMeshC.text = (string)question["optionC"]; ;
+                textMeshD.text = (string)question["optionD"]; ;
+                result = (string)question["answer"];
+                questionId = (Guid)question["questionId"];
+            }
+        }
     }
     public void Answer1()
     {
         if (textMeshA.text == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            OnSave(result);
         }
         else
         {
@@ -100,6 +126,7 @@ public class Quiz : MonoBehaviour
         if (textMeshB.text == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            OnSave(result);
         }
         else
         {
@@ -115,6 +142,7 @@ public class Quiz : MonoBehaviour
         if (textMeshC.text == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            OnSave(result);
         }
         else
         {
@@ -130,6 +158,7 @@ public class Quiz : MonoBehaviour
         if (textMeshD.text == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            OnSave(result);
         }
         else
         {
@@ -139,5 +168,36 @@ public class Quiz : MonoBehaviour
         status = false;
         quizTable.SetActive(false);
         GameManager.instance.player.SetMove(true);
+    }
+
+    private void OnSave(string result)
+    {
+        StartCoroutine(SaveRecord(GameManager.instance.menuSettings.userId, questionId, result));
+    }
+
+    private IEnumerator SaveRecord(Guid userId, Guid questionId, string userAnswer)
+    {
+        // Tạo dữ liệu JSON từ thông tin người dùng
+        string jsonData = string.Format("{{\"userId\": \"{0}\", \"questionId\": \"{1}\", \"userAnswer\": \"{2}\"}}", userId, questionId, userAnswer);
+        Debug.Log(jsonData);
+
+        // Chuyển dữ liệu JSON thành byte array
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+        // Gửi yêu cầu POST đến API với request body là dữ liệu JSON
+        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl + "Record", "POST"))
+        {
+            // Thiết lập tiêu đề Content-Type là application/json
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            // Thiết lập UploadHandler để gửi dữ liệu JSON như là request body
+            webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+
+            // Thiết lập DownloadHandler để nhận phản hồi từ API
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
+
+            // Gửi yêu cầu và chờ phản hồi
+            yield return webRequest.SendWebRequest();
+        }
     }
 }

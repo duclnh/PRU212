@@ -51,6 +51,19 @@ namespace QuestionRepo.Repositories.QuestionRepositories
             return question;
         }
 
+        public async Task<QuestionDto> RandomQuestion(Guid userId)
+        {
+            var randomQuestion = await _context.Questions
+                                        .Where(q => q.Records.All(r => r.QuestionId == q.QuestionId && r.UserAnswer != q.Answer && r.UserId == userId))
+                                        .OrderBy(q => Guid.NewGuid())
+                                        .FirstOrDefaultAsync();
+            if (randomQuestion != null)
+            {
+                return _mapper.Map<QuestionDto>(randomQuestion);
+            }
+            return null;
+        }
+
 
         public async Task<IEnumerable<Question>> GetQuestions()
         {
