@@ -37,15 +37,16 @@ namespace QuestionRepo.Controllers
         }
 
         // GET: api/Questions/5
-        [HttpGet("{userId}")]
-        [ProducesResponseType(200, Type = typeof(QuestionDto))]
-        public async Task<JsonResult> RandomQuestion(Guid userId)
+        [HttpGet("{questionId}")]
+        [ProducesResponseType(200, Type = typeof(QuestionCreate))]
+        public async Task<JsonResult> GetQuestion(Guid questionId)
         {
-            var question = await _service.RandomQuestion(userId);
-            if (question == null)
+            var isExists = await _service.IsQuestionExists(questionId);
+            if (!isExists)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
+            var question = _mapper.Map<QuestionCreate>(await _service.GetQuestion(questionId));
             return new JsonResult(question) { StatusCode = StatusCodes.Status200OK };
         }
 
@@ -55,19 +56,14 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<JsonResult> PutQuestion(Guid questionId, [FromBody] QuestionDto questionToUpdate)
+        public async Task<JsonResult> PutQuestion(Guid questionId, [FromBody] QuestionCreate questionToUpdate)
         {
             if (questionToUpdate == null)
             {
                 return new JsonResult(new { message = "Question is required" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (questionToUpdate.QuestionId != questionId)
-            {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status422UnprocessableEntity };
-            }
-
-            if (!await _service.IsQuestionExists(questionId))
+            if (!_service.IsQuestionExists(questionId).Result)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -101,7 +97,7 @@ namespace QuestionRepo.Controllers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public async Task<JsonResult> PostQuestion([FromBody] QuestionDto questionCreate)
+        public async Task<JsonResult> PostQuestion([FromBody] QuestionCreate questionCreate)
         {
             if (questionCreate == null)
             {
@@ -121,7 +117,7 @@ namespace QuestionRepo.Controllers
             {
                 var errors = ModelState
                     .Where(x => x.Value.Errors.Any())
-                    .ToDictionary(x => x.Key, x => x.Value?.Errors.Select(e => e.ErrorMessage).ToList());
+                    .ToDictionary(x => x.Key, x => x.Value.Errors.Select(e => e.ErrorMessage).ToList());
 
                 var errorResponse = new { message = "Model validation failed.", errors = errors };
                 return new JsonResult(errorResponse) { StatusCode = StatusCodes.Status400BadRequest };
@@ -147,7 +143,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(404)]
         public async Task<JsonResult> DeleteQuestion(Guid questionId)
         {
-            if (!await _service.IsQuestionExists(questionId))
+            if (!_service.IsQuestionExists(questionId).Result)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -157,7 +153,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(ModelState) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!await _service.DeleteQuestion(questionId))
+            if (!_service.DeleteQuestion(questionId).Result)
             {
                 ModelState.AddModelError("", "Something went wrong deleting question");
             }
