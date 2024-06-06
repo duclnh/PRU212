@@ -5,11 +5,11 @@ namespace QuestionRepo.Business.QuestionBusiness
 {
     public interface IQuestionService
     {
-        Task<Question> GetQuestion(Guid questionId);
+        Task<QuestionDto> GetQuestion(Guid questionId);
         Task<QuestionDto> RandomQuestion(Guid userId);
         Task<IEnumerable<Question>> GetQuestions();
-        Task<bool> AddQuestion(Question question);
-        Task<bool> UpdateQuestion(Question question);
+        Task<bool> AddQuestion(QuestionDto question);
+        Task<bool> UpdateQuestion(QuestionDto question);
         Task<bool> DeleteQuestion(Guid questionId);
         Task<bool> IsQuestionExists(Guid questionId);
     }

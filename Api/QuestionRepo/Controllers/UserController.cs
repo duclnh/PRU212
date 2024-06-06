@@ -138,7 +138,7 @@ namespace QuestionRepo.Controllers
             if (!_service.AddUser(userMap).Result)
             {
 
-                return new JsonResult(new { data = (object?)null, message = "Something went wrong. Please come back in a few minutes.", status = 500 }) { StatusCode = StatusCodes.Status500InternalServerError };
+                return new JsonResult(new { data = (object?)null, message = "Failed to register.", status = 500 }) { StatusCode = StatusCodes.Status500InternalServerError };
             }
 
             return new JsonResult(new { data = (object?)null, message = "Register successfully!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
@@ -151,7 +151,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(404)]
         public async Task<JsonResult> DeleteUser(Guid userId)
         {
-            if (!await _service.IsUserExists(userId))
+            if (!_service.IsUserExists(userId).Result)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -161,7 +161,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(ModelState) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!await _service.DeleteUser(userId))
+            if (!_service.DeleteUser(userId).Result)
             {
                 return new JsonResult(new { message = "Something went wrong deleting User" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }

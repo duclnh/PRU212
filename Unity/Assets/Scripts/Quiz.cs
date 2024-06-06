@@ -5,11 +5,11 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Quiz : MonoBehaviour
 {
+    private NotificationManager notificationManager;
     [SerializeField] GameObject quizTable;
     [SerializeField] TextMeshProUGUI textMeshQuestion;
     [SerializeField] TextMeshProUGUI textMeshA;
@@ -25,6 +25,8 @@ public class Quiz : MonoBehaviour
     private string result = "A";
     private DateTime FailAnswer = DateTime.Now;
     private bool status = true;
+
+    private bool isGetQuestion = true;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -52,7 +54,11 @@ public class Quiz : MonoBehaviour
             {
                 GameManager.instance.player.SetMove(false);
                 quizTable.SetActive(true);
-                GetQuestion();
+                StartCoroutine(GetQuestion());
+                if (!isGetQuestion)
+                {
+                    return;
+                }
                 answer1Button.onClick.AddListener(Answer1);
                 answer2Button.onClick.AddListener(Answer2);
                 answer3Button.onClick.AddListener(Answer3);
@@ -75,9 +81,9 @@ public class Quiz : MonoBehaviour
         GameManager.instance.player.SetMove(true);
     }
 
-    void GetQuestion()
+    private IEnumerator GetQuestion()
     {
-        StartCoroutine(GetQuestionn());
+        yield return StartCoroutine(GetQuestionn());
     }
 
     private IEnumerator GetQuestionn()
@@ -95,13 +101,18 @@ public class Quiz : MonoBehaviour
             {
                 string jsonResponse = webRequest.downloadHandler.text;
                 JObject question = JObject.Parse(jsonResponse);
+                questionId = (Guid)question["questionId"];
+                if(questionId == Guid.Empty)
+                {
+                    isGetQuestion = false;
+                    yield return null;
+                }    
                 textMeshQuestion.text = (string)question["question1"];
                 textMeshA.text = (string)question["optionA"]; ;
                 textMeshB.text = (string)question["optionB"]; ;
                 textMeshC.text = (string)question["optionC"]; ;
                 textMeshD.text = (string)question["optionD"]; ;
                 result = (string)question["answer"];
-                questionId = (Guid)question["questionId"];
             }
         }
     }

@@ -69,13 +69,13 @@ public class RegisterManager : MonoBehaviour
     public string CheckRegisterInfo(string username, string password1, string password2)
     {
         string returnString = "";
-        if (password1 != password2)
-        {
-            returnString = "Password and confirm password do not match";
-        }
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password1) || string.IsNullOrEmpty(password2))
         {
             returnString = "Username or password or both is empty";
+        }
+        if (password1 != password2)
+        {
+            returnString = "Password and confirm password do not match";
         }
         return returnString;
     }
@@ -91,7 +91,7 @@ public class RegisterManager : MonoBehaviour
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // Gửi yêu cầu POST đến API với request body là dữ liệu JSON
-        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl + "User", "POST"))
+        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl + "User/", "POST"))
         {
             // Thiết lập tiêu đề Content-Type là application/json
             webRequest.SetRequestHeader("Content-Type", "application/json");
@@ -111,15 +111,11 @@ public class RegisterManager : MonoBehaviour
                 string jsonResponse = webRequest.downloadHandler.text;
                 JObject userData = JObject.Parse(jsonResponse);
                 string message = (string)userData["message"];
-                notificationManager.OnShowMessage("Register failed: " + message);
+                notificationManager.OnShowMessage("Login failed: " + message);
             }
             else
             {
-                string jsonResponse = webRequest.downloadHandler.text;
-                JObject userData = JObject.Parse(jsonResponse);
-                string message = (string)userData["message"];
-                notificationManager.OnShowMessage("Register successful!");
-                Debug.Log("Register successful!");
+                Debug.Log("Add successful!");
             }
         }
     }

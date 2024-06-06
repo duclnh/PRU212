@@ -15,12 +15,10 @@ namespace QuestionRepo.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IQuestionService _service;
-        private readonly IMapper _mapper;
 
-        public QuestionController(IQuestionService service, IMapper mapper)
+        public QuestionController(IQuestionService service)
         {
             _service = service;
-            _mapper = mapper;
         }
 
         // GET: api/Questions
@@ -36,7 +34,7 @@ namespace QuestionRepo.Controllers
             return new JsonResult(questions) { StatusCode = StatusCodes.Status200OK };
         }
 
-        // GET: api/Questions/5
+
         [HttpGet("{userId}")]
         [ProducesResponseType(200, Type = typeof(QuestionDto))]
         public async Task<JsonResult> RandomQuestion(Guid userId)
@@ -62,33 +60,20 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(new { message = "Question is required" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (questionToUpdate.QuestionId != questionId)
-            {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status422UnprocessableEntity };
-            }
-
-            if (!await _service.IsQuestionExists(questionId))
+            if (!_service.IsQuestionExists(questionId).Result)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
 
             var questions = _service.GetQuestions().Result;
-            var isConflict = questions.Any(q => q.Question1 == questionToUpdate.Question1 && q.QuestionId != questionId);
+            var isConflict = questions.Where(q => q.QuestionId != questionToUpdate.QuestionId).Any(q => q.Question1 == questionToUpdate.Question1 && q.QuestionId != questionId);
             if (isConflict)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status409Conflict };
             }
 
-            var question = _service.GetQuestion(questionId).Result;
-            question.Question1 = questionToUpdate.Question1;
-            question.Answer = questionToUpdate.Answer;
-            question.OptionA = questionToUpdate.OptionA;
-            question.OptionB = questionToUpdate.OptionB;
-            question.OptionC = questionToUpdate.OptionC;
-            question.OptionD = questionToUpdate.OptionD;
 
-
-            var isUpdated = _service.UpdateQuestion(question).Result;
+            var isUpdated = _service.UpdateQuestion(questionToUpdate).Result;
             if (!isUpdated)
             {
                 return new JsonResult(new { message = "Something went wrong updating Question" }) { StatusCode = StatusCodes.Status500InternalServerError };
@@ -121,22 +106,20 @@ namespace QuestionRepo.Controllers
             {
                 var errors = ModelState
                     .Where(x => x.Value.Errors.Any())
-                    .ToDictionary(x => x.Key, x => x.Value?.Errors.Select(e => e.ErrorMessage).ToList());
+                    .ToDictionary(x => x.Key, x => x.Value.Errors.Select(e => e.ErrorMessage).ToList());
 
                 var errorResponse = new { message = "Model validation failed.", errors = errors };
                 return new JsonResult(errorResponse) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            var questionMap = _mapper.Map<Question>(questionCreate);
-            questionMap.QuestionId = Guid.NewGuid();
-            if (!_service.AddQuestion(questionMap).Result)
+            questionCreate.QuestionId = Guid.NewGuid();
+            if (!_service.AddQuestion(questionCreate).Result)
             {
                 var errorResponse = new { message = "Failed to add question." };
                 return new JsonResult(errorResponse) { StatusCode = StatusCodes.Status500InternalServerError };
             }
 
-            var result = new JsonResult(new { message = "Successfully created!" });
-            result.StatusCode = StatusCodes.Status200OK;
+            var result = new JsonResult(new { message = "Successfully created!" }) { StatusCode = StatusCodes.Status200OK };
             return result;
         }
 
@@ -147,7 +130,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(404)]
         public async Task<JsonResult> DeleteQuestion(Guid questionId)
         {
-            if (!await _service.IsQuestionExists(questionId))
+            if (!_service.IsQuestionExists(questionId).Result)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -157,7 +140,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(ModelState) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!await _service.DeleteQuestion(questionId))
+            if (!_service.DeleteQuestion(questionId).Result)
             {
                 ModelState.AddModelError("", "Something went wrong deleting question");
             }
