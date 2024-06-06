@@ -59,6 +59,9 @@ public class RegisterManager : MonoBehaviour
         }
         else
         {
+            usernameInputField.text = string.Empty;
+            password1InputField.text = string.Empty;
+            password2InputField.text = string.Empty;
             notificationManager.OnShowMessage("Register failed: " + registerInfo);
         }
     }
@@ -88,7 +91,7 @@ public class RegisterManager : MonoBehaviour
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // Gửi yêu cầu POST đến API với request body là dữ liệu JSON
-        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl, "POST"))
+        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl + "User/", "POST"))
         {
             // Thiết lập tiêu đề Content-Type là application/json
             webRequest.SetRequestHeader("Content-Type", "application/json");

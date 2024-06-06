@@ -8,7 +8,5 @@ namespace QuestionRepo.Dto
 
         public string Username { get; set; } = null!;
 
-        public virtual ICollection<Record> Records { get; set; } = new List<Record>();
-
     }
 }

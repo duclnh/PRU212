@@ -1,21 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\",
+  "WorkspaceRootPath": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\assets\\scripts\\login\\registermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\login\\registermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\scripts\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\assets\\scripts\\login\\loginmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\login\\loginmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\login\\loginmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\new folder\\pru212\\unity\\assets\\scripts\\login\\notificationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\api\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\api\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\login\\notificationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\login\\notificationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\new folder\\pru212\\unity\\assets\\scripts\\menusettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\scripts\\login\\registermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\login\\registermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\menusettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menusettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,52 +42,77 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MenuSettings.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\MenuSettings.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MenuSettings.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\MenuSettings.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MenuSettings.cs",
-              "ViewState": "AQIAABoAAAAAAAAAAAAAwCkAAAAGAAAA",
+              "DocumentIndex": 2,
+              "Title": "ApiClient.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Api\\ApiClient.cs",
+              "RelativeDocumentMoniker": "Assets\\Api\\ApiClient.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Api\\ApiClient.cs",
+              "RelativeToolTip": "Assets\\Api\\ApiClient.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T20:55:06.983Z",
+              "WhenOpened": "2024-06-06T18:56:30.169Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "NotificationManager.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\Login\\NotificationManager.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Login\\NotificationManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Login\\NotificationManager.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\Login\\NotificationManager.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Login\\NotificationManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Login\\NotificationManager.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAAAAgAAAABAAAA",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAwAgAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-02T16:36:52.587Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Quiz.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Quiz.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Quiz.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Quiz.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Quiz.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAjwDoAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T18:44:26.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MenuSettings.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\MenuSettings.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MenuSettings.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\MenuSettings.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MenuSettings.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAAAAwCkAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-02T20:55:06.983Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "LoginManager.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\Login\\LoginManager.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Login\\LoginManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Login\\LoginManager.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\Login\\LoginManager.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Login\\LoginManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Login\\LoginManager.cs",
-              "ViewState": "AQIAAFoAAAAAAAAAAAAUwGAAAAA/AAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAYwDUAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-29T03:41:03.641Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "RegisterManager.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\Login\\RegisterManager.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Login\\RegisterManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Login\\RegisterManager.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\New folder\\PRU212\\Unity\\Assets\\Scripts\\Login\\RegisterManager.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Login\\RegisterManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Login\\RegisterManager.cs",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAUwGoAAAANAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAwwF0AAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-29T03:35:40.301Z",
               "EditorCaption": ""

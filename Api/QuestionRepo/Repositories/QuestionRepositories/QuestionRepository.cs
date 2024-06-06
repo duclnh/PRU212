@@ -8,12 +8,10 @@ namespace QuestionRepo.Repositories.QuestionRepositories
     public class QuestionRepository : IQuestionRepository
     {
         private readonly QuestionWarehouseContext _context;
-        private readonly IMapper _mapper;
 
-        public QuestionRepository(QuestionWarehouseContext context, IMapper mapper)
+        public QuestionRepository(QuestionWarehouseContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<bool> AddQuestion(Question question)
@@ -42,7 +40,6 @@ namespace QuestionRepo.Repositories.QuestionRepositories
                 return null;
             }
             var question = await _context.Questions.FindAsync(questionId);
-
             if (question == null)
             {
                 return null;
@@ -51,6 +48,18 @@ namespace QuestionRepo.Repositories.QuestionRepositories
             return question;
         }
 
+        public async Task<Question> RandomQuestion(Guid userId)
+        {
+            var randomQuestion = await _context.Questions
+                                        .Where(q => !q.Records.Any(r => r.UserId == userId))
+                                        .OrderBy(q => Guid.NewGuid())
+                                        .FirstOrDefaultAsync();
+            if (randomQuestion != null)
+            {
+                return randomQuestion;
+            }
+            return null;
+        }
 
         public async Task<IEnumerable<Question>> GetQuestions()
         {

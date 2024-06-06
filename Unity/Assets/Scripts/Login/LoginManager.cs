@@ -78,7 +78,7 @@ public class LoginManager : MonoBehaviour
         byte[] body = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // Gửi yêu cầu POST đến API với request body là dữ liệu JSON
-        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl + "login", "POST"))
+        using (UnityWebRequest webRequest = new UnityWebRequest(ApiClient.apiUrl + "User/login", "POST"))
         {
             // Thiết lập tiêu đề Content-Type là application/json
             webRequest.SetRequestHeader("Content-Type", "application/json");

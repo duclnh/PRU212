@@ -100,7 +100,7 @@ namespace QuestionRepo.Controllers
             }
 
             var Records = await _service.GetRecords();
-            var Record = Records.FirstOrDefault(q => q.QuestionId == RecordCreate.QuestionId);
+            var Record = Records.FirstOrDefault(q => q.QuestionId == RecordCreate.QuestionId && q.UserId == RecordCreate.UserId);
             if (Record != null)
             {
                 return new JsonResult(new { message = "Record already exists." }) { StatusCode = StatusCodes.Status422UnprocessableEntity };
