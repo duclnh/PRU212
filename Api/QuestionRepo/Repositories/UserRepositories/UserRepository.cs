@@ -14,6 +14,7 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<bool> AddUser(User user)
         {
+            user.Money = 0;
             _context.Users.Add(user);
             var isAdded = await _context.SaveChangesAsync();
             return isAdded > 0;

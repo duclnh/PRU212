@@ -63,6 +63,20 @@ namespace QuestionRepo.Repositories.RecordRepositories
             return await _context.Records.ToListAsync();
         }
 
+        public async Task<IEnumerable<CountRightAnswer>> GetIQRanking()
+        {
+            return await _context.Records
+            .Where(r => r.IsCorrect)
+            .GroupBy(r => r.UserId)
+            .Select(g => new CountRightAnswer
+            {
+                UserId = g.Key,
+                Username = _context.Users.FirstOrDefault(u => u.UserId == g.Key).Username,
+                Count = g.Count()
+            })
+            .ToListAsync();
+        }
+
         public async Task<bool> IsRecordExists(Guid RecordId)
         {
             return await _context.Records.AnyAsync(q => q.RecordId == RecordId);

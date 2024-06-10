@@ -55,7 +55,7 @@ public partial class QuestionWarehouseContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("recordId");
             entity.Property(e => e.QuestionId).HasColumnName("questionId");
-            entity.Property(e => e.UserAnswer).HasColumnName("userAnswer");
+            entity.Property(e => e.IsCorrect).HasColumnName("isCorrect");
             entity.Property(e => e.UserId).HasColumnName("userId");
 
             entity.HasOne(d => d.Question).WithMany(p => p.Records)
@@ -82,6 +82,8 @@ public partial class QuestionWarehouseContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("username");
+            entity.Property(e => e.Money)
+                .HasColumnName("money");
         });
 
         OnModelCreatingPartial(modelBuilder);

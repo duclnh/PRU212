@@ -9,7 +9,7 @@ public partial class Record
 
     public Guid UserId { get; set; }
 
-    public string UserAnswer { get; set; } = null!;
+    public bool IsCorrect { get; set; }
 
     public Guid QuestionId { get; set; }
 

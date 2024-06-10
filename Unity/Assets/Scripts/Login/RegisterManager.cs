@@ -52,6 +52,9 @@ public class RegisterManager : MonoBehaviour
             return;
         }
 
+        usernameInputField.text = string.Empty;
+        password1InputField.text = string.Empty;
+        password2InputField.text = string.Empty;
         string registerInfo = CheckRegisterInfo(username, password1, password2);
         if (string.IsNullOrEmpty(registerInfo))
         {
@@ -59,9 +62,6 @@ public class RegisterManager : MonoBehaviour
         }
         else
         {
-            usernameInputField.text = string.Empty;
-            password1InputField.text = string.Empty;
-            password2InputField.text = string.Empty;
             notificationManager.OnShowMessage("Register failed: " + registerInfo);
         }
     }
@@ -115,6 +115,7 @@ public class RegisterManager : MonoBehaviour
             }
             else
             {
+                notificationManager.OnShowMessage("Register successful!");
                 Debug.Log("Add successful!");
             }
         }

@@ -1,4 +1,5 @@
-﻿using QuestionRepo.Models;
+﻿using QuestionRepo.Dto;
+using QuestionRepo.Models;
 using QuestionRepo.Repositories.RecordRepositories;
 
 namespace QuestionRepo.Business.RecordBusiness
@@ -10,6 +11,11 @@ namespace QuestionRepo.Business.RecordBusiness
         public RecordService(IRecordRepository RecordRepository)
         {
             _RecordRepository = RecordRepository;
+        }
+
+        public async Task<IEnumerable<CountRightAnswer>> GetIQRanking()
+        {
+            return await _RecordRepository.GetIQRanking();
         }
 
         public async Task<bool> AddRecord(Record Record)

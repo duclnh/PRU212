@@ -151,7 +151,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(404)]
         public async Task<JsonResult> DeleteUser(Guid userId)
         {
-            if (!_service.IsUserExists(userId).Result)
+            if (!await _service.IsUserExists(userId))
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -161,7 +161,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(ModelState) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!_service.DeleteUser(userId).Result)
+            if (!await _service.DeleteUser(userId))
             {
                 return new JsonResult(new { message = "Something went wrong deleting User" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }

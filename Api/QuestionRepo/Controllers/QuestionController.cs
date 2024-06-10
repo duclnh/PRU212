@@ -60,12 +60,12 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(new { message = "Question is required" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!_service.IsQuestionExists(questionId).Result)
+            if (!await _service.IsQuestionExists(questionId))
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
 
-            var questions = _service.GetQuestions().Result;
+            var questions = await _service.GetQuestions();
             var isConflict = questions.Where(q => q.QuestionId != questionToUpdate.QuestionId).Any(q => q.Question1 == questionToUpdate.Question1 && q.QuestionId != questionId);
             if (isConflict)
             {
@@ -73,7 +73,7 @@ namespace QuestionRepo.Controllers
             }
 
 
-            var isUpdated = _service.UpdateQuestion(questionToUpdate).Result;
+            var isUpdated = await _service.UpdateQuestion(questionToUpdate);
             if (!isUpdated)
             {
                 return new JsonResult(new { message = "Something went wrong updating Question" }) { StatusCode = StatusCodes.Status500InternalServerError };
@@ -106,7 +106,7 @@ namespace QuestionRepo.Controllers
             {
                 var errors = ModelState
                     .Where(x => x.Value.Errors.Any())
-                    .ToDictionary(x => x.Key, x => x.Value.Errors.Select(e => e.ErrorMessage).ToList());
+                    .ToDictionary(x => x.Key, x => x.Value?.Errors.Select(e => e.ErrorMessage).ToList());
 
                 var errorResponse = new { message = "Model validation failed.", errors = errors };
                 return new JsonResult(errorResponse) { StatusCode = StatusCodes.Status400BadRequest };
@@ -130,7 +130,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(404)]
         public async Task<JsonResult> DeleteQuestion(Guid questionId)
         {
-            if (!_service.IsQuestionExists(questionId).Result)
+            if (!await _service.IsQuestionExists(questionId))
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -140,7 +140,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(ModelState) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!_service.DeleteQuestion(questionId).Result)
+            if (!await _service.DeleteQuestion(questionId))
             {
                 ModelState.AddModelError("", "Something went wrong deleting question");
             }

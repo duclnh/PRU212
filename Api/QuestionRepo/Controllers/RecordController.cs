@@ -24,20 +24,33 @@ namespace QuestionRepo.Controllers
         }
 
         // GET: api/Records
+        [HttpGet("ranking")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<CountRightAnswer>))]
+        public async Task<JsonResult> GetRanking()
+        {
+            var records = await _service.GetIQRanking();
+            if (records == null)
+            {
+                return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
+            }
+            return new JsonResult(records) { StatusCode = StatusCodes.Status200OK };
+        }
+
+        // GET: api/Records
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<RecordDto>))]
         public async Task<JsonResult> GetRecords()
         {
-            var Records = await _service.GetRecords();
-            if (Records == null)
+            var records = await _service.GetRecords();
+            if (records == null)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
-            return new JsonResult(Records) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(records) { StatusCode = StatusCodes.Status200OK };
         }
 
         // GET: api/Records/5
-        [HttpGet("{recordId}")]
+        /*[HttpGet("{recordId}")]
         [ProducesResponseType(200, Type = typeof(RecordDto))]
         public async Task<JsonResult> GetRecord(Guid recordId)
         {
@@ -48,7 +61,7 @@ namespace QuestionRepo.Controllers
             }
             var Record = _mapper.Map<RecordDto>(await _service.GetRecord(recordId));
             return new JsonResult(Record) { StatusCode = StatusCodes.Status200OK };
-        }
+        }*/
 
         // PUT: api/Records/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -78,7 +91,7 @@ namespace QuestionRepo.Controllers
             var record = await _service.GetRecord(recordId);
             record.QuestionId = RecordToUpdate.QuestionId;
             record.UserId = RecordToUpdate.UserId;
-            record.UserAnswer = RecordToUpdate.UserAnswer;
+            record.IsCorrect = RecordToUpdate.IsCorrect;
 
             if (!_service.UpdateRecord(record).Result)
             {
@@ -110,7 +123,7 @@ namespace QuestionRepo.Controllers
             {
                 var errors = ModelState
                     .Where(x => x.Value.Errors.Any())
-                    .ToDictionary(x => x.Key, x => x.Value.Errors.Select(e => e.ErrorMessage).ToList());
+                    .ToDictionary(x => x.Key, x => x.Value?.Errors.Select(e => e.ErrorMessage).ToList());
 
                 return new JsonResult(new { message = "Model validation failed.", errors = errors }) { StatusCode = StatusCodes.Status400BadRequest };
             }
@@ -134,7 +147,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(404)]
         public async Task<JsonResult> DeleteRecord(Guid recordId)
         {
-            if (!_service.IsRecordExists(recordId).Result)
+            if (!await _service.IsRecordExists(recordId))
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
@@ -144,7 +157,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(ModelState) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!_service.DeleteRecord(recordId).Result)
+            if (!await _service.DeleteRecord(recordId))
             {
                 return new JsonResult(new { message = "Something went wrong deleting Record" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }
