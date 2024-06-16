@@ -22,16 +22,16 @@ namespace QuestionRepo.Controllers
         }
 
         // GET: api/Users
-        [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<UserGet>))]
+        [HttpGet("ranking")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<UserRanking>))]
         public async Task<JsonResult> GetUsers()
         {
             var Users = await _service.GetUsers();
             if (Users == null)
             {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
+                return new JsonResult(new {message = "Something went wrong. Please come back later."}) { StatusCode = StatusCodes.Status404NotFound };
             }
-            var usersDto = _mapper.Map<IEnumerable<UserGet>>(Users);
+            var usersDto = _mapper.Map<IEnumerable<UserRanking>>(Users);
             return new JsonResult(usersDto) { StatusCode = StatusCodes.Status200OK };
         }
 
@@ -53,19 +53,20 @@ namespace QuestionRepo.Controllers
         // GET: api/Users/5
         [HttpPost("login")]
         [ProducesResponseType(200, Type = typeof(User))]
-        public async Task<JsonResult> GetUser([FromBody] UserLogin user)
+        public async Task<JsonResult> GetUser([FromBody] UserLogin userLogin)
         {
-            var isExists = await _service.IsUserExists(user.Username);
+            var isExists = await _service.IsUserExists(userLogin.Username);
             if (!isExists)
             {
                 return new JsonResult(new {data = (object?)null, message = "User is not exists.",status = 404}) { StatusCode = StatusCodes.Status404NotFound };
             }
-            var userGet = _mapper.Map<User>(await _service.GetUser(user.Username));
-            if (user.Password != userGet.Password)
+            var user = await _service.GetUser(userLogin.Username);
+            var userInfo = _mapper.Map<UserInfo>(user);
+            if (userLogin.Password != user.Password)
             {
                 return new JsonResult(new { data = (object?)null, message = "Password is invalid.", status = 404 }) { StatusCode = StatusCodes.Status404NotFound };
             }
-            return new JsonResult(new { data = (object)userGet, message = "Login successful!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(new { data = (object)userInfo, message = "Login successful!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
         }
 
         // PUT: api/Users/5
@@ -75,34 +76,37 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(409)]
-        public async Task<JsonResult> PutUser(Guid userId, [FromBody] UserLogin userToUpdate)
+        public async Task<JsonResult> PutUser(Guid userId, [FromBody] UserInfo userToUpdate)
         {
             if (userToUpdate == null)
             {
-                return new JsonResult(new { message = "User is required" }) { StatusCode = StatusCodes.Status400BadRequest };
+                return new JsonResult(new { message = "User Information is required!" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
 
-            if (!_service.IsUserExists(userId).Result)
+            if (!await _service.IsUserExists(userId))
             {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
+                return new JsonResult(new { message = "User Information is not exist!" }) { StatusCode = StatusCodes.Status404NotFound };
             }
 
-            var users = _service.GetUsers().Result;
+            /*var users = await _service.GetUsers();
             var isConflict = users.Any(u => u.Username == userToUpdate.Username && u.UserId != userId);
             if(isConflict)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status409Conflict };
+            }*/
+            if(userId != userToUpdate.UserId)
+            {
+                return new JsonResult(new { message = "UserId is not matching!" }) { StatusCode = StatusCodes.Status422UnprocessableEntity };
             }
 
             var user = await _service.GetUser(userId);
-            user.Username = userToUpdate.Username;
-            user.Password = userToUpdate.Password;
-            var isUpdated = !_service.UpdateUser(user).Result;
+            user.Money = userToUpdate.Money;
+            var isUpdated = !await _service.UpdateUser(user);
             if (isUpdated)
             {
-                return new JsonResult(new { message = "Something went wrong updating User" }) { StatusCode = StatusCodes.Status500InternalServerError };
+                return new JsonResult(new { message = "Something went wrong saving!" }) { StatusCode = StatusCodes.Status500InternalServerError };
             }
-            return new JsonResult(userToUpdate) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(new { message = "Saved Successfully!." }) { StatusCode = StatusCodes.Status200OK };
         }
 
         // POST: api/Users

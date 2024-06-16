@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public Dialogue dialogue;
     public Store  store;
 
-    public Money money;
+    public Money money  { get; set; }
 
     public MenuSettings menuSettings;
 

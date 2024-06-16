@@ -12,11 +12,14 @@ namespace QuestionRepo.Helper
             CreateMap<Question, QuestionDto>();
             CreateMap<QuestionDto, Question>().ReverseMap();
 
-            CreateMap<User, UserGet>();
-            CreateMap<UserGet, User>().ReverseMap();
+            CreateMap<User, UserRanking>();
+            CreateMap<UserRanking, User>().ReverseMap();
 
             CreateMap<User, UserLogin>();
             CreateMap<UserLogin, User>().ReverseMap();
+
+            CreateMap<User, UserInfo>();
+            CreateMap<UserInfo, User>().ReverseMap();
 
             CreateMap<Record, RecordDto>();
             CreateMap<RecordDto, Record>().ReverseMap();

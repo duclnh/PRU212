@@ -2,7 +2,7 @@
 
 namespace QuestionRepo.Dto
 {
-    public class UserGet
+    public class UserRanking
     {
 
         public string Username { get; set; } = null!;

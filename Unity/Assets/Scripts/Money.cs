@@ -17,6 +17,7 @@ public class Money : MonoBehaviour
 
     public void RenderMoney()
     {
-        textMeshProUGUI.text = "" + playerMovement.money;
+        textMeshProUGUI.text = "" + GameManager.instance.menuSettings.money;
+        Debug.Log("Money: " + playerMovement.money);    
     }
 }

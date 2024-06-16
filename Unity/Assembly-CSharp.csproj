@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Collectable.cs" />
     <Compile Include="Assets\Scripts\AnimalMap.cs" />
     <Compile Include="Assets\Scripts\TileManager.cs" />
+    <Compile Include="Assets\Scripts\InteractRanking.cs" />
     <Compile Include="Assets\Scripts\Login\LoginManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObject\CropData.cs" />
     <Compile Include="Assets\Scripts\Store.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\Scripts\CropItem.cs" />
     <Compile Include="Assets\Scripts\UI\Slot_UI.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\SaveGame\SaveGame.cs" />
     <Compile Include="Assets\Scripts\AnimalMovement.cs" />
   </ItemGroup>
   <ItemGroup>

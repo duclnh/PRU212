@@ -8,13 +8,14 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float runSpeed = 10f;
-    [SerializeField] public int money = 500;
     [SerializeField] GameObject interactTablePlant;
     [SerializeField] GameObject interactAnimal;
+    public int money { get; set;}
     Vector2 moveInput;
     CapsuleCollider2D myBodyCollider;
     private Rigidbody2D myRigidbody;
     Animator myAnimator;
+    private MenuSettings menuSettings;
 
     public InventoryManager inventoryManager;
 
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
             money -= price;
             GameManager.instance.nofification.Show("-" + price);
             GameManager.instance.menuSettings.SoundBuyItem();
+            menuSettings.money = money;
             GameManager.instance.money.RenderMoney();
             return true;
         }
@@ -77,6 +79,8 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         tileManager = GameManager.instance.tileManager;
         cropManger = GameManager.instance.cropManger;
+        menuSettings = GameManager.instance.menuSettings;
+        money = menuSettings.money;
     }
     // Update is called once per frame
     void Update()

@@ -2927,6 +2927,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &984216628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8309888671305689289, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+  m_PrefabInstance: {fileID: 6250665340261533737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &984216630 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+  m_PrefabInstance: {fileID: 6250665340261533737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984216628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &984216633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984216628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94526d17c02685c49a0e77d09420e37d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveButton: {fileID: 984216630}
 --- !u!1 &1081249180
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,8 +3199,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030517, y: -0.0000076294}
-  m_SizeDelta: {x: 882.3173, y: 465.3636}
+  m_AnchoredPosition: {x: 5.0764, y: 7.8453}
+  m_SizeDelta: {x: 860.6268, y: 550.605}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1092493435
 MonoBehaviour:
@@ -4180,7 +4209,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 401, y: 190}
+  m_AnchoredPosition: {x: 381, y: 227}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827274778
@@ -4398,7 +4427,6 @@ MonoBehaviour:
   formRegister: {fileID: 1542729272}
   usernameInputField: {fileID: 529228956}
   passwordInputField: {fileID: 115036756}
-  menuSettings: {fileID: 0}
 --- !u!1 &1867504418
 GameObject:
   m_ObjectHideFlags: 0
@@ -5129,6 +5157,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 984216633}
+    - target: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Save
+      objectReference: {fileID: 0}
+    - target: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveGame, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 702875550611078345, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1777362799100169511, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5280,7 +5336,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8309888671305689289, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 984216633}
   m_SourcePrefab: {fileID: 100100000, guid: 722e885c45105be4e8c1dc5c33f10464, type: 3}
 --- !u!114 &6250665340261533738 stripped
 MonoBehaviour:

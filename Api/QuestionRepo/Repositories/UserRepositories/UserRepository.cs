@@ -66,7 +66,7 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.OrderBy(u => u.Money).ToListAsync();
         }
         public async Task<bool> IsActive(Guid userId)
         {
@@ -81,14 +81,15 @@ namespace QuestionRepo.Repositories.UserRepositories
         public async Task<bool> UpdateUser(User user)
         {
             var existingUser = await _context.Users.FindAsync(user.UserId);
-            if (existingUser != null)
+            _context.Entry(user).State = EntityState.Modified;
+            /*if (existingUser != null)
             {
                 _context.Entry(existingUser).CurrentValues.SetValues(user);
             }
             else
             {
                 _context.Entry(user).State = EntityState.Modified;
-            }
+            }*/
             var isUpdated = await _context.SaveChangesAsync();
             return isUpdated > 0;
         }

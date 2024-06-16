@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 public class LoginManager : MonoBehaviour
 {
     private MapManager mapManager;
+    private MenuSettings menuSettings;
+    private NotificationManager notificationManager;
+
     [SerializeField] GameObject formRegister;
 
     [SerializeField]
@@ -17,11 +20,6 @@ public class LoginManager : MonoBehaviour
 
     [SerializeField]
     private TMP_InputField passwordInputField;
-
-    [SerializeField]
-    private MenuSettings menuSettings;
-
-    private NotificationManager notificationManager;
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
@@ -105,7 +103,9 @@ public class LoginManager : MonoBehaviour
                 string jsonResponse = webRequest.downloadHandler.text;
                 JObject userData = JObject.Parse(jsonResponse);
                 Guid userId = (Guid)userData["data"]["userId"];
+                int money = (int)userData["data"]["money"];
                 menuSettings.userId = userId;
+                menuSettings.money = money;
                 mapManager.Play();
                 Debug.Log("Login successful!");
             }
