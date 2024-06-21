@@ -130,6 +130,7 @@ namespace QuestionRepo.Controllers
 
             var RecordMap = _mapper.Map<Record>(RecordCreate);
             RecordMap.RecordId = Guid.NewGuid();
+            RecordMap.IsCorrect = true;
             if (!_service.AddRecord(RecordMap).Result)
             {
                 return new JsonResult(new { message = "Failed to add Record." }) { StatusCode = StatusCodes.Status500InternalServerError };

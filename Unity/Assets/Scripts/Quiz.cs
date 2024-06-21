@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class Quiz : MonoBehaviour
 {
-    private NotificationManager notificationManager;
     [SerializeField] GameObject quizTable;
     [SerializeField] TextMeshProUGUI textMeshQuestion;
     [SerializeField] TextMeshProUGUI textMeshA;
@@ -59,6 +58,7 @@ public class Quiz : MonoBehaviour
                 {
                     return;
                 }
+                quizTable.SetActive(true);
                 answer1Button.onClick.AddListener(Answer1);
                 answer2Button.onClick.AddListener(Answer2);
                 answer3Button.onClick.AddListener(Answer3);
@@ -78,7 +78,6 @@ public class Quiz : MonoBehaviour
         FailAnswer.AddMinutes(5);
         status = false;
         quizTable.SetActive(false);
-        GameManager.instance.player.SetMove(true);
     }
 
     private IEnumerator GetQuestion()
@@ -118,7 +117,7 @@ public class Quiz : MonoBehaviour
     }
     public void Answer1()
     {
-        if (textMeshA.text == result)
+        if ("A" == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
             OnSave(result);
@@ -134,7 +133,7 @@ public class Quiz : MonoBehaviour
     }
     public void Answer2()
     {
-        if (textMeshB.text == result)
+        if ("B" == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
             OnSave(result);
@@ -150,7 +149,7 @@ public class Quiz : MonoBehaviour
     }
     public void Answer3()
     {
-        if (textMeshC.text == result)
+        if ("C" == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
             OnSave(result);
@@ -166,7 +165,7 @@ public class Quiz : MonoBehaviour
     }
     public void Answer4()
     {
-        if (textMeshD.text == result)
+        if ("D" == result)
         {
             GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
             OnSave(result);
@@ -183,13 +182,13 @@ public class Quiz : MonoBehaviour
 
     private void OnSave(string result)
     {
-        StartCoroutine(SaveRecord(GameManager.instance.menuSettings.userId, questionId, result));
+        StartCoroutine(SaveRecord(GameManager.instance.menuSettings.userId, questionId));
     }
 
-    private IEnumerator SaveRecord(Guid userId, Guid questionId, string userAnswer)
+    private IEnumerator SaveRecord(Guid userId, Guid questionId)
     {
         // Tạo dữ liệu JSON từ thông tin người dùng
-        string jsonData = string.Format("{{\"userId\": \"{0}\", \"questionId\": \"{1}\", \"userAnswer\": \"{2}\"}}", userId, questionId, userAnswer);
+        string jsonData = string.Format("{{\"userId\": \"{0}\", \"questionId\": \"{1}\"}}", userId, questionId);
         Debug.Log(jsonData);
 
         // Chuyển dữ liệu JSON thành byte array

@@ -71,7 +71,9 @@
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Manager.cs" />
     <Compile Include="Assets\Api\ApiClient.cs" />
+    <Compile Include="Assets\Scripts\Ranking\LoadRankingIQ.cs" />
     <Compile Include="Assets\Scripts\InventoryManager.cs" />
+    <Compile Include="Assets\Scripts\TabManager.cs" />
     <Compile Include="Assets\Scripts\Quiz.cs" />
     <Compile Include="Assets\Scripts\AnimalManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Assets\Scripts\Store.cs" />
     <Compile Include="Assets\Scripts\FadingSprite.cs" />
     <Compile Include="Assets\Scripts\ScriptableObject\AnimalData.cs" />
+    <Compile Include="Assets\Scripts\Ranking\LoadRanking.cs" />
     <Compile Include="Assets\Scripts\ItemManager.cs" />
     <Compile Include="Assets\Scripts\InteractNPCStore.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />

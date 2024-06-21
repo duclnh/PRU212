@@ -66,7 +66,7 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            return await _context.Users.OrderBy(u => u.Money).ToListAsync();
+            return await _context.Users.OrderByDescending(u => u.Money).Take(10).ToListAsync();
         }
         public async Task<bool> IsActive(Guid userId)
         {

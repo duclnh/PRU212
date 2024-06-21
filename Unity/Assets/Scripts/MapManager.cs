@@ -21,7 +21,7 @@ public class MapManager : MonoBehaviour
 
     public void Ranking()
     {
-        SceneManager.LoadScene("Sence 2");
+        SceneManager.LoadScene("Scene2");
     }
     public void LoadMainMenu()
     {

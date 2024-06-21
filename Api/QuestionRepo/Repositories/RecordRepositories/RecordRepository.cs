@@ -74,6 +74,7 @@ namespace QuestionRepo.Repositories.RecordRepositories
                 Username = _context.Users.FirstOrDefault(u => u.UserId == g.Key).Username,
                 Count = g.Count()
             })
+            .Take(10)
             .ToListAsync();
         }
 
