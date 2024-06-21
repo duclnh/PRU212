@@ -3,15 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\scripts\\ranking\\loadrankingiq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ranking\\loadrankingiq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\scripts\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\ranking\\loadranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ranking\\loadranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -19,16 +15,16 @@
       "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tabmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\ui\\inventory_ui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\inventory_ui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\scripts\\interactranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interactranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\money.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\money.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\ranking\\loadranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ranking\\loadranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\assets\\scripts\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|c:\\users\\phong pc\\desktop\\pru212\\unity\\assets\\scripts\\ranking\\loadrankingiq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD8C9303-404B-FB8D-6B9B-21988D5CAC0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ranking\\loadrankingiq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,88 +42,81 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "Quiz.cs",
               "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Quiz.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Quiz.cs",
               "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Quiz.cs",
               "RelativeToolTip": "Assets\\Scripts\\Quiz.cs",
-              "ViewState": "AQIAAC4AAAAAAAAAAAAWwDwAAAAqAAAA",
+              "ViewState": "AQIAADUAAAAAAAAAAAAWwEAAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-19T03:10:03.402Z"
+              "WhenOpened": "2024-06-21T19:41:48.928Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\PlayerMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovement.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\PlayerMovement.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerMovement.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T19:41:17.548Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InteractRanking.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\InteractRanking.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\InteractRanking.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\InteractRanking.cs",
+              "RelativeToolTip": "Assets\\Scripts\\InteractRanking.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAIAwwDwAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T18:02:19.484Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TabManager.cs",
+              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\TabManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TabManager.cs",
+              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\TabManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TabManager.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAYwCYAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T12:57:43.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "LoadRankingIQ.cs",
               "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Ranking\\LoadRankingIQ.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Ranking\\LoadRankingIQ.cs",
               "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Ranking\\LoadRankingIQ.cs",
               "RelativeToolTip": "Assets\\Scripts\\Ranking\\LoadRankingIQ.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBIAAAAAAAAA",
+              "ViewState": "AQIAACAAAAAAAAAAAAAAACYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T17:18:29.486Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Money.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Money.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Money.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Money.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Money.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T16:53:05.853Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TabManager.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\TabManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\TabManager.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\TabManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\TabManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAIwBwAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T12:57:43.469Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Inventory_UI.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\UI\\Inventory_UI.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Inventory_UI.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\UI\\Inventory_UI.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UI\\Inventory_UI.cs",
-              "ViewState": "AQIAAEQAAAAAAAAAAAAiwFoAAABzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T12:28:00.312Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\PlayerMovement.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovement.cs",
-              "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\PlayerMovement.cs",
-              "RelativeToolTip": "Assets\\Scripts\\PlayerMovement.cs",
-              "ViewState": "AQIAAHsAAAAAAAAAAAAiwFcAAABGAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T10:14:59.842Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "LoadRanking.cs",
               "DocumentMoniker": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Ranking\\LoadRanking.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Ranking\\LoadRanking.cs",
               "ToolTip": "C:\\Users\\phong pc\\Desktop\\PRU212\\Unity\\Assets\\Scripts\\Ranking\\LoadRanking.cs",
               "RelativeToolTip": "Assets\\Scripts\\Ranking\\LoadRanking.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABAAAAAFAAAA",
+              "ViewState": "AQIAACsAAAAAAAAAAAAWwDgAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-19T03:09:21.912Z"
+              "WhenOpened": "2024-06-19T03:09:21.912Z",
+              "EditorCaption": ""
             }
           ]
         },

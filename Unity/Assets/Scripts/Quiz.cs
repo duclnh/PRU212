@@ -51,7 +51,6 @@ public class Quiz : MonoBehaviour
         {
             if (!quizTable.activeSelf)
             {
-                GameManager.instance.player.SetMove(false);
                 quizTable.SetActive(true);
                 StartCoroutine(GetQuestion());
                 if (!isGetQuestion)
@@ -63,6 +62,7 @@ public class Quiz : MonoBehaviour
                 answer2Button.onClick.AddListener(Answer2);
                 answer3Button.onClick.AddListener(Answer3);
                 answer4Button.onClick.AddListener(Answer4);
+                GameManager.instance.player.SetMove(false);
                 StartCoroutine(AnswerQuestionDelay());
             }
             else
@@ -78,6 +78,7 @@ public class Quiz : MonoBehaviour
         FailAnswer.AddMinutes(5);
         status = false;
         quizTable.SetActive(false);
+        GameManager.instance.player.SetMove(true);
     }
 
     private IEnumerator GetQuestion()

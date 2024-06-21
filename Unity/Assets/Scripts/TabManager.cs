@@ -36,6 +36,6 @@ public class TabManager : MonoBehaviour
             image.rectTransform.sizeDelta = InactiveTabButtonSize;
         }
         TabButtons[TabId].sprite = ActiveTab;
-        TabButtons[TabId].rectTransform.sizeDelta = ActiveTabButtonSize;
+        /*TabButtons[TabId].rectTransform.sizeDelta = ActiveTabButtonSize;*/
     }
 }

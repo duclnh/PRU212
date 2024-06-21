@@ -37,18 +37,26 @@ public class LoadRankingIQ : MonoBehaviour
             {
                 string jsonResponse = webRequest.downloadHandler.text;
                 JArray list = JArray.Parse(jsonResponse);
-                for (int i = 0; i < list.Count; i++)
+                for (int i = 0; i < usernameList.Count; i++)
                 {
                     if (i < list.Count)
                     {
                         usernameList[i].text = (string)list[i]["username"];
                     }
+                    else
+                    {
+                        usernameList[i].text = "";
+                    }
                 }
-                for (int i = 0; i < list.Count; i++)
+                for (int i = 0; i < countList.Count; i++)
                 {
                     if (i < list.Count)
                     {
                         countList[i].text = (string)list[i]["count"];
+                    }
+                    else
+                    {
+                        countList[i].text = "";
                     }
                 }
             }

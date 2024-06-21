@@ -43,13 +43,27 @@ public class LoadRanking : MonoBehaviour
             {
                 string jsonResponse = webRequest.downloadHandler.text;
                 JArray list = JArray.Parse(jsonResponse);
-                for (int i = 0; i < list.Count; i++)
+                for (int i = 0; i < usernameList.Count; i++)
                 {
-                    usernameList[i].text = (string)list[i]["username"];
+                    if (i < list.Count)
+                    {
+                        usernameList[i].text = (string)list[i]["username"];
+                    }
+                    else
+                    {
+                        usernameList[i].text = "";
+                    }
                 }
-                for (int i = 0; i < list.Count; i++)
+                for (int i = 0; i < moneyList.Count; i++)
                 {
-                    moneyList[i].text = (string)list[i]["money"];
+                    if (i < list.Count)
+                    {
+                        moneyList[i].text = (string)list[i]["money"];
+                    }
+                    else
+                    {
+                        moneyList[i].text = "";
+                    }
                 }
             }
         }

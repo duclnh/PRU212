@@ -8,8 +8,7 @@ public class InteractRanking : MonoBehaviour
     private MapManager mapManager;
     [SerializeField] GameObject rankingMoney;
     [SerializeField] GameObject rankingIQ;
-
-    // Start is called before the first frame update
+    [SerializeField] GameObject TabRanking;
 
     void Start()
     {
@@ -34,23 +33,24 @@ public class InteractRanking : MonoBehaviour
         PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
         if (player != null)
         {
+            /*ShowUpRanking();
+            ShowUpRankingIQ();*/
             ShowUpRanking();
-            ShowUpRankingIQ();
         }
     }
 
 
-    void ShowUpRanking()
+    /*public void ShowUpRankingMoney()
     {
         rankingMoney.SetActive(true);
     }
 
-    void ShowUpRankingIQ()
+    public void ShowUpRankingIQ()
     {
         rankingIQ.SetActive(true);
     }
 
-    public void CloseRanking()
+    public void CloseRankingMoney()
     {
         rankingMoney.SetActive(false);
     }
@@ -58,5 +58,15 @@ public class InteractRanking : MonoBehaviour
     public void CloseRankingIQ()
     {
         rankingIQ.SetActive(false);
+    }*/
+
+    void ShowUpRanking()
+    {
+        TabRanking.SetActive(true);
+    }
+
+    public void CloseRanking()
+    {
+        TabRanking.SetActive(false);
     }
 }
