@@ -34,7 +34,7 @@ public class MenuSettings : MonoBehaviour
   
   public static MenuSettings Instance;
   public System.Guid userId;
-  public int money;
+  public int money { get; set; }
     private void Awake()
   {
     if (Instance == null)

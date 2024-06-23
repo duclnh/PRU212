@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         money += price;
         GameManager.instance.nofification.Show("+" + price);
         GameManager.instance.menuSettings.SoundSellItem();
+        menuSettings.money = money;
         GameManager.instance.money.RenderMoney();
 
     }

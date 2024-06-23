@@ -111,7 +111,7 @@ public class RegisterManager : MonoBehaviour
                 string jsonResponse = webRequest.downloadHandler.text;
                 JObject userData = JObject.Parse(jsonResponse);
                 string message = (string)userData["message"];
-                notificationManager.OnShowMessage("Login failed: " + message);
+                notificationManager.OnShowMessage("Register failed: " + message);
             }
             else
             {
