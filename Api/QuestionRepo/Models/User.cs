@@ -14,4 +14,6 @@ public partial class User
     public int Money { get; set; }
 
     public virtual ICollection<Record> Records { get; set; } = new List<Record>();
+
+    public virtual ICollection<Item> Items { get; set; } = new List<Item>();
 }

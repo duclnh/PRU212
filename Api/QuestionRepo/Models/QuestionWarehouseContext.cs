@@ -26,6 +26,8 @@ public partial class QuestionWarehouseContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<Item> Items { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer("data source=DESKTOP-V5JCDV7\\LOCALHOST;initial catalog=QuestionWarehouse;user id=sa;password=12345;Integrated Security=True;TrustServerCertificate=True");
     private string GetConnectionString()
     {
@@ -84,6 +86,24 @@ public partial class QuestionWarehouseContext : DbContext
                 .HasColumnName("username");
             entity.Property(e => e.Money)
                 .HasColumnName("money");
+        });
+
+        modelBuilder.Entity<Item>(entity =>
+        {
+            entity.Property(e => e.ItemId)
+                .ValueGeneratedNever()
+                .HasColumnName("itemId");
+            entity.Property(e => e.ItemName).IsUnicode(false).HasColumnName("itemName");
+            entity.Property(e => e.Icon).HasColumnName("icon");
+            entity.Property(e => e.Amount).HasColumnName("amount");
+            entity.Property(e => e.Price).HasColumnName("price");
+            entity.Property(e => e.Type).IsUnicode(false).HasColumnName("type");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Items)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Items_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);

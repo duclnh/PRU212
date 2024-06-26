@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QuestionRepo.Business.ItemBusiness;
 using QuestionRepo.Business.QuestionBusiness;
 using QuestionRepo.Business.RecordBusiness;
 using QuestionRepo.Business.UserBusiness;
 using QuestionRepo.Models;
+using QuestionRepo.Repositories.ItemRepositories;
 using QuestionRepo.Repositories.QuestionRepositories;
 using QuestionRepo.Repositories.RecordRepositories;
 using QuestionRepo.Repositories.UserRepositories;
@@ -24,6 +26,9 @@ namespace QuestionRepo
 
             builder.Services.AddScoped<IRecordRepository, RecordRepository>();
             builder.Services.AddScoped<IRecordService, RecordService>();
+
+            builder.Services.AddScoped<IItemRepository, ItemRepository>();
+            builder.Services.AddScoped<IItemService, ItemService>();
 
             // Add services to the container.
 
