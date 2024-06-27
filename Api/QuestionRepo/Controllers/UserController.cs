@@ -65,7 +65,7 @@ namespace QuestionRepo.Controllers
 
         // GET: api/Users/5
         [HttpPost("login")]
-        [ProducesResponseType(200, Type = typeof(User))]
+        [ProducesResponseType(200, Type = typeof(UserInfo))]
         public async Task<JsonResult> GetUser([FromBody] UserLogin userLogin)
         {
             var isExists = await _service.IsUserExists(userLogin.Username);
@@ -81,28 +81,7 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(new { data = (object?)null, message = "Password is invalid.", status = 404 }) { StatusCode = StatusCodes.Status404NotFound };
             }
 
-            var plants = await _plantService.GetPlants(user.UserId);
-            var plantsDto = _mapper.Map<List<PlantDto>>(plants);
-
-            var animals = await _animalService.GetAnimals(user.UserId);
-            var animalsDto = _mapper.Map<List<AnimalDto>>(animals);
-
-            var itemsBackpack = await _itemService.GetItems(user.UserId, "backpack");
-            var bakcpacks = _mapper.Map<List<ItemDto>>(itemsBackpack);
-
-            var itemsToolbar = await _itemService.GetItems(user.UserId, "toolbar");
-            var toolbars = _mapper.Map<List<ItemDto>>(itemsToolbar);
-
-            var result = new UpdateUser
-            {
-                UserInfo = userInfo,
-                Plants = plantsDto,
-                Animals = animalsDto,
-                ItemsBackpack = bakcpacks,
-                ItemsToolbar = toolbars
-            };
-
-            return new JsonResult(new { data = (object)result, message = "Login successful!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
+            return new JsonResult(new { data = (object)userInfo, message = "Login successful!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
         }
 
         // PUT: api/Users/5
