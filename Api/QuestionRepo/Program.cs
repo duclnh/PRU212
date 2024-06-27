@@ -1,13 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QuestionRepo.Business.AnimalBusiness;
+using QuestionRepo.Business.PlantBusiness;
 using QuestionRepo.Business.ItemBusiness;
 using QuestionRepo.Business.QuestionBusiness;
 using QuestionRepo.Business.RecordBusiness;
 using QuestionRepo.Business.UserBusiness;
 using QuestionRepo.Models;
+using QuestionRepo.Repositories.AnimalRepositories;
 using QuestionRepo.Repositories.ItemRepositories;
 using QuestionRepo.Repositories.QuestionRepositories;
 using QuestionRepo.Repositories.RecordRepositories;
 using QuestionRepo.Repositories.UserRepositories;
+using QuestionRepo.Repositories.PlantRepositories;
 
 namespace QuestionRepo
 {
@@ -29,6 +33,12 @@ namespace QuestionRepo
 
             builder.Services.AddScoped<IItemRepository, ItemRepository>();
             builder.Services.AddScoped<IItemService, ItemService>();
+
+            builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
+            builder.Services.AddScoped<IAnimalService, AnimalService>();
+
+            builder.Services.AddScoped<IPlantRepository, PlantRepository>();
+            builder.Services.AddScoped<IPlantService, PlantService>();
 
             // Add services to the container.
 

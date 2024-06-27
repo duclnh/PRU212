@@ -14,7 +14,7 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<bool> AddUser(User user)
         {
-            user.Money = 0;
+            user.Money = 200;
             _context.Users.Add(user);
             var isAdded = await _context.SaveChangesAsync();
             return isAdded > 0;
@@ -66,7 +66,7 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            return await _context.Users.OrderByDescending(u => u.Money).Take(10).ToListAsync();
+            return await _context.Users.OrderByDescending(u => u.Money).ThenByDescending(u => u.Username).Take(10).ToListAsync();
         }
         public async Task<bool> IsActive(Guid userId)
         {
@@ -80,7 +80,6 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<bool> UpdateUser(User user)
         {
-            var existingUser = await _context.Users.FindAsync(user.UserId);
             _context.Entry(user).State = EntityState.Modified;
             /*if (existingUser != null)
             {

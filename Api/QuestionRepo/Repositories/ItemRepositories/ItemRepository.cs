@@ -10,9 +10,22 @@ namespace QuestionRepo.Repositories.ItemRepositories
         {
             _context = context;
         }
-        public async Task<bool> AddItem(Item item)
+
+        public async Task<List<Item>> GetItems(Guid userId, string type)
         {
-            var itemCheck = await _context.Items.SingleAsync(i => i.UserId == item.UserId);
+            var items = new List<Item>();
+            items = await _context.Items.Where(i => i.UserId == userId && i.Type == type).ToListAsync();
+            return items;
+        }
+
+        public async Task<bool> Save()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task PrepareCreate(Item item)
+        {
+            var itemCheck = await _context.Items.FirstOrDefaultAsync(i => i.SlotId == item.SlotId && i.UserId == item.UserId && i.Type == item.Type);
             if (itemCheck != null)
             {
                 itemCheck.ItemName = item.ItemName;
@@ -23,15 +36,8 @@ namespace QuestionRepo.Repositories.ItemRepositories
             }
             else
             {
-                await _context.Items.AddAsync(item);
+                _context.Items.Add(item);
             }
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public async Task<List<Item>> GetItems(Guid userId, string type)
-        {
-            var Items = await _context.Items.Where(i => i.UserId == userId && i.Type == type).ToListAsync();
-            return Items;
         }
     }
 }

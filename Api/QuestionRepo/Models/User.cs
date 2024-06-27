@@ -11,9 +11,21 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public int Money { get; set; }
+    public int Money { get; set; } = 0;
+
+    public int PositionX { get; set; } = 0;
+
+    public int PositionY { get; set; } = 0;
+
+    public int PositionZ { get; set; } = 0;
+
+    public string? Sence { get; set; }
 
     public virtual ICollection<Record> Records { get; set; } = new List<Record>();
 
     public virtual ICollection<Item> Items { get; set; } = new List<Item>();
+
+    public virtual ICollection<Plant> Plants { get; set; } = new List<Plant>();
+
+    public virtual ICollection<Animal> Animals { get; set; } = new List<Animal>();
 }

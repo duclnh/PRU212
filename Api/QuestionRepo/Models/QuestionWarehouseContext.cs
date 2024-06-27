@@ -28,6 +28,10 @@ public partial class QuestionWarehouseContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
 
+    public virtual DbSet<Animal> Animals { get; set; }
+
+    public virtual DbSet<Plant> Plants { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer("data source=DESKTOP-V5JCDV7\\LOCALHOST;initial catalog=QuestionWarehouse;user id=sa;password=12345;Integrated Security=True;TrustServerCertificate=True");
     private string GetConnectionString()
     {
@@ -86,6 +90,15 @@ public partial class QuestionWarehouseContext : DbContext
                 .HasColumnName("username");
             entity.Property(e => e.Money)
                 .HasColumnName("money");
+            entity.Property(e => e.PositionX)
+                .HasColumnName("positionX");
+            entity.Property(e => e.PositionY)
+                .HasColumnName("positionY");
+            entity.Property(e => e.PositionZ)
+                .HasColumnName("positionZ");
+            entity.Property(e => e.Sence)
+                .HasMaxLength(20)
+                .HasColumnName("sence");
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -93,6 +106,7 @@ public partial class QuestionWarehouseContext : DbContext
             entity.Property(e => e.ItemId)
                 .ValueGeneratedNever()
                 .HasColumnName("itemId");
+            entity.Property(e => e.SlotId).HasColumnName("slotId");
             entity.Property(e => e.ItemName).IsUnicode(false).HasColumnName("itemName");
             entity.Property(e => e.Icon).HasColumnName("icon");
             entity.Property(e => e.Amount).HasColumnName("amount");
@@ -104,6 +118,58 @@ public partial class QuestionWarehouseContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Items_Users");
+        });
+
+        modelBuilder.Entity<Plant>(entity =>
+        {
+            entity.Property(e => e.PlantId).ValueGeneratedNever().HasColumnName("plantId");
+            entity.Property(e => e.PositionX)
+                .HasColumnName("positionX");
+            entity.Property(e => e.PositionY)
+                .HasColumnName("positionY");
+            entity.Property(e => e.PositionZ)
+                .HasColumnName("positionZ");
+            entity.Property(e => e.Datetime).HasColumnName("datetime");
+            entity.Property(e => e.CurrentStage).HasColumnName("currentStage");
+            entity.Property(e => e.QuantityHarvested).HasColumnName("quantityHarvested");
+            entity.Property(e => e.Crop).IsUnicode(false).HasColumnName("crop");
+            entity.Property(e => e.GrowTime).HasColumnName("growTime");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+            entity.HasOne(d => d.User).WithMany(p => p.Plants)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Plants_Users");
+        });
+
+        modelBuilder.Entity<Animal>(entity =>
+        {
+            entity.Property(e => e.AnimalId).ValueGeneratedNever().HasColumnName("animalId");
+            entity.Property(e => e.PositionX)
+                .HasColumnName("positionX");
+            entity.Property(e => e.PositionY)
+                .HasColumnName("positionY");
+            entity.Property(e => e.PositionZ)
+                .HasColumnName("positionZ");
+            entity.Property(e => e.MoveSpeed)
+                .HasColumnName("moveSpeed");
+            entity.Property(e => e.NameItem).IsUnicode(false).HasColumnName("nameItem");
+            entity.Property(e => e.GrowTime).HasColumnName("growTime");
+            entity.Property(e => e.NumberStage).HasColumnName("numberStage");
+            entity.Property(e => e.Price).HasColumnName("price");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.ItemName).IsUnicode(false).HasColumnName("itemName");
+            entity.Property(e => e.Datetime).HasColumnName("datetime");
+            entity.Property(e => e.CurrentStage).HasColumnName("currentStage");
+            entity.Property(e => e.QuantityHarvested).HasColumnName("quantityHarvested");
+            entity.Property(e => e.PriceHarvested).HasColumnName("priceHarvested");
+            entity.Property(e => e.Hungry).HasColumnName("hungry");
+            entity.Property(e => e.Sick).HasColumnName("sick");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+            entity.HasOne(d => d.User).WithMany(p => p.Animals)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Animals_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using QuestionRepo.Business.ItemBusiness;
 using QuestionRepo.Dto;
@@ -33,17 +33,22 @@ namespace QuestionRepo.Controllers
 
         [HttpPost]
         [ProducesResponseType(200, Type = typeof(bool))]
-        public async Task<JsonResult> AddItem(Guid userId, [FromBody] ItemDto itemDto)
+        public async Task<JsonResult> AddItem(Guid userId, [FromBody] List<ItemDto> itemDto)
         {
-            var item = _mapper.Map<Item>(itemDto);
-            item.ItemId = Guid.NewGuid();
-            item.UserId = userId;
-            var result = await _service.AddItem(item);
+            var items = _mapper.Map<List<Item>>(itemDto);
+            foreach (var item in items)
+            {
+                item.ItemId = Guid.NewGuid();
+                item.UserId = userId;
+                await _service.PrepareCreate(item);
+            }
+            var result = await _service.Save();
             if(result == false)
             {
-                return new JsonResult(new { message = "Action Failed!" }) { StatusCode = StatusCodes.Status400BadRequest };
+                return new JsonResult(new { message = "Something went wrong!" }) { StatusCode = StatusCodes.Status400BadRequest };
             }
             return new JsonResult(new { message = "Action Succesful!" }) { StatusCode = StatusCodes.Status200OK };
         }
     }
 }
+*/

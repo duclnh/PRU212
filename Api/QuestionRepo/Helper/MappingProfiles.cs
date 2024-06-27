@@ -26,6 +26,12 @@ namespace QuestionRepo.Helper
 
             CreateMap<Item, ItemDto>();
             CreateMap<ItemDto, Item>().ReverseMap();
+
+            CreateMap<Animal, AnimalDto>();
+            CreateMap<AnimalDto, Animal>().ReverseMap();
+
+            CreateMap<Plant, PlantDto>();
+            CreateMap<PlantDto, Plant>().ReverseMap();
         }
     }
 }

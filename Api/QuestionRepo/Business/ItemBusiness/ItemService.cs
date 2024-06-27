@@ -1,4 +1,5 @@
-﻿using QuestionRepo.Models;
+﻿using QuestionRepo.Dto;
+using QuestionRepo.Models;
 using QuestionRepo.Repositories.ItemRepositories;
 
 namespace QuestionRepo.Business.ItemBusiness
@@ -10,14 +11,17 @@ namespace QuestionRepo.Business.ItemBusiness
         {
             _itemRepository = itemRepository;
         }
-        public Task<bool> AddItem(Item item)
+        public async Task PrepareCreate(Item item)
         {
-            return _itemRepository.AddItem(item);
+            await _itemRepository.PrepareCreate(item);
         }
-
-        public Task<List<Item>> GetItems(Guid userId, string type)
+        public async Task<bool> Save()
         {
-            return _itemRepository.GetItems(userId, type);
+            return await _itemRepository.Save();
+        }
+        public async Task<List<Item>> GetItems(Guid userId, string type)
+        {
+            return await _itemRepository.GetItems(userId, type);
         }
     }
 }
