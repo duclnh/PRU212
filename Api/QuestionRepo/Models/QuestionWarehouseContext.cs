@@ -135,6 +135,7 @@ public partial class QuestionWarehouseContext : DbContext
             entity.Property(e => e.Crop).IsUnicode(false).HasColumnName("crop");
             entity.Property(e => e.GrowTime).HasColumnName("growTime");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.Tiles).HasColumnName("tiles");
             entity.Property(e => e.UserId).HasColumnName("userId");
             entity.HasOne(d => d.User).WithMany(p => p.Plants)
                 .HasForeignKey(d => d.UserId)

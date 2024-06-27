@@ -40,6 +40,11 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(new {message = "Something went wrong. Please come back later."}) { StatusCode = StatusCodes.Status404NotFound };
             }
             var usersDto = _mapper.Map<IEnumerable<UserRanking>>(Users);
+            var count = 1;
+            foreach (var user in usersDto)
+            {
+                user.Rank = count++;
+            }
             return new JsonResult(usersDto) { StatusCode = StatusCodes.Status200OK };
         }
 

@@ -13,5 +13,6 @@ namespace QuestionRepo.Dto
         public string Crop { get; set; }
         public int GrowTime { get; set; }
         public int Quantity { get; set; }
+        public string Tiles { get; set; }
     }
 }

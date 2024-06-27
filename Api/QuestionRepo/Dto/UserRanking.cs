@@ -9,5 +9,7 @@ namespace QuestionRepo.Dto
 
         public int Money { get; set; }
 
+        public int Rank { get; set; }
+
     }
 }

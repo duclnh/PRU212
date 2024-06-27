@@ -33,6 +33,11 @@ namespace QuestionRepo.Controllers
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
             }
+            var count = 1;
+            foreach (var record in records)
+            {
+                record.Rank = count++;
+            }
             return new JsonResult(records) { StatusCode = StatusCodes.Status200OK };
         }
 
