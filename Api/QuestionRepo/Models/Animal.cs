@@ -7,7 +7,7 @@
         public float PositionY { get; set; }
         public float PositionZ { get; set; }
         public int MoveSpeed { get; set; }
-        public string NameItem { get; set; }
+        public string? NameItem { get; set; }
         public int GrowTime { get; set; }
         public int NumberStage { get; set; }
         public int Price { get; set; }

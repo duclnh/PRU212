@@ -116,6 +116,7 @@ namespace QuestionRepo.Controllers
 
             // Update Items
             var items = _mapper.Map<List<Item>>(userToUpdate.ItemsBackpack);
+            items.AddRange(_mapper.Map<List<Item>>(userToUpdate.ItemsToolbar));
             foreach (var item in items)
             {
                 item.ItemId = Guid.NewGuid();
