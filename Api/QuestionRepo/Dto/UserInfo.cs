@@ -4,9 +4,9 @@
     {
         public Guid UserId { get; set; }
         public int Money { get; set; }
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
-        public int PositionZ { get; set; }
+        public float PositionX { get; set; }
+        public float PositionY { get; set; }
+        public float PositionZ { get; set; }
         public string Sence { get; set; }
     }
 }
