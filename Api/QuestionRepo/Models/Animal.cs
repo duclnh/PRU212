@@ -19,6 +19,8 @@
         public int PriceHarvested { get; set; }
         public bool Hungry { get; set; }
         public bool Sick { get; set; }
+        public float LocalScaleX { get; set; }
+        public float LocalScaleY { get; set; }
         public Guid UserId { get; set; }
         public virtual User User { get; set; } = null!;
     }

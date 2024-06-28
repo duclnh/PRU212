@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QuestionRepo.Dto;
 using QuestionRepo.Models;
 
 namespace QuestionRepo.Repositories.UserRepositories
@@ -14,7 +15,7 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<bool> AddUser(User user)
         {
-            user.Money = 200;
+            user.Money = 700;
             _context.Users.Add(user);
             var isAdded = await _context.SaveChangesAsync();
             return isAdded > 0;
@@ -30,6 +31,29 @@ namespace QuestionRepo.Repositories.UserRepositories
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<UserRanking> GetUserCurrentRank(Guid userId)
+        {
+            if (_context.Users == null)
+            {
+                return null;
+            }
+            List<User> users = (List<User>)await GetUsers();
+            var currentUser = users.FirstOrDefault(u => u.UserId == userId);
+            if (currentUser == null)
+            {
+                return null;
+            }
+            int currentIndex = users.IndexOf(currentUser) + 1;
+            var userRanking = new UserRanking
+            {
+                Username = currentUser.Username,
+                Money = currentUser.Money,
+                RankMoney = currentIndex
+            };
+
+            return userRanking;
         }
 
         public async Task<User> GetUser(string username)
@@ -66,7 +90,7 @@ namespace QuestionRepo.Repositories.UserRepositories
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            return await _context.Users.OrderByDescending(u => u.Money).ThenByDescending(u => u.Username).Take(10).ToListAsync();
+            return await _context.Users.OrderByDescending(u => u.Money).ThenByDescending(u => u.Username).ToListAsync();
         }
         public async Task<bool> IsActive(Guid userId)
         {

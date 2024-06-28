@@ -20,5 +20,8 @@ namespace QuestionRepo.Dto
         public int PriceHarvested { get; set; }
         public bool Hungry { get; set; }
         public bool Sick { get; set; }
+        public float LocalScaleX { get; set; }
+        public float LocalScaleY { get; set; }
+
     }
 }

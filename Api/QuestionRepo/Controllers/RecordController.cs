@@ -28,7 +28,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<CountRightAnswer>))]
         public async Task<JsonResult> GetRanking()
         {
-            var records = await _service.GetIQRanking();
+            List<CountRightAnswer> records = (List<CountRightAnswer>)await _service.GetIQRanking();
             if (records == null)
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status404NotFound };
@@ -36,7 +36,7 @@ namespace QuestionRepo.Controllers
             var count = 1;
             foreach (var record in records)
             {
-                record.Rank = count++;
+                record.Rank = $"{count++}/{records.Count()}";
             }
             return new JsonResult(records) { StatusCode = StatusCodes.Status200OK };
         }

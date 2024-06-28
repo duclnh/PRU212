@@ -1,10 +1,12 @@
-﻿using QuestionRepo.Models;
+﻿using QuestionRepo.Dto;
+using QuestionRepo.Models;
 
 namespace QuestionRepo.Business.UserBusiness
 {
     public interface IUserService
     {
         Task<User> GetUser(Guid userId);
+        Task<UserRanking> GetUserCurrentRank(Guid userId);
         Task<User> GetUser(string username);
         Task<IEnumerable<User>> GetUsers();
         Task<bool> AddUser(User user);

@@ -1,4 +1,5 @@
-﻿using QuestionRepo.Models;
+﻿using QuestionRepo.Dto;
+using QuestionRepo.Models;
 using QuestionRepo.Repositories.UserRepositories;
 
 namespace QuestionRepo.Business.UserBusiness
@@ -30,6 +31,11 @@ namespace QuestionRepo.Business.UserBusiness
         public async Task<User> GetUser(string username)
         {
             return await _userRepository.GetUser(username);
+        }
+
+        public Task<UserRanking> GetUserCurrentRank(Guid userId)
+        {
+            return _userRepository.GetUserCurrentRank(userId);
         }
 
         public async Task<IEnumerable<User>> GetUsers()

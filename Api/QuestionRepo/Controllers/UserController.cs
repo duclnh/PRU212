@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using QuestionRepo.Business.AnimalBusiness;
 using QuestionRepo.Business.ItemBusiness;
 using QuestionRepo.Business.PlantBusiness;
+using QuestionRepo.Business.RecordBusiness;
 using QuestionRepo.Business.UserBusiness;
 using QuestionRepo.Dto;
 using QuestionRepo.Models;
@@ -14,42 +15,65 @@ namespace QuestionRepo.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly QuestionWarehouseContext _questionWarehouseContext;
         private readonly IUserService _service;
         private readonly IPlantService _plantService;
         private readonly IAnimalService _animalService;
         private readonly IItemService _itemService;
+        private readonly IRecordService _recordService;
         private readonly IMapper _mapper;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(QuestionWarehouseContext questionWarehouseContext, IUserService service, IMapper mapper, IAnimalService animalService, IPlantService plantService, IItemService itemService, ILogger<UserController> logger)
+        public UserController(IUserService service, IMapper mapper, IAnimalService animalService, IPlantService plantService, IItemService itemService, IRecordService recordService, ILogger<UserController> logger)
         {
-            _questionWarehouseContext = questionWarehouseContext;
             _service = service;
             _mapper = mapper;
             _animalService = animalService;
             _plantService = plantService;
             _itemService = itemService;
+            _recordService = recordService;
             _logger = logger;
         }
 
         // GET: api/Users
-        [HttpGet("ranking")]
+        [HttpGet("ranking/{userId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UserRanking>))]
-        public async Task<JsonResult> GetUsers()
+        public async Task<JsonResult> GetUsers(Guid userId)
         {
             var Users = await _service.GetUsers();
             if (Users == null)
             {
                 return new JsonResult(new {message = "Something went wrong. Please come back later."}) { StatusCode = StatusCodes.Status404NotFound };
             }
+            #region Rank for User Money
             var usersDto = _mapper.Map<IEnumerable<UserRanking>>(Users);
             var count = 1;
             foreach (var user in usersDto)
             {
-                user.Rank = count++;
+                user.RankMoney = count++;
             }
-            return new JsonResult(usersDto) { StatusCode = StatusCodes.Status200OK };
+            var currentUser = await _service.GetUserCurrentRank(userId);
+            #endregion
+
+            #region Rank for User Right Answer
+            List<CountRightAnswer> records = (List<CountRightAnswer>)await _recordService.GetIQRanking();
+            var countAnswer = 1;
+            foreach (var record in records)
+            {
+                record.Rank = $"{countAnswer++}/{records.Count()}";
+            }
+            #endregion
+
+            var currentRank = new CurrentRank
+            {
+                userRankings = usersDto,
+                countRightAnswer = records,
+                currentRankMoney = $"{currentUser.RankMoney}/{usersDto.Count()}",
+                money = currentUser.Money,
+                currentRankIQ = records.FirstOrDefault(q => q.UserId == userId)?.Rank ?? $"0/{records.Count()}",
+                rightAnswer = records.FirstOrDefault(q => q.UserId == userId)?.Count ?? 0
+            };
+
+            return new JsonResult(currentRank) { StatusCode = StatusCodes.Status200OK };
         }
 
         // GET: api/Users/5

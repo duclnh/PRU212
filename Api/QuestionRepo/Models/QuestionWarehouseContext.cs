@@ -166,6 +166,8 @@ public partial class QuestionWarehouseContext : DbContext
             entity.Property(e => e.PriceHarvested).HasColumnName("priceHarvested");
             entity.Property(e => e.Hungry).HasColumnName("hungry");
             entity.Property(e => e.Sick).HasColumnName("sick");
+            entity.Property(e => e.LocalScaleX).HasColumnName("localScaleX");
+            entity.Property(e => e.LocalScaleY).HasColumnName("localScaleY");
             entity.Property(e => e.UserId).HasColumnName("userId");
             entity.HasOne(d => d.User).WithMany(p => p.Animals)
                 .HasForeignKey(d => d.UserId)

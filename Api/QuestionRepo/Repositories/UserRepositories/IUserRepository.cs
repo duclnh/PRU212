@@ -1,4 +1,5 @@
-﻿using QuestionRepo.Models;
+﻿using QuestionRepo.Dto;
+using QuestionRepo.Models;
 
 namespace QuestionRepo.Repositories.UserRepositories
 {
@@ -8,6 +9,7 @@ namespace QuestionRepo.Repositories.UserRepositories
         Task<bool> DeleteUser(Guid userId);
         Task<bool> UpdateUser(User user);
         Task<User> GetUser(string username);
+        Task<UserRanking> GetUserCurrentRank(Guid userId);
         Task<User> GetUser(Guid userId);
         Task<IEnumerable<User>> GetUsers();
         Task<bool> IsActive(Guid userId);

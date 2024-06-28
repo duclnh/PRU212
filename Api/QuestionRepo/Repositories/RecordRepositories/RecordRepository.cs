@@ -63,6 +63,8 @@ namespace QuestionRepo.Repositories.RecordRepositories
             return await _context.Records.ToListAsync();
         }
 
+
+
         public async Task<IEnumerable<CountRightAnswer>> GetIQRanking()
         {
             return await _context.Records
@@ -75,7 +77,6 @@ namespace QuestionRepo.Repositories.RecordRepositories
                 Count = g.Count()
             })
             .OrderByDescending(q => q.Count)
-            .Take(10)
             .ToListAsync();
         }
 
