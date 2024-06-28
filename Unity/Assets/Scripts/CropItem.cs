@@ -17,4 +17,8 @@ public class CropItem
         this.quantityHarvested = cropData.quantity;
         this.itemName = itemName;
     }
+    public override string ToString()
+    {
+        return $"Itemname: {itemName} ,Datetime: {dateTime}, CurrentStage: {currentStage}, QuantityHarvested: {quantityHarvested}, CropDate: {cropData.ToString()}";
+    }
 }

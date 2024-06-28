@@ -15,7 +15,7 @@ public class AnimalManager : MonoBehaviour
     public AnimalData chickenData;
     public AnimalData cowData;
 
-    private Dictionary<GameObject, AnimalItem> animalDataDictionary = new Dictionary<GameObject, AnimalItem>();
+    public Dictionary<GameObject, AnimalItem> animalDataDictionary = new Dictionary<GameObject, AnimalItem>();
     void Start()
     {
         if (animalMap != null)
@@ -36,9 +36,8 @@ public class AnimalManager : MonoBehaviour
         foreach (KeyValuePair<GameObject, AnimalItem> objectAnimal in animalDataDictionary)
         {
             System.TimeSpan timeDifference = objectAnimal.Value.dateTime - System.DateTime.UtcNow;
-            if (Mathf.RoundToInt((float)timeDifference.TotalSeconds) == Random.Range(0, 1500))
+            if (Mathf.RoundToInt((float)timeDifference.TotalSeconds) == Random.Range(0, 2500))
             {
-                Debug.Log(objectAnimal.Value.hungry);
                 Transform notificationObject = objectAnimal.Key.transform.Find("hungry");
 
                 if (notificationObject != null && Random.Range(0F, 1F) < 0.1)
@@ -47,7 +46,7 @@ public class AnimalManager : MonoBehaviour
                     notificationObject.gameObject.SetActive(true);
                 }
             }
-            if (Mathf.RoundToInt((float)timeDifference.TotalSeconds) == Random.Range(0, 2000))
+            if (Mathf.RoundToInt((float)timeDifference.TotalSeconds) == Random.Range(0, 3000))
             {
                 Transform notificationObject = objectAnimal.Key.transform.Find("sick");
                 if (notificationObject != null && Random.Range(0F, 1F) < 0.07)

@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InteractRanking : MonoBehaviour
 {
-    private MapManager mapManager;
     [SerializeField] GameObject rankingMoney;
     [SerializeField] GameObject rankingIQ;
     [SerializeField] GameObject TabRanking;
 
-    void Start()
-    {
-        mapManager = FindObjectOfType<MapManager>();
-    }
+
     /*private void OnCollisionEnter2D(Collision2D other)
     {
         PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();

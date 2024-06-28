@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
-    private MapManager mapManager;
     private MenuSettings menuSettings;
     private NotificationManager notificationManager;
 
@@ -22,7 +21,6 @@ public class LoginManager : MonoBehaviour
     private TMP_InputField passwordInputField;
     private void Awake()
     {
-        mapManager = FindObjectOfType<MapManager>();
         menuSettings = FindObjectOfType<MenuSettings>();
         notificationManager = FindObjectOfType<NotificationManager>();
     }
@@ -30,6 +28,7 @@ public class LoginManager : MonoBehaviour
     {
         if (formRegister != null)
         {
+            notificationManager.OnCloseMessage();
             formRegister.SetActive(true);
         }
         gameObject.SetActive(false);
@@ -94,6 +93,7 @@ public class LoginManager : MonoBehaviour
             {
                 //Debug.LogError("Error: " + webRequest.error);
                 string jsonResponse = webRequest.downloadHandler.text;
+                Debug.Log(jsonResponse);
                 JObject userData = JObject.Parse(jsonResponse);
                 string message = (string)userData["message"];
                 notificationManager.OnShowMessage("Login failed: " + message);
@@ -106,7 +106,7 @@ public class LoginManager : MonoBehaviour
                 int money = (int)userData["data"]["money"];
                 menuSettings.userId = userId;
                 menuSettings.money = money;
-                mapManager.Play();
+                SceneManager.LoadScene("Sence 1");
                 Debug.Log("Login successful!");
             }
         }

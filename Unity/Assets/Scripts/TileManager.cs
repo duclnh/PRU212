@@ -12,12 +12,15 @@ public class TileManager : MonoBehaviour
 
     void Start()
     {
-        foreach (var position in interactableMap.cellBounds.allPositionsWithin)
+        if (interactableMap != null)
         {
-            TileBase tile = interactableMap.GetTile(position);
-            if (tile != null && tile.name == "Interactable_visible")
+            foreach (var position in interactableMap.cellBounds.allPositionsWithin)
             {
-                interactableMap.SetTile(position, hiddenInteractableTile);
+                TileBase tile = interactableMap.GetTile(position);
+                if (tile != null && tile.name == "Interactable_visible")
+                {
+                    interactableMap.SetTile(position, hiddenInteractableTile);
+                }
             }
         }
     }

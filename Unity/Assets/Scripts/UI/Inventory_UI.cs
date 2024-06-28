@@ -8,7 +8,7 @@ public class Inventory_UI : MonoBehaviour
 {
     public string inventoryName;
     [SerializeField] List<Slot_UI> slots = new List<Slot_UI>();
-    [SerializeField]  Canvas canvas;
+    [SerializeField] Canvas canvas;
     private Inventory inventory;
 
     void Start()
@@ -87,11 +87,7 @@ public class Inventory_UI : MonoBehaviour
     }
     public void SlotDrop(Slot_UI slot)
     {
-        if(UI_Manager.dragSingle){
-            UI_Manager.draggedSlot.inventory.MoveSlot(UI_Manager.draggedSlot.slotID, slot.slotID,slot.inventory,1);
-        }else{
-            UI_Manager.draggedSlot.inventory.MoveSlot(UI_Manager.draggedSlot.slotID, slot.slotID,slot.inventory,inventory.slots[UI_Manager.draggedSlot.slotID].count);
-        }
+        UI_Manager.draggedSlot.inventory.MoveSlot(UI_Manager.draggedSlot.slotID, slot.slotID, slot.inventory, UI_Manager.dragSingle);
         GameManager.instance.uiManager.RefreshAll();
     }
     private void MouseToMousePosition(GameObject toMove)
@@ -104,7 +100,8 @@ public class Inventory_UI : MonoBehaviour
             toMove.transform.position = canvas.transform.TransformPoint(position);
         }
     }
-    public void CloseInventory(){
-         GameManager.instance.uiManager.ToggleInventoryUI();
+    public void CloseInventory()
+    {
+        GameManager.instance.uiManager.ToggleInventoryUI();
     }
 }

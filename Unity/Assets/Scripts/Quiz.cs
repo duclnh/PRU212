@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -19,14 +20,17 @@ public class Quiz : MonoBehaviour
     [SerializeField] Button answer2Button;
     [SerializeField] Button answer3Button;
     [SerializeField] Button answer4Button;
-    [SerializeField] int timeToAnswer = 15;
+    [SerializeField] int timeToAnswer = 10;
     private Guid questionId;
-    private string result = "A";
-    private DateTime FailAnswer = DateTime.Now;
+    private string result = "";
+    private DateTime FailAnswer;
     private bool status = true;
-
-    private bool isGetQuestion = true;
-
+    [SerializeField] Image imageTime;
+    [SerializeField] int waitTime = 60;
+    float timeValue;
+    float fillFraction;
+    bool isAnswering = false;
+    private Coroutine answerCoroutine;
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (status)
@@ -35,14 +39,27 @@ public class Quiz : MonoBehaviour
         }
         else
         {
+
             GameManager.instance.nofification.Show($"Please come back later here ({FailAnswer.ToString("HH:mm")})");
         }
     }
     void Update()
     {
-        if (DateTime.UtcNow == FailAnswer)
+        if (DateTime.Now == FailAnswer)
         {
             status = true;
+        }
+        if (isAnswering)
+        {
+            timeValue -= Time.deltaTime;
+            if (timeValue > 0)
+            {
+                fillFraction = timeValue / timeToAnswer;
+            }
+            if (imageTime != null)
+            {
+                imageTime.fillAmount = fillFraction;
+            }
         }
     }
     public void ToggleQuiz()
@@ -51,19 +68,7 @@ public class Quiz : MonoBehaviour
         {
             if (!quizTable.activeSelf)
             {
-                quizTable.SetActive(true);
                 StartCoroutine(GetQuestion());
-                if (!isGetQuestion)
-                {
-                    return;
-                }
-                quizTable.SetActive(true);
-                answer1Button.onClick.AddListener(Answer1);
-                answer2Button.onClick.AddListener(Answer2);
-                answer3Button.onClick.AddListener(Answer3);
-                answer4Button.onClick.AddListener(Answer4);
-                GameManager.instance.player.SetMove(false);
-                StartCoroutine(AnswerQuestionDelay());
             }
             else
             {
@@ -75,8 +80,9 @@ public class Quiz : MonoBehaviour
     private IEnumerator AnswerQuestionDelay()
     {
         yield return new WaitForSeconds(timeToAnswer);
-        FailAnswer.AddMinutes(5);
+        FailAnswer = FailAnswer.AddMinutes(waitTime);
         status = false;
+        isAnswering = false;
         quizTable.SetActive(false);
         GameManager.instance.player.SetMove(true);
     }
@@ -102,81 +108,124 @@ public class Quiz : MonoBehaviour
                 string jsonResponse = webRequest.downloadHandler.text;
                 JObject question = JObject.Parse(jsonResponse);
                 questionId = (Guid)question["questionId"];
-                if(questionId == Guid.Empty)
+                if (questionId == Guid.Empty)
                 {
-                    isGetQuestion = false;
+                    GameManager.instance.nofification.Show("Don't have any question");
                     yield return null;
-                }    
-                textMeshQuestion.text = (string)question["question1"];
-                textMeshA.text = (string)question["optionA"]; ;
-                textMeshB.text = (string)question["optionB"]; ;
-                textMeshC.text = (string)question["optionC"]; ;
-                textMeshD.text = (string)question["optionD"]; ;
-                result = (string)question["answer"];
+                }
+                else
+                {
+                    timeValue = timeToAnswer;
+                    fillFraction = 1;
+                    isAnswering = true;
+                    FailAnswer = DateTime.Now;
+                    answer1Button.onClick.RemoveAllListeners();
+                    answer2Button.onClick.RemoveAllListeners();
+                    answer3Button.onClick.RemoveAllListeners();
+                    answer4Button.onClick.RemoveAllListeners();
+
+                    answer1Button.onClick.AddListener(Answer1);
+                    answer2Button.onClick.AddListener(Answer2);
+                    answer3Button.onClick.AddListener(Answer3);
+                    answer4Button.onClick.AddListener(Answer4);
+                    GameManager.instance.player.SetMove(false);
+                    quizTable.SetActive(true);
+                    textMeshQuestion.text = (string)question["question1"];
+                    textMeshA.text = (string)question["optionA"]; ;
+                    textMeshB.text = (string)question["optionB"]; ;
+                    textMeshC.text = (string)question["optionC"]; ;
+                    textMeshD.text = (string)question["optionD"]; ;
+                    result = (string)question["answer"];
+                    answerCoroutine = StartCoroutine(AnswerQuestionDelay());
+                }
             }
         }
     }
     public void Answer1()
     {
+        if (answerCoroutine != null)
+        {
+            StopCoroutine(answerCoroutine);
+        }
         if ("A" == result)
         {
-            GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            GameManager.instance.player.SellItemStore((int)Mathf.Ceil(timeValue) * 20);
             OnSave(result);
         }
         else
         {
             GameManager.instance.nofification.Show("Incorrect answer!");
+            GameManager.instance.menuSettings.SoundFail();
         }
-        FailAnswer.AddMinutes(5);
+        FailAnswer = FailAnswer.AddMinutes(waitTime);
         status = false;
+        isAnswering = false;
         quizTable.SetActive(false);
         GameManager.instance.player.SetMove(true);
     }
     public void Answer2()
     {
+        if (answerCoroutine != null)
+        {
+            StopCoroutine(answerCoroutine);
+        }
         if ("B" == result)
         {
-            GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            GameManager.instance.player.SellItemStore((int)Mathf.Ceil(timeValue) * 20);
             OnSave(result);
         }
         else
         {
             GameManager.instance.nofification.Show("Incorrect answer!");
+            GameManager.instance.menuSettings.SoundFail();
         }
-        FailAnswer.AddMinutes(5);
+        FailAnswer = FailAnswer.AddMinutes(waitTime);
         status = false;
+        isAnswering = false;
         quizTable.SetActive(false);
         GameManager.instance.player.SetMove(true);
     }
     public void Answer3()
     {
+        if (answerCoroutine != null)
+        {
+            StopCoroutine(answerCoroutine);
+        }
         if ("C" == result)
         {
-            GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            GameManager.instance.player.SellItemStore((int)Mathf.Ceil(timeValue) * 20);
             OnSave(result);
         }
         else
         {
             GameManager.instance.nofification.Show("Incorrect answer!");
+            GameManager.instance.menuSettings.SoundFail();
         }
-        FailAnswer.AddMinutes(5);
+        FailAnswer = FailAnswer.AddMinutes(waitTime);
         status = false;
+        isAnswering = false;
         quizTable.SetActive(false);
         GameManager.instance.player.SetMove(true);
     }
     public void Answer4()
     {
+        if (answerCoroutine != null)
+        {
+            StopCoroutine(answerCoroutine);
+        }
         if ("D" == result)
         {
-            GameManager.instance.player.SellItemStore(UnityEngine.Random.Range(0, 100));
+            GameManager.instance.player.SellItemStore((int)Mathf.Ceil(timeValue) * 20);
             OnSave(result);
         }
         else
         {
             GameManager.instance.nofification.Show("Incorrect answer!");
+            GameManager.instance.menuSettings.SoundFail();
         }
-        FailAnswer.AddMinutes(5);
+        FailAnswer = FailAnswer.AddMinutes(waitTime);
         status = false;
+        isAnswering = false;
         quizTable.SetActive(false);
         GameManager.instance.player.SetMove(true);
     }

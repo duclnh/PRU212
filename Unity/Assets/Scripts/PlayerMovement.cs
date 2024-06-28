@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float runSpeed = 10f;
     [SerializeField] GameObject interactTablePlant;
     [SerializeField] GameObject interactAnimal;
-    public int money { get; set;}
+    public int money { get; set; }
     Vector2 moveInput;
     CapsuleCollider2D myBodyCollider;
     private Rigidbody2D myRigidbody;
@@ -68,10 +68,11 @@ public class PlayerMovement : MonoBehaviour
     }
     public void DropItem(Item item, int numToDrop)
     {
-        for (int i = 0; i < numToDrop; i++)
-        {
-            DropItem(item);
-        }
+        Vector2 spawnLocation = transform.position;
+        Vector2 spawnOffSet = Random.insideUnitCircle * 1.25f;
+        Item dropItem = Instantiate(item, spawnLocation + spawnOffSet, Quaternion.identity);
+        dropItem.amount = numToDrop;
+        dropItem.GetComponent<Rigidbody2D>().AddForce(spawnOffSet * 2f, ForceMode2D.Impulse);
     }
     void Start()
     {
@@ -86,19 +87,16 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.menuSettings.GetStatusMenuSetting())
+        if (move)
         {
-            if (move)
-            {
-                Run();
-            }
-            InteractiveGround();
-            InteractivePlowing();
-            Harvest();
-            FlipSprite();
-            MenuSetting();
-            AreaPlating();
+            Run();
         }
+        InteractiveGround();
+        InteractivePlowing();
+        Harvest();
+        FlipSprite();
+        MenuSetting();
+        AreaPlating();
     }
 
     private void AreaPlating()
@@ -234,9 +232,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameManager.instance.dialogue.ToggleStatus()
             || myAnimator.GetBool("IsPlowing")
-            || GameManager.instance.store.ToggleStoreStatus())
+            || GameManager.instance.store.ToggleStoreStatus() || GameManager.instance.menuSettings.GetStatusMenuSetting())
         {
-
+            SetMove(true);
             return;
         }
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, moveInput.y * runSpeed);
@@ -275,5 +273,6 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("IsDownWalking", false);
         myAnimator.SetBool("IsUpWalking", false);
         myAnimator.SetBool("IsTurnWalking", false);
+        myRigidbody.velocity = new Vector2(0F, 0F);
     }
 }

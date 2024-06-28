@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuSettings : MonoBehaviour
@@ -10,6 +10,9 @@ public class MenuSettings : MonoBehaviour
   [SerializeField] AudioMixerGroup mixerGroup;
   [SerializeField] Toggle toggleFullScreen;
   [SerializeField] Toggle toggleMediumScreen;
+  [SerializeField] Slider sliderSound;
+  [SerializeField] Slider sliderSfx;
+
 
   [SerializeField] Toggle toggleSmallScreen;
   [SerializeField] GameObject menuPannel;
@@ -31,11 +34,11 @@ public class MenuSettings : MonoBehaviour
 
   const string MIXER_MUSIC = "MusicVolume";
   const string MIXER_SFX = "SFXVolume";
-  
+
   public static MenuSettings Instance;
   public System.Guid userId;
   public int money { get; set; }
-    private void Awake()
+  private void Awake()
   {
     if (Instance == null)
     {
@@ -52,9 +55,35 @@ public class MenuSettings : MonoBehaviour
     ToggleMenu();
     Screen.fullScreen = true;
     toggleFullScreen.enabled = false;
-    SetSoundVolume(80);
-    SetVolume(60);
+    SetSoundVolume(PlayerPrefs.GetFloat("MIXER_SFX", 60));
+    SetVolume(PlayerPrefs.GetFloat("MIXER_MUSIC", 5));
+    if (sliderSfx != null && sliderSound != null)
+    {
+      sliderSfx.value = PlayerPrefs.GetFloat("MIXER_SFX", 60);
+      sliderSound.value = PlayerPrefs.GetFloat("MIXER_MUSIC", 5);
+    }
+    SetScreen();
   }
+
+  private void SetScreen()
+  {
+    switch (PlayerPrefs.GetString("screen", "full"))
+    {
+      case "medium":
+        SetMediumScreen(true);
+        toggleMediumScreen.isOn = true;
+        break;
+      case "small":
+        SetSmallScreen(true);
+        toggleSmallScreen.isOn = true;
+        break;
+      default:
+        SetFullScreen(true);
+        toggleFullScreen.isOn = true;
+        break;
+    }
+  }
+
   public void ToggleMenu()
   {
     if (menuPannel != null)
@@ -69,16 +98,19 @@ public class MenuSettings : MonoBehaviour
       }
     }
   }
-  public bool GetStatusMenuSetting(){
+  public bool GetStatusMenuSetting()
+  {
     return menuPannel.activeSelf;
   }
 
   public void SetVolume(float volume)
   {
+    PlayerPrefs.SetFloat("MIXER_MUSIC", volume);
     audioMixer.SetFloat(MIXER_MUSIC, Mathf.Log10(volume) * 30);
   }
   public void SetSoundVolume(float volume)
   {
+    PlayerPrefs.SetFloat("MIXER_SFX", volume);
     audioMixer.SetFloat(MIXER_SFX, Mathf.Log10(volume) * 30);
   }
   public void SetFullScreen(bool isFullScreen)
@@ -86,6 +118,7 @@ public class MenuSettings : MonoBehaviour
     Screen.fullScreen = isFullScreen;
     if (isFullScreen)
     {
+      PlayerPrefs.SetString("screen", "full");
       toggleFullScreen.enabled = false;
       toggleMediumScreen.enabled = true;
       toggleSmallScreen.enabled = true;
@@ -98,6 +131,7 @@ public class MenuSettings : MonoBehaviour
   {
     if (isMediumScreen)
     {
+      PlayerPrefs.SetString("screen", "medium");
       toggleFullScreen.enabled = true;
       toggleMediumScreen.enabled = false;
       toggleSmallScreen.enabled = true;
@@ -111,6 +145,7 @@ public class MenuSettings : MonoBehaviour
   {
     if (isSmallScreen)
     {
+      PlayerPrefs.SetString("screen", "small");
       toggleFullScreen.enabled = true;
       toggleMediumScreen.enabled = true;
       toggleSmallScreen.enabled = false;
@@ -122,6 +157,13 @@ public class MenuSettings : MonoBehaviour
   public void Exit()
   {
     Application.Quit();
+  }
+  public void SaveGame()
+  {
+    if (SceneManager.GetActiveScene().name != "Sence Start")
+    {
+      GameManager.instance.SaveData();
+    }
   }
   public void SoundPickItem()
   {

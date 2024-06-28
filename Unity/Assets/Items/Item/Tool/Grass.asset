@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Grass
   icon: {fileID: 21300000, guid: 85f0cc2a50e952743b1503a8571ba483, type: 3}
-  price: 0
+  price: 5

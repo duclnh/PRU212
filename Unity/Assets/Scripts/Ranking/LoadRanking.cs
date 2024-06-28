@@ -5,13 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class LoadRanking : MonoBehaviour
 {
     [SerializeField] GameObject rankingMoney;
     public List<TextMeshProUGUI> usernameList;
     public List<TextMeshProUGUI> moneyList;
+    [SerializeField] TextMeshProUGUI textUserPosition;
+    [SerializeField] TextMeshProUGUI textUserData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class LoadRanking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     /*public void LoadRanking()
@@ -64,6 +66,11 @@ public class LoadRanking : MonoBehaviour
                     {
                         moneyList[i].text = "";
                     }
+                }
+                if (textUserPosition != null && textUserData != null)
+                {
+                    textUserPosition.text = "1/30";
+                    textUserData.text = "2";
                 }
             }
         }

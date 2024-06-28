@@ -24,4 +24,8 @@ public class AnimalItem
         this.hungry = false;
         this.sick = false;
     }
+    public override string ToString()
+    {
+        return $"{animalData.ToString()},ItemName: {itemName}, Datetime: {dateTime}, CurrentStage: {currentStage}, QuantityHarvested: {quantityHarvested}, PriceHarvested: {priceHarvested},Hungry: {hungry},Sick: {sick}";
+    }
 }

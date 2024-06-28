@@ -96,5 +96,12 @@ public class Store : MonoBehaviour
         }
     }
 
-    public bool ToggleStoreStatus() => storePannel.activeSelf;
+    public bool ToggleStoreStatus()
+    {
+        if (storePannel != null)
+        {
+            return storePannel.activeSelf;
+        }
+        return false;
+    }
 }

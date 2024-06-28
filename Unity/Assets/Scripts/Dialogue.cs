@@ -30,5 +30,12 @@ public class Dialogue : MonoBehaviour
         ToggleDialogueBox();
         GameManager.instance.store.ToggleStore();
     }
-    public bool ToggleStatus() => dialogueBox.activeSelf;
+    public bool ToggleStatus()
+    {
+        if (dialogueBox != null)
+        {
+            return dialogueBox.activeSelf;
+        }
+        return false;
+    }
 }

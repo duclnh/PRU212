@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -42,7 +43,7 @@ public class Inventory
         {
             this.itemName = item.data.itemName;
             this.icon = item.data.icon;
-            count++;
+            count += item.amount;
         }
         public void AddItem(string itemName, Sprite icon, int maxAllowed)
         {
@@ -62,6 +63,10 @@ public class Inventory
                     itemName = "";
                 }
             }
+        }
+        public override string ToString()
+        {
+            return $"itemName: {this.itemName}, icon: {AssetDatabase.GetAssetPath(icon)}, count: {count}";
         }
     }
     public List<Slot> slots = new List<Slot>();
@@ -122,18 +127,31 @@ public class Inventory
         }
     }
 
-    public void MoveSlot(int fromIndex, int toIndex, Inventory toInventory, int numToMove)
+    public void MoveSlot(int fromIndex, int toIndex, Inventory toInventory, bool dragSingle)
     {
-        for (int i = 0; i < numToMove; i++)
+        Slot fromSlot = slots[fromIndex];
+        Slot toSlot = toInventory.slots[toIndex];
+        int totalItem = fromSlot.count;
+        if (dragSingle)
         {
-            Slot fromSlot = slots[fromIndex];
-            Slot toSlot = toInventory.slots[toIndex];
             if (toSlot.IsEmpty || toSlot.CanAddItem(fromSlot.itemName))
             {
                 toSlot.AddItem(fromSlot.itemName, fromSlot.icon, fromSlot.maxAllowed);
                 fromSlot.RemoveItem();
             }
         }
+        else
+        {
+            for (int i = 0; i < totalItem; i++)
+            {
+                if (toSlot.IsEmpty || toSlot.CanAddItem(fromSlot.itemName))
+                {
+                    toSlot.AddItem(fromSlot.itemName, fromSlot.icon, fromSlot.maxAllowed);
+                    fromSlot.RemoveItem();
+                }
+            }
+        }
+
     }
     public void SelectSlot(int index)
     {
@@ -143,7 +161,8 @@ public class Inventory
         }
     }
 
-    public Slot GetSelectSlot(){
+    public Slot GetSelectSlot()
+    {
         return selectedSlot;
     }
 }

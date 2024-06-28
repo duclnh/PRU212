@@ -31,6 +31,7 @@ public class RegisterManager : MonoBehaviour
     {
         if (formLogin != null)
         {
+            notificationManager.OnCloseMessage();
             formLogin.SetActive(true);
         }
         gameObject.SetActive(false);

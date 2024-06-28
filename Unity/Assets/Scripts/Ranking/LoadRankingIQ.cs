@@ -11,6 +11,9 @@ public class LoadRankingIQ : MonoBehaviour
     [SerializeField] GameObject rankingIQ;
     public List<TextMeshProUGUI> usernameList;
     public List<TextMeshProUGUI> countList;
+    [SerializeField] TextMeshProUGUI textUserPosition;
+    [SerializeField] TextMeshProUGUI textUserData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,11 @@ public class LoadRankingIQ : MonoBehaviour
                     {
                         countList[i].text = "";
                     }
+                }
+                if (textUserPosition != null && textUserData != null)
+                {
+                    textUserPosition.text = "30/30";
+                    textUserData.text = "0";
                 }
             }
         }

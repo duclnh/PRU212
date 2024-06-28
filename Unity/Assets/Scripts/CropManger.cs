@@ -11,23 +11,26 @@ public class CropManger : MonoBehaviour
     public List<CropData> cropDatas = new List<CropData>();
     public List<Item> items = new List<Item>();
 
-    private Dictionary<Vector3Int, CropItem> cropDataDictionary = new Dictionary<Vector3Int, CropItem>();
+    public Dictionary<Vector3Int, CropItem> cropDataDictionary = new Dictionary<Vector3Int, CropItem>();
     private Dictionary<string, Item> sellProduct = new Dictionary<string, Item>();
 
     void Start()
     {
-        foreach (var position in cropMap.cellBounds.allPositionsWithin)
+        if (cropMap != null)
         {
-            TileBase tile = cropMap.GetTile(position);
-            if (tile != null && tile.name == "Interactable_visible")
+            foreach (var position in cropMap.cellBounds.allPositionsWithin)
             {
-                cropMap.SetTile(position, hiddenInteractableTile);
+                TileBase tile = cropMap.GetTile(position);
+                if (tile != null && tile.name == "Interactable_visible")
+                {
+                    cropMap.SetTile(position, hiddenInteractableTile);
+                }
             }
-        }
-        foreach (var item in items)
-        {
-            string key = item.data.name.Replace("_Sell", " Seeds");
-            sellProduct.Add(key, item);
+            foreach (var item in items)
+            {
+                string key = item.data.name.Replace("_Sell", " Seeds");
+                sellProduct.Add(key, item);
+            }
         }
     }
     void Update()
@@ -39,9 +42,12 @@ public class CropManger : MonoBehaviour
             {
                 position.Value.currentStage++;
                 cropMap.SetTile(position.Key, position.Value.cropData.tiles[position.Value.currentStage]);
-                if(position.Value.currentStage != position.Value.cropData.tiles.Count - 1){
+                if (position.Value.currentStage != position.Value.cropData.tiles.Count - 1)
+                {
                     position.Value.dateTime = position.Value.dateTime.AddSeconds(position.Value.cropData.growTime);
-                }else{
+                }
+                else
+                {
                     GameManager.instance.menuSettings.SoundComplete(position.Key);
                 }
             }
@@ -87,7 +93,9 @@ public class CropManger : MonoBehaviour
             cropMap.SetTile(position, hiddenInteractableTile);
             cropDataDictionary.Remove(position);
             return true;
-        }else{
+        }
+        else
+        {
             GameManager.instance.menuSettings.SoundFail();
             GameManager.instance.nofification.Show("Not enough time to harvest");
         }
