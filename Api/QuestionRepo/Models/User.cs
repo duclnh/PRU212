@@ -13,11 +13,11 @@ public partial class User
 
     public int Money { get; set; } = 0;
 
-    public int PositionX { get; set; } = 0;
+    public float PositionX { get; set; } = 0;
 
-    public int PositionY { get; set; } = 0;
+    public float PositionY { get; set; } = 0;
 
-    public int PositionZ { get; set; } = 0;
+    public float PositionZ { get; set; } = 0;
 
     public string? Sence { get; set; }
 

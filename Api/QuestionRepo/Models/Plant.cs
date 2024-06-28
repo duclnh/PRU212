@@ -3,9 +3,9 @@
     public class Plant
     {
         public Guid PlantId { get; set; }
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
-        public int PositionZ { get; set; }
+        public float PositionX { get; set; }
+        public float PositionY { get; set; }
+        public float PositionZ { get; set; }
         public DateTime Datetime { get; set; }
         public int CurrentStage { get; set; }
         public int QuantityHarvested { get; set; }
