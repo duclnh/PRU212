@@ -14,19 +14,23 @@ namespace QuestionRepo.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly QuestionWarehouseContext _questionWarehouseContext;
         private readonly IUserService _service;
         private readonly IPlantService _plantService;
         private readonly IAnimalService _animalService;
         private readonly IItemService _itemService;
         private readonly IMapper _mapper;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService service, IMapper mapper, IAnimalService animalService, IPlantService plantService, IItemService itemService)
+        public UserController(QuestionWarehouseContext questionWarehouseContext, IUserService service, IMapper mapper, IAnimalService animalService, IPlantService plantService, IItemService itemService, ILogger<UserController> logger)
         {
+            _questionWarehouseContext = questionWarehouseContext;
             _service = service;
             _mapper = mapper;
             _animalService = animalService;
             _plantService = plantService;
             _itemService = itemService;
+            _logger = logger;
         }
 
         // GET: api/Users
@@ -133,19 +137,11 @@ namespace QuestionRepo.Controllers
             var plants = _mapper.Map<List<Plant>>(userToUpdate.Plants);
             _plantService.AssignPlants(userId, plants);
             var addPlant = _plantService.AddPlants(userId, plants);
-            if (!addPlant)
-            {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status500InternalServerError };
-            }
 
             // Update Animals
             var animals = _mapper.Map<List<Animal>>(userToUpdate.Animals);
             _animalService.AssignAnimals(userId, animals);
             var result = _animalService.AddAnimals(userId, animals);
-            if (!result)
-            {
-                return new JsonResult(null) { StatusCode = StatusCodes.Status500InternalServerError };
-            }
 
             // Update User
             var user = await _service.GetUser(userId);
@@ -155,10 +151,6 @@ namespace QuestionRepo.Controllers
             user.PositionZ = userToUpdate.UserInfo.PositionZ;
             user.Sence = userToUpdate.UserInfo.Sence;
             var isUpdated = !await _service.UpdateUser(user);
-            if (isUpdated)
-            {
-                return new JsonResult(new { message = "Something went wrong saving!" }) { StatusCode = StatusCodes.Status500InternalServerError };
-            }
             return new JsonResult(new { message = "Saved Successfully!." }) { StatusCode = StatusCodes.Status200OK };
         }
 

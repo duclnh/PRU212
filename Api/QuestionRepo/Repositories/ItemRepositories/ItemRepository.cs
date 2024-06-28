@@ -28,11 +28,8 @@ namespace QuestionRepo.Repositories.ItemRepositories
             var itemCheck = await _context.Items.FirstOrDefaultAsync(i => i.SlotId == item.SlotId && i.UserId == item.UserId && i.Type == item.Type);
             if (itemCheck != null)
             {
-                itemCheck.ItemName = item.ItemName;
-                itemCheck.Type = item.Type;
-                itemCheck.Price = item.Price;
-                itemCheck.Amount = item.Amount;
-                itemCheck.Icon = item.Icon;
+                _context.Items.Remove(itemCheck);
+                _context.Items.Add(item);
             }
             else
             {
