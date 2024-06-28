@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
+using QuestionRepo.Business.AnimalBusiness;
+using QuestionRepo.Business.ItemBusiness;
+using QuestionRepo.Business.PlantBusiness;
 using QuestionRepo.Business.UserBusiness;
 using QuestionRepo.Dto;
 using QuestionRepo.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Numerics;
 
 namespace QuestionRepo.Controllers
 {
@@ -13,12 +15,18 @@ namespace QuestionRepo.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+        private readonly IPlantService _plantService;
+        private readonly IAnimalService _animalService;
+        private readonly IItemService _itemService;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService service, IMapper mapper)
+        public UserController(IUserService service, IMapper mapper, IAnimalService animalService, IPlantService plantService, IItemService itemService)
         {
             _service = service;
             _mapper = mapper;
+            _animalService = animalService;
+            _plantService = plantService;
+            _itemService = itemService;
         }
 
         // GET: api/Users
@@ -32,6 +40,11 @@ namespace QuestionRepo.Controllers
                 return new JsonResult(new {message = "Something went wrong. Please come back later."}) { StatusCode = StatusCodes.Status404NotFound };
             }
             var usersDto = _mapper.Map<IEnumerable<UserRanking>>(Users);
+            var count = 1;
+            foreach (var user in usersDto)
+            {
+                user.Rank = count++;
+            }
             return new JsonResult(usersDto) { StatusCode = StatusCodes.Status200OK };
         }
 
@@ -52,7 +65,7 @@ namespace QuestionRepo.Controllers
 
         // GET: api/Users/5
         [HttpPost("login")]
-        [ProducesResponseType(200, Type = typeof(User))]
+        [ProducesResponseType(200, Type = typeof(UserInfo))]
         public async Task<JsonResult> GetUser([FromBody] UserLogin userLogin)
         {
             var isExists = await _service.IsUserExists(userLogin.Username);
@@ -60,12 +73,14 @@ namespace QuestionRepo.Controllers
             {
                 return new JsonResult(new {data = (object?)null, message = "User is not exists.",status = 404}) { StatusCode = StatusCodes.Status404NotFound };
             }
+
             var user = await _service.GetUser(userLogin.Username);
             var userInfo = _mapper.Map<UserInfo>(user);
             if (userLogin.Password != user.Password)
             {
                 return new JsonResult(new { data = (object?)null, message = "Password is invalid.", status = 404 }) { StatusCode = StatusCodes.Status404NotFound };
             }
+
             return new JsonResult(new { data = (object)userInfo, message = "Login successful!", status = 200 }) { StatusCode = StatusCodes.Status200OK };
         }
 
@@ -76,7 +91,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(409)]
-        public async Task<JsonResult> PutUser(Guid userId, [FromBody] UserInfo userToUpdate)
+        public async Task<JsonResult> PutUser(Guid userId, [FromBody] UpdateUser userToUpdate)
         {
             if (userToUpdate == null)
             {
@@ -94,13 +109,50 @@ namespace QuestionRepo.Controllers
             {
                 return new JsonResult(null) { StatusCode = StatusCodes.Status409Conflict };
             }*/
-            if(userId != userToUpdate.UserId)
+            if(userId != userToUpdate.UserInfo.UserId)
             {
                 return new JsonResult(new { message = "UserId is not matching!" }) { StatusCode = StatusCodes.Status422UnprocessableEntity };
             }
 
+            // Update Items
+            var items = _mapper.Map<List<Item>>(userToUpdate.ItemsBackpack);
+            foreach (var item in items)
+            {
+                item.ItemId = Guid.NewGuid();
+                item.UserId = userId;
+                await _itemService.PrepareCreate(item);
+            }
+            var addItem = await _itemService.Save();
+            if (addItem == false)
+            {
+                return new JsonResult(new { message = "Something went wrong!" }) { StatusCode = StatusCodes.Status400BadRequest };
+            }
+
+            // Update Plants
+            var plants = _mapper.Map<List<Plant>>(userToUpdate.Plants);
+            _plantService.AssignPlants(userId, plants);
+            var addPlant = _plantService.AddPlants(userId, plants);
+            if (!addPlant)
+            {
+                return new JsonResult(null) { StatusCode = StatusCodes.Status500InternalServerError };
+            }
+
+            // Update Animals
+            var animals = _mapper.Map<List<Animal>>(userToUpdate.Animals);
+            _animalService.AssignAnimals(userId, animals);
+            var result = _animalService.AddAnimals(userId, animals);
+            if (!result)
+            {
+                return new JsonResult(null) { StatusCode = StatusCodes.Status500InternalServerError };
+            }
+
+            // Update User
             var user = await _service.GetUser(userId);
-            user.Money = userToUpdate.Money;
+            user.Money = userToUpdate.UserInfo.Money;
+            user.PositionX = userToUpdate.UserInfo.PositionX;
+            user.PositionY = userToUpdate.UserInfo.PositionY;
+            user.PositionZ = userToUpdate.UserInfo.PositionZ;
+            user.Sence = userToUpdate.UserInfo.Sence;
             var isUpdated = !await _service.UpdateUser(user);
             if (isUpdated)
             {
