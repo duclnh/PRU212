@@ -134,7 +134,6 @@ public class AnimalManager : MonoBehaviour
     }
     public void DropAnimal(AnimalTable animalTable)
     {
-        Debug.Log($"x: {animalTable.PositionX},y: {animalTable.PositionY}, z: {animalTable.PositionZ}");
         GameObject animal = Instantiate(GetPrefab(animalTable.ItemName), new Vector3(animalTable.PositionX, animalTable.PositionY, animalTable.PositionZ), Quaternion.identity, transform);
         Vector3 scale = animal.transform.localScale;
         scale.x = animalTable.localScaleX;

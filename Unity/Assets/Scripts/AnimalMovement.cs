@@ -100,7 +100,7 @@ public class AnimalMovement : MonoBehaviour
                     AnimalItem animalItem = GameManager.instance.animalManager.GetAnimalItem(gameObject);
                     if (animalItem.currentStage >= animalItem.animalData.numberStage - 2)
                     {
-                        if (animalItem.animalData.quantity > 0)
+                        if (animalItem.quantityHarvested > 0)
                         {
                             if (GameManager.instance.player.inventoryManager.toolbar.selectedSlot.count > 0)
                             {

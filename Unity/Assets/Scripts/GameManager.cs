@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
             {
                 SlotId = i,
                 ItemName = backPack.slots[i].itemName,
-                Icon = "",
                 Amount = backPack.slots[i].count,
                 Type = "Backpack",
                 UserId = player.idUser
@@ -91,7 +90,6 @@ public class GameManager : MonoBehaviour
             {
                 SlotId = i,
                 ItemName = toolBar.slots[i].itemName,
-                Icon = "",
                 Amount = toolBar.slots[i].count,
                 Type = "Toolbar",
                 UserId = player.idUser
@@ -125,14 +123,8 @@ public class GameManager : MonoBehaviour
                     PositionX = animal.transform.position.x,
                     PositionY = animal.transform.position.y,
                     PositionZ = animal.transform.position.z,
-                    localScaleX = animal.transform.localScale.x,
+                    localScaleX = animal.transform.localScale.x < 0 ?  animal.transform.localScale.x * -1 :  animal.transform.localScale.x,
                     localScaleY = animal.transform.localScale.y,
-                    // MoveSpeed = animalDataDictionary[animal].animalData.moveSpeed,
-                    // NameItem = animalDataDictionary[animal].animalData.nameItem,
-                    // GrowTime = animalDataDictionary[animal].animalData.growTime,
-                    // NumberStage = animalDataDictionary[animal].animalData.numberStage,
-                    // Price = animalDataDictionary[animal].animalData.price,
-                    // Quantity = animalDataDictionary[animal].animalData.quantity,
                     ItemName = animalDataDictionary[animal].itemName,
                     Datetime = animalDataDictionary[animal].dateTime,
                     CurrentStage = animalDataDictionary[animal].currentStage,
@@ -265,12 +257,6 @@ public class AnimalTable
     public float PositionZ { get; set; }
     public float localScaleX { get; set; }
     public float localScaleY { get; set; }
-    // public float MoveSpeed { get; set; }
-    // public string NameItem { get; set; }
-    // public float GrowTime { get; set; }
-    // public int NumberStage { get; set; }
-    // public int Price { get; set; }
-    // public int Quantity { get; set; }
     public string ItemName { get; set; }
     public System.DateTime Datetime { get; set; }
     public int CurrentStage { get; set; }
@@ -290,18 +276,12 @@ public class PlantTable
     public System.DateTime Datetime { get; set; }
     public int CurrentStage { get; set; }
     public int QuantityHarvested { get; set; }
-    // public string Crop { get; set; }
-    // public int GrowTime { get; set; }
-    // public int Quantity { get; set; }
-    // public string Tiles { get; set; }
     public System.Guid UserId { get; set; }
 }
 public class ItemSlot
 {
     public int SlotId { get; set; }
     public string ItemName { get; set; }
-    public string Icon { get; set; }
-    // public int Price { get; set; }
     public int Amount { get; set; }
     public string Type { get; set; }
     public System.Guid UserId { get; set; }
