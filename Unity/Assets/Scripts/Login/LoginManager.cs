@@ -104,9 +104,23 @@ public class LoginManager : MonoBehaviour
                 JObject userData = JObject.Parse(jsonResponse);
                 Guid userId = (Guid)userData["data"]["userId"];
                 int money = (int)userData["data"]["money"];
+                float x = (float)userData["data"]["positionX"];
+                float y = (float)userData["data"]["positionY"];
+                float z = (float)userData["data"]["positionZ"];
+                string scene = (string)userData["data"]["sence"];
                 menuSettings.userId = userId;
                 menuSettings.money = money;
-                SceneManager.LoadScene("Sence 1");
+                if (!string.IsNullOrEmpty(scene))
+                {
+                    menuSettings.playVector = new Vector3(x, y, z);
+                    menuSettings.sceneName = scene;
+                    SceneManager.LoadScene(scene);
+                }
+                else
+                {
+                    SceneManager.LoadScene("Sence 1");
+                }
+
                 Debug.Log("Login successful!");
             }
         }

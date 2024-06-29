@@ -33,7 +33,7 @@ public class LoadRanking : MonoBehaviour
 
     IEnumerator GetRankingByMoney()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(ApiClient.apiUrl + $"User/ranking"))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(ApiClient.apiUrl + $"User/ranking/{GameManager.instance.menuSettings.userId}"))
         {
             yield return webRequest.SendWebRequest();
 
@@ -44,12 +44,15 @@ public class LoadRanking : MonoBehaviour
             else
             {
                 string jsonResponse = webRequest.downloadHandler.text;
-                JArray list = JArray.Parse(jsonResponse);
+                JObject data = JObject.Parse(jsonResponse);
+                JArray list = (JArray)data["userRankings"];
+                string currentRankMoney = (string)data["currentRankMoney"];
+                string money = (string)data["money"];
                 for (int i = 0; i < usernameList.Count; i++)
                 {
                     if (i < list.Count)
                     {
-                        usernameList[i].text = (string)list[i]["username"];
+                        usernameList[i].text = $"{(string)list[i]["rankMoney"]} . {(string)list[i]["username"]}";
                     }
                     else
                     {
@@ -69,8 +72,8 @@ public class LoadRanking : MonoBehaviour
                 }
                 if (textUserPosition != null && textUserData != null)
                 {
-                    textUserPosition.text = "1/30";
-                    textUserData.text = "2";
+                    textUserPosition.text = currentRankMoney;
+                    textUserData.text = money;
                 }
             }
         }

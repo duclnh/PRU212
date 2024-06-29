@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Hoe
   icon: {fileID: 21300000, guid: 0536b16807877ce40a94aa8aad772ca1, type: 3}
+  price: 500

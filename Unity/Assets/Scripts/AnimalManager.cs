@@ -132,4 +132,21 @@ public class AnimalManager : MonoBehaviour
         GameObject animal = Instantiate(GetPrefab(itemName), spawnPosition, Quaternion.identity, transform);
         animalDataDictionary.Add(animal, GetAnimalData(itemName));
     }
+    public void DropAnimal(AnimalTable animalTable)
+    {
+        Debug.Log($"x: {animalTable.PositionX},y: {animalTable.PositionY}, z: {animalTable.PositionZ}");
+        GameObject animal = Instantiate(GetPrefab(animalTable.ItemName), new Vector3(animalTable.PositionX, animalTable.PositionY, animalTable.PositionZ), Quaternion.identity, transform);
+        Vector3 scale = animal.transform.localScale;
+        scale.x = animalTable.localScaleX;
+        scale.y = animalTable.localScaleY;
+        animal.transform.localScale = scale;
+        AnimalItem animalData = GetAnimalData(animalTable.ItemName);
+        animalData.dateTime = animalTable.Datetime;
+        animalData.currentStage = animalTable.CurrentStage;
+        animalData.quantityHarvested = animalTable.QuantityHarvested;
+        animalData.priceHarvested = animalTable.PriceHarvested;
+        animalData.hungry = animalTable.Hungry;
+        animalData.sick = animalTable.Sick;
+        animalDataDictionary.Add(animal, animalData);
+    }
 }

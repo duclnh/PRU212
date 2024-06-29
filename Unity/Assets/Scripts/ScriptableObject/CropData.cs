@@ -13,20 +13,8 @@ public class CropData : ScriptableObject
     [SerializeField] public List<Tile> tiles = new List<Tile>();
     [SerializeField] public int quantity = 10;
 
-    private string toStringTile()
-    {
-        string result = "";
-        foreach (Tile tile in tiles)
-        {
-            if (tile != null)
-            {
-                result += $"{AssetDatabase.GetAssetPath(tile)} ";
-            }
-        }
-        return result;
-    }
     public override string ToString()
     {
-        return $"Crop: {nameItem}, Grow Time: {growTime} sec, Quantity: {quantity}, Tiles: {toStringTile()}";
+        return $"Crop: {nameItem}, Grow Time: {growTime} sec, Quantity: {quantity}";
     }
 }

@@ -7,6 +7,6 @@ public class LoadSence2 : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene("Sence 2");
+        GameManager.instance.SaveDataAndPerformActions("Sence 2");
     }
 }

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -83,6 +84,12 @@ public class PlayerMovement : MonoBehaviour
         cropManger = GameManager.instance.cropManger;
         menuSettings = GameManager.instance.menuSettings;
         money = menuSettings.money;
+        idUser = menuSettings.userId;
+        if (menuSettings.sceneName == SceneManager.GetActiveScene().name && menuSettings.firstStart)
+        {
+            myRigidbody.transform.localPosition = menuSettings.playVector;
+            menuSettings.firstStart = false;
+        }
     }
     // Update is called once per frame
     void Update()

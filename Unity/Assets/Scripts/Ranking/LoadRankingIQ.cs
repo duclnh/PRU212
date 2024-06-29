@@ -28,7 +28,7 @@ public class LoadRankingIQ : MonoBehaviour
 
     IEnumerator GetRankingByIQ()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(ApiClient.apiUrl + $"Record/ranking"))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(ApiClient.apiUrl + $"User/ranking/{GameManager.instance.menuSettings.userId}"))
         {
             yield return webRequest.SendWebRequest();
 
@@ -39,12 +39,15 @@ public class LoadRankingIQ : MonoBehaviour
             else
             {
                 string jsonResponse = webRequest.downloadHandler.text;
-                JArray list = JArray.Parse(jsonResponse);
+                JObject data = JObject.Parse(jsonResponse);
+                JArray list = (JArray)data["countRightAnswer"];
+                string currentRankIQ = (string)data["currentRankIQ"];
+                string rightAnswer = (string)data["rightAnswer"];
                 for (int i = 0; i < usernameList.Count; i++)
                 {
                     if (i < list.Count)
                     {
-                        usernameList[i].text = (string)list[i]["username"];
+                        usernameList[i].text = $"{i + 1}. {(string)list[i]["username"]}";
                     }
                     else
                     {
@@ -64,8 +67,8 @@ public class LoadRankingIQ : MonoBehaviour
                 }
                 if (textUserPosition != null && textUserData != null)
                 {
-                    textUserPosition.text = "30/30";
-                    textUserData.text = "0";
+                    textUserPosition.text = currentRankIQ;
+                    textUserData.text = rightAnswer;
                 }
             }
         }

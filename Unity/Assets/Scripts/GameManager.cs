@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Static;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,9 +48,28 @@ public class GameManager : MonoBehaviour
         store = FindObjectOfType<Store>();
         player = FindObjectOfType<PlayerMovement>();
         money = FindObjectOfType<Money>();
+
     }
-    public void SaveData()
+    void Start()
     {
+        StartCoroutine(LoadDataGame());
+    }
+
+    public void SaveDataAndPerformActions(string scene)
+    {
+        StartCoroutine(SaveData(scene));
+    }
+    public IEnumerator SaveData(string scene)
+    {
+        UserInfor user = new UserInfor
+        {
+            UserId = player.idUser,
+            Money = player.money,
+            PositionX = player.transform.position.x,
+            PositionY = player.transform.position.y,
+            PositionZ = player.transform.position.z,
+            Sence = SceneManager.GetActiveScene().name,
+        };
         List<ItemSlot> itemSlots = new List<ItemSlot>();
         Inventory backPack = player.inventoryManager.GetInventoryByName("Backpack");
         for (int i = 0; i < backPack.slots.Count; i++)
@@ -56,7 +78,7 @@ public class GameManager : MonoBehaviour
             {
                 SlotId = i,
                 ItemName = backPack.slots[i].itemName,
-                Icon = AssetDatabase.GetAssetPath(backPack.slots[i].icon),
+                Icon = "",
                 Amount = backPack.slots[i].count,
                 Type = "Backpack",
                 UserId = player.idUser
@@ -69,82 +91,82 @@ public class GameManager : MonoBehaviour
             {
                 SlotId = i,
                 ItemName = toolBar.slots[i].itemName,
-                Icon = AssetDatabase.GetAssetPath(toolBar.slots[i].icon),
+                Icon = "",
                 Amount = toolBar.slots[i].count,
                 Type = "Toolbar",
                 UserId = player.idUser
             });
         }
 
-        List<PlantTable> plantTables = new List<PlantTable>();
-        Dictionary<Vector3Int, CropItem> cropDataDictionary = cropManger.cropDataDictionary;
-        foreach (var slot in cropDataDictionary.Keys)
-        {
-            plantTables.Add(new PlantTable
-            {
-                PositionX = slot.x,
-                PositionY = slot.y,
-                PositionZ = slot.z,
-                Crop = cropDataDictionary[slot].itemName,
-                Datetime = cropDataDictionary[slot].dateTime,
-                CurrentStage = cropDataDictionary[slot].currentStage,
-                QuantityHarvested = cropDataDictionary[slot].quantityHarvested,
-                UserId = player.idUser
-            });
-
-            Debug.Log($"PlantId: 1 ,x:{slot.x} ,y:{slot.y} z:, {slot.z}, {cropDataDictionary[slot].ToString()},UserID: {GameManager.instance.player.idUser}");
-        }
         List<AnimalTable> animalTables = new List<AnimalTable>();
-        Dictionary<GameObject, AnimalItem> animalDataDictionary = animalManager.animalDataDictionary;
-        foreach (var animal in animalDataDictionary.Keys)
+        List<PlantTable> plantTables = new List<PlantTable>();
+        if (SceneManager.GetActiveScene().name == "Sence 1")
         {
-            animalTables.Add(new AnimalTable
+            Dictionary<Vector3Int, CropItem> cropDataDictionary = cropManger.cropDataDictionary;
+            foreach (var slot in cropDataDictionary.Keys)
             {
-                PositionX = animal.transform.lossyScale.x,
-                PositionY = animal.transform.lossyScale.y,
-                PositionZ = animal.transform.lossyScale.z,
-                // MoveSpeed = animalDataDictionary[animal].animalData.moveSpeed,
-                // NameItem = animalDataDictionary[animal].animalData.nameItem,
-                // GrowTime = animalDataDictionary[animal].animalData.growTime,
-                // NumberStage = animalDataDictionary[animal].animalData.numberStage,
-                // Price = animalDataDictionary[animal].animalData.price,
-                // Quantity = animalDataDictionary[animal].animalData.quantity,
-                ItemName = animalDataDictionary[animal].itemName,
-                Datetime = animalDataDictionary[animal].dateTime,
-                CurrentStage = animalDataDictionary[animal].currentStage,
-                QuantityHarvested = animalDataDictionary[animal].quantityHarvested,
-                PriceHarvested = animalDataDictionary[animal].priceHarvested,
-                Hungry = animalDataDictionary[animal].hungry,
-                Sick = animalDataDictionary[animal].sick,
-                UserId = player.idUser
-            });
-            Debug.Log($"AnimalId: 1 ,x:{animal.transform.lossyScale.x} ,y:{animal.transform.lossyScale.y} z:, {animal.transform.lossyScale.z}, {animalDataDictionary[animal].ToString()},UserID: {GameManager.instance.player.idUser}");
+                plantTables.Add(new PlantTable
+                {
+                    PositionX = slot.x,
+                    PositionY = slot.y,
+                    PositionZ = slot.z,
+                    Crop = cropDataDictionary[slot].itemName,
+                    Datetime = cropDataDictionary[slot].dateTime,
+                    CurrentStage = cropDataDictionary[slot].currentStage,
+                    QuantityHarvested = cropDataDictionary[slot].quantityHarvested,
+                    UserId = player.idUser
+                });
+            }
+            Dictionary<GameObject, AnimalItem> animalDataDictionary = animalManager.animalDataDictionary;
+            foreach (var animal in animalDataDictionary.Keys)
+            {
+                animalTables.Add(new AnimalTable
+                {
+                    PositionX = animal.transform.position.x,
+                    PositionY = animal.transform.position.y,
+                    PositionZ = animal.transform.position.z,
+                    localScaleX = animal.transform.localScale.x,
+                    localScaleY = animal.transform.localScale.y,
+                    // MoveSpeed = animalDataDictionary[animal].animalData.moveSpeed,
+                    // NameItem = animalDataDictionary[animal].animalData.nameItem,
+                    // GrowTime = animalDataDictionary[animal].animalData.growTime,
+                    // NumberStage = animalDataDictionary[animal].animalData.numberStage,
+                    // Price = animalDataDictionary[animal].animalData.price,
+                    // Quantity = animalDataDictionary[animal].animalData.quantity,
+                    ItemName = animalDataDictionary[animal].itemName,
+                    Datetime = animalDataDictionary[animal].dateTime,
+                    CurrentStage = animalDataDictionary[animal].currentStage,
+                    QuantityHarvested = animalDataDictionary[animal].quantityHarvested,
+                    PriceHarvested = animalDataDictionary[animal].priceHarvested,
+                    Hungry = animalDataDictionary[animal].hungry,
+                    Sick = animalDataDictionary[animal].sick,
+                    UserId = player.idUser
+                });
+            }
+        }
+        yield return StartCoroutine(SaveDataGame(plantTables, animalTables, itemSlots, user, scene));
+        if (!string.IsNullOrEmpty(scene))
+        {
+            SceneManager.LoadScene(scene);
         }
     }
 
-    public void GetData()
-    {
-        Sprite icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic_Plants_5.png");
-        Item item = new Item();
-        item.data = new ItemData
-        {
-            itemName = "Paddy Sells",
-            icon = icon,
-            price = 40,
-        };
-        item.amount = 300;
-        player.inventoryManager.Add("Backpack", item);
-    }
-    private IEnumerator SaveDataGame(string username, string password)
+    private IEnumerator SaveDataGame(List<PlantTable> plants, List<AnimalTable> animals, List<ItemSlot> itemSlots, UserInfor userInfor, string nextScene)
     {
         // Tạo dữ liệu JSON từ thông tin người dùng
-        string jsonData = string.Format("{{\"userInfor\": \"{0}\", \"animals\": \"{1}\", \"plants\": \"{1}\"}}", username, password);
-
+        var jsonData = new
+        {
+            userInfo = userInfor,
+            itemsBackpack = itemSlots.Where(x => x.Type == "Backpack").ToList(),
+            itemsToolbar = itemSlots.Where(x => x.Type == "Toolbar").ToList(),
+            animals = animals,
+            plants = plants
+        };
         // Chuyển dữ liệu JSON thành byte array
-        byte[] body = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        byte[] body = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jsonData));
 
         // Gửi yêu cầu POST đến API với request body là dữ liệu JSON
-        using (UnityWebRequest webRequest = new UnityWebRequest($"{ApiClient.apiUrl}User/{player.idUser}" + "User/login", "PUT"))
+        using (UnityWebRequest webRequest = new UnityWebRequest($"{ApiClient.apiUrl}User/{player.idUser}", "PUT"))
         {
             // Thiết lập tiêu đề Content-Type là application/json
             webRequest.SetRequestHeader("Content-Type", "application/json");
@@ -160,17 +182,77 @@ public class GameManager : MonoBehaviour
             // Kiểm tra lỗi và xử lý phản hồi
             if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
-                //Debug.LogError("Error: " + webRequest.error);
-                string jsonResponse = webRequest.downloadHandler.text;
-                Debug.Log(jsonResponse);
-                JObject userData = JObject.Parse(jsonResponse);
-                string message = (string)userData["message"];
-                nofification.Show("SaveData failed: " + message);
+                nofification.Show("SaveData failed");
+            }
+            else
+            {
+                nofification.Show("Save successfully");
+            }
+        }
+    }
+    private IEnumerator LoadDataGame()
+    {
+        using (UnityWebRequest webRequest = new UnityWebRequest($"{ApiClient.apiUrl}Item/{menuSettings.userId}", "GET"))
+        {
+            // Thiết lập tiêu đề Content-Type là application/json
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
+
+            // Gửi yêu cầu và chờ phản hồi
+            yield return webRequest.SendWebRequest();
+
+            // Kiểm tra lỗi và xử lý phản hồi
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+
             }
             else
             {
                 string jsonResponse = webRequest.downloadHandler.text;
-                nofification.Show("Save successfully");
+                JObject data = JObject.Parse(jsonResponse);
+                List<ItemSlot> backpack = data["itemsBackpack"].ToObject<List<ItemSlot>>();
+                Sprite icon = null;
+                Item item = new Item();
+                foreach (ItemSlot itemBackpack in backpack)
+                {
+                    icon = store.GeticonFromStore(itemBackpack.ItemName);
+                    item.data = new ItemData
+                    {
+                        itemName = itemBackpack.ItemName,
+                        icon = icon,
+                    };
+                    item.amount = itemBackpack.Amount;
+                    player.inventoryManager.Add("Backpack", item, itemBackpack.SlotId);
+                }
+                List<ItemSlot> toolbar = data["itemsToolbar"].ToObject<List<ItemSlot>>();
+                foreach (ItemSlot itemToolbar in toolbar)
+                {
+                    icon = store.GeticonFromStore(itemToolbar.ItemName);
+                    item.data = new ItemData
+                    {
+                        itemName = itemToolbar.ItemName,
+                        icon = icon,
+                    };
+                    item.amount = itemToolbar.Amount;
+                    player.inventoryManager.Add("Toolbar", item, itemToolbar.SlotId);
+                }
+                uiManager.RefreshAll();
+                if (SceneManager.GetActiveScene().name == "Sence 1")
+                {
+                    List<AnimalTable> animal = data["animals"].ToObject<List<AnimalTable>>();
+                    foreach (AnimalTable animalTable in animal)
+                    {
+                        animalManager.DropAnimal(animalTable);
+                    }
+                    List<PlantTable> plant = data["plants"].ToObject<List<PlantTable>>();
+                    foreach (PlantTable plantTable in plant)
+                    {
+                        cropManger.Seed(plantTable);
+                        tileManager.SetInteracted(new Vector3Int(plantTable.PositionX, plantTable.PositionY, plantTable.PositionZ));
+                    }
+                }
             }
         }
     }
@@ -181,6 +263,8 @@ public class AnimalTable
     public float PositionX { get; set; }
     public float PositionY { get; set; }
     public float PositionZ { get; set; }
+    public float localScaleX { get; set; }
+    public float localScaleY { get; set; }
     // public float MoveSpeed { get; set; }
     // public string NameItem { get; set; }
     // public float GrowTime { get; set; }
@@ -225,7 +309,7 @@ public class ItemSlot
 
 public class UserInfor
 {
-    public string UserId { get; set; }
+    public System.Guid UserId { get; set; }
     public int Money { get; set; }
     public float PositionX { get; set; }
     public float PositionY { get; set; }

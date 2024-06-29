@@ -38,6 +38,10 @@ public class MenuSettings : MonoBehaviour
   public static MenuSettings Instance;
   public System.Guid userId;
   public int money { get; set; }
+
+  public Vector3 playVector { get; set; }
+  public string sceneName { get; set; }
+  public bool firstStart {get; set;}  = true;
   private void Awake()
   {
     if (Instance == null)
@@ -162,7 +166,7 @@ public class MenuSettings : MonoBehaviour
   {
     if (SceneManager.GetActiveScene().name != "Sence Start")
     {
-      GameManager.instance.SaveData();
+      GameManager.instance.SaveDataAndPerformActions(null);
     }
   }
   public void SoundPickItem()

@@ -65,6 +65,17 @@ public class CropManger : MonoBehaviour
         GameManager.instance.player.inventoryManager.Remove("Toolbar", nameSeed);
         GameManager.instance.uiManager.RefreshInventoryUI("Toolbar");
     }
+    public void Seed(PlantTable plantTable)
+    {
+        Vector3Int vector = new Vector3Int(plantTable.PositionX, plantTable.PositionY, plantTable.PositionZ);
+        CropData cropData = GetCropDataByName(plantTable.Crop);
+        CropItem cropItem = new CropItem(cropData, plantTable.Crop);
+        cropItem.dateTime = plantTable.Datetime;
+        cropItem.currentStage = plantTable.CurrentStage;
+        cropItem.quantityHarvested = plantTable.QuantityHarvested;
+        cropMap.SetTile(vector, cropData.tiles[cropItem.currentStage]);
+        cropDataDictionary.Add(vector, cropItem);
+    }
     public string GetTileName(Vector3Int position)
     {
         if (cropMap != null)

@@ -78,6 +78,7 @@ public class AnimalMovement : MonoBehaviour
             if (animalItem.currentStage > animalItem.animalData.numberStage)
             {
                 GameManager.instance.player.SellItemStore(animalItem.priceHarvested);
+                GameManager.instance.animalManager.animalDataDictionary.Remove(gameObject);
                 Destroy(gameObject);
             }
             else

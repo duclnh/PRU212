@@ -66,7 +66,7 @@ public class Inventory
         }
         public override string ToString()
         {
-            return $"itemName: {this.itemName}, icon: {AssetDatabase.GetAssetPath(icon)}, count: {count}";
+            return $"itemName: {this.itemName}, count: {count}";
         }
     }
     public List<Slot> slots = new List<Slot>();
@@ -98,7 +98,17 @@ public class Inventory
             }
         }
     }
-
+    public void Add(Item item, int slotId)
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (i == slotId)
+            {
+                slots[i].AddItem(item);
+                return;
+            }
+        }
+    }
     public bool Remove(string itemName)
     {
         foreach (Slot slot in slots)

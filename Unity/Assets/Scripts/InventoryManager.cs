@@ -31,6 +31,17 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+    
+    public void Add(string inventoryName, Item item, int slotId)
+    {
+        if (inventoryName != null)
+        {
+            if (inventoryByName.ContainsKey(inventoryName))
+            {
+                inventoryByName[inventoryName].Add(item, slotId);
+            }
+        }
+    }
     public bool Remove(string inventoryName, string itemName)
     {
         if (inventoryName != null)

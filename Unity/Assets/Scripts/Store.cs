@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Store : MonoBehaviour
@@ -8,10 +9,28 @@ public class Store : MonoBehaviour
     [SerializeField] GameObject storePannel;
     [SerializeField] List<Item> storeItems = new List<Item>();
     private MenuSettings menuSettings;
+
+    public Dictionary<string, Item> keyValuePairs = new Dictionary<string, Item>();
     void Start()
     {
+        if (storeItems != null)
+        {
+            foreach (var item in storeItems)
+            {
+                if (!keyValuePairs.ContainsKey(item.data.itemName))
+                {
+                    keyValuePairs.Add(item.data.itemName, item);
+                }
+            }
+        }
         ToggleStore();
         menuSettings = GameManager.instance.menuSettings;
+    }
+    public Sprite GeticonFromStore(string itemName){
+        if(keyValuePairs.ContainsKey((itemName))){
+            return keyValuePairs[itemName].data.icon;
+        }
+        return null;
     }
     public void ToggleStore()
     {
