@@ -32,7 +32,7 @@ public partial class QuestionWarehouseContext : DbContext
 
     public virtual DbSet<Plant> Plants { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer("data source=DESKTOP-V5JCDV7\\LOCALHOST;initial catalog=QuestionWarehouse;user id=sa;password=12345;Integrated Security=True;TrustServerCertificate=True");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(GetConnectionString());
     private string GetConnectionString()
     {
         IConfiguration config = new ConfigurationBuilder()

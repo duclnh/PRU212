@@ -159,13 +159,19 @@ namespace QuestionRepo.Controllers
 
             // Update Plants
             var plants = _mapper.Map<List<Plant>>(userToUpdate.Plants);
-            _plantService.AssignPlants(userId, plants);
-            var addPlant = _plantService.AddPlants(userId, plants);
+            if(plants.Count > 0)
+            {
+                _plantService.AssignPlants(userId, plants);
+                var addPlant = _plantService.AddPlants(userId, plants);
+            }
 
             // Update Animals
             var animals = _mapper.Map<List<Animal>>(userToUpdate.Animals);
-            _animalService.AssignAnimals(userId, animals);
-            var result = _animalService.AddAnimals(userId, animals);
+            if(animals.Count > 0)
+            {
+                _animalService.AssignAnimals(userId, animals);
+                var result = _animalService.AddAnimals(userId, animals);
+            }
 
             // Update User
             var user = await _service.GetUser(userId);

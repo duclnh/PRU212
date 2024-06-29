@@ -14,7 +14,7 @@ namespace QuestionRepo.Repositories.ItemRepositories
         public async Task<List<Item>> GetItems(Guid userId, string type)
         {
             var items = new List<Item>();
-            items = await _context.Items.Where(i => i.UserId == userId && i.Type == type).ToListAsync();
+            items = await _context.Items.Where(i => i.UserId == userId && i.Type == type).OrderBy(x => x.SlotId).ToListAsync();
             return items;
         }
 
