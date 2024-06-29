@@ -10,9 +10,6 @@
         public int CurrentStage { get; set; }
         public int QuantityHarvested { get; set; }
         public string Crop { get; set; }
-        public int GrowTime { get; set; }
-        public int Quantity { get; set; }
-        public string? Tiles { get; set; }
         public Guid UserId { get; set; }
         public virtual User User { get; set; } = null!;
     }

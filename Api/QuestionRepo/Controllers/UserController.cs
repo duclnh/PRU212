@@ -121,7 +121,7 @@ namespace QuestionRepo.Controllers
         [ProducesResponseType(409)]
         public async Task<JsonResult> PutUser(Guid userId, [FromBody] UpdateUser userToUpdate)
         {
-            if (userToUpdate == null)
+                if (userToUpdate == null)
             {
                 return new JsonResult(new { message = "User Information is required!" }) { StatusCode = StatusCodes.Status400BadRequest };
             }

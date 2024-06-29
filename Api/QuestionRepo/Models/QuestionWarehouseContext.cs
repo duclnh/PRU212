@@ -108,7 +108,6 @@ public partial class QuestionWarehouseContext : DbContext
                 .HasColumnName("itemId");
             entity.Property(e => e.SlotId).HasColumnName("slotId");
             entity.Property(e => e.ItemName).IsUnicode(false).HasColumnName("itemName");
-            entity.Property(e => e.Icon).HasColumnName("icon");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.Type).IsUnicode(false).HasColumnName("type");
@@ -133,9 +132,6 @@ public partial class QuestionWarehouseContext : DbContext
             entity.Property(e => e.CurrentStage).HasColumnName("currentStage");
             entity.Property(e => e.QuantityHarvested).HasColumnName("quantityHarvested");
             entity.Property(e => e.Crop).IsUnicode(false).HasColumnName("crop");
-            entity.Property(e => e.GrowTime).HasColumnName("growTime");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.Tiles).HasColumnName("tiles");
             entity.Property(e => e.UserId).HasColumnName("userId");
             entity.HasOne(d => d.User).WithMany(p => p.Plants)
                 .HasForeignKey(d => d.UserId)
@@ -152,13 +148,6 @@ public partial class QuestionWarehouseContext : DbContext
                 .HasColumnName("positionY");
             entity.Property(e => e.PositionZ)
                 .HasColumnName("positionZ");
-            entity.Property(e => e.MoveSpeed)
-                .HasColumnName("moveSpeed");
-            entity.Property(e => e.NameItem).IsUnicode(false).HasColumnName("nameItem");
-            entity.Property(e => e.GrowTime).HasColumnName("growTime");
-            entity.Property(e => e.NumberStage).HasColumnName("numberStage");
-            entity.Property(e => e.Price).HasColumnName("price");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.ItemName).IsUnicode(false).HasColumnName("itemName");
             entity.Property(e => e.Datetime).HasColumnName("datetime");
             entity.Property(e => e.CurrentStage).HasColumnName("currentStage");
